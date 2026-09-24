@@ -5,24 +5,21 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🌐 其他地区 (Other) 01",
-      "server": "104.18.14.103",
-      "server_port": 443,
-      "uuid": "3c6d1933-b22a-484b-ac8a-63e24f5fba75",
+      "tag": "🇹🇷 土耳其 (Turkey) 01",
+      "server": "185.71.219.128",
+      "server_port": 2052,
+      "uuid": "f4ade6db-3c64-4939-9f32-788b87a9392f",
       "tls": {
         "enabled": true,
-        "server_name": "server9.9966338.xyz",
+        "server_name": "185.71.219.128",
         "insecure": false,
+        "alpn": [
+          "h2",
+          "http/1.1"
+        ],
         "utls": {
           "enabled": true,
-          "fingerprint": "chrome"
-        }
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/imnotarealherox",
-        "headers": {
-          "Host": "server9.9966338.xyz"
+          "fingerprint": "ios"
         }
       }
     },
@@ -31,14 +28,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🌐 其他地区 (Other) 01"
+        "🇹🇷 土耳其 (Turkey) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🌐 其他地区 (Other) 01"
+        "🇹🇷 土耳其 (Turkey) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

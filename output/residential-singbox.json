@@ -5,30 +5,7 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🇯🇵 日本 (Japan) 01 (家宽)",
-      "server": "2.26.91.98",
-      "server_port": 1443,
-      "uuid": "d4c6b1ad-9ec4-4273-854a-f0bbf0448ab6",
-      "tls": {
-        "enabled": true,
-        "server_name": "woc0zvrf11w2endu.dphdlc1u77bs3y4kvussbuap4p576f1ws7igthq8zbf3.workers.dev",
-        "insecure": false,
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        }
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/@Marisa_kristi",
-        "headers": {
-          "Host": "woc0zvrf11w2endu.dphdlc1u77bs3y4kvussbuap4p576f1ws7igthq8zbf3.workers.dev"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 02 (家宽)",
+      "tag": "🇹🇼 中国台湾 (Taiwan) 01 (家宽)",
       "server": "118.167.206.152",
       "server_port": 24215,
       "uuid": "19d5a678-8396-4e3b-93da-ece618d0e83a",
@@ -51,16 +28,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇯🇵 日本 (Japan) 01 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 02 (家宽)"
+        "🇹🇼 中国台湾 (Taiwan) 01 (家宽)"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇯🇵 日本 (Japan) 01 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 02 (家宽)"
+        "🇹🇼 中国台湾 (Taiwan) 01 (家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

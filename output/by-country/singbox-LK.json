@@ -4,15 +4,13 @@
   },
   "outbounds": [
     {
-      "type": "trojan",
-      "tag": "🇳🇬 尼日利亚 (Nigeria) 01",
-      "server": "103.97.91.17",
-      "server_port": 443,
-      "password": "600421cf-11d7-429f-a65b-c30397f1bc03",
-      "tls": {
-        "enabled": true,
-        "server_name": "la.freeguard.org",
-        "insecure": false
+      "type": "vless",
+      "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 01",
+      "server": "free.sahanwickramasinghe.me",
+      "server_port": 80,
+      "uuid": "684f9a2e-4f96-497f-bfd9-ff1e34637952",
+      "transport": {
+        "type": "ws"
       }
     },
     {
@@ -20,14 +18,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇳🇬 尼日利亚 (Nigeria) 01"
+        "🇱🇰 斯里兰卡 (Sri Lanka) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇳🇬 尼日利亚 (Nigeria) 01"
+        "🇱🇰 斯里兰卡 (Sri Lanka) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

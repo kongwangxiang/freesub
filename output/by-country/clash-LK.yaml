@@ -4,25 +4,26 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇳🇬 尼日利亚 (Nigeria) 01
-  server: 103.97.91.17
-  port: 443
+- name: 🇱🇰 斯里兰卡 (Sri Lanka) 01
+  server: free.sahanwickramasinghe.me
+  port: 80
   udp: true
-  type: trojan
-  password: 600421cf-11d7-429f-a65b-c30397f1bc03
-  sni: la.freeguard.org
-  skip-cert-verify: false
+  type: vless
+  uuid: 684f9a2e-4f96-497f-bfd9-ff1e34637952
+  network: ws
+  ws-opts:
+    path: /
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇳🇬 尼日利亚 (Nigeria) 01
+  - 🇱🇰 斯里兰卡 (Sri Lanka) 01
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇳🇬 尼日利亚 (Nigeria) 01
+  - 🇱🇰 斯里兰卡 (Sri Lanka) 01
 rules:
 - MATCH,PROXIES
