@@ -5,49 +5,60 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇷🇺 俄罗斯 (Russia) 01
-  server: 63.141.128.22
-  port: 443
-  udp: true
-  type: vless
-  uuid: b8b01773-36b1-4b49-9bd0-6249f52345b4
-  tls: true
-  servername: MiSty-tooth-78cA.FoboGAH414-e7B.WoRKERs.DEv
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /eyJqdW5rIjoiTkNUaFg0ZnJNUjhhcyIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=
-    headers:
-      Host: MiSty-tooth-78cA.FoboGAH414-e7B.WoRKERs.DEv
-- name: 🇷🇺 俄罗斯 (Russia) 02
-  server: 130.49.189.158
-  port: 43558
+  server: 62.113.41.165
+  port: 888
   udp: true
   type: ss
   cipher: chacha20-ietf-poly1305
-  password: jIlQi9jGPJd7KHMx6Y4+JbaNoWSWfe2A73U4J4o0Qrs=
-- name: 🇷🇺 俄罗斯 (Russia) 03
-  server: msk.frkn.org
-  port: 443
+  password: hF-qqin2wYhP7zS47SyR0Q
+- name: 🇷🇺 俄罗斯 (Russia) 02
+  server: 91.240.86.70
+  port: 22443
   udp: true
   type: hysteria2
-  password: f317b5d6-d399-4d3d-a051-89d674ae953c
-  sni: msk.frkn.org
+  password: 3f63c86c-ac4a-4900-85cf-4fedf93c2ca5
+  sni: hy.quattro-tech.ru
   skip-cert-verify: false
-- name: 🇷🇺 俄罗斯 (Russia) 04
+- name: 🇷🇺 俄罗斯 (Russia) 03
   server: 46.8.200.91
   port: 443
   udp: true
   type: vless
-  uuid: 0a2dde28-70da-4863-a06f-35d007d94d35
+  uuid: b8201bab-fa6c-4f6e-b289-b5da660c6f69
   tls: true
   servername: cf3.rumedia-cdn.com
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /cdn/v3/live
+    headers:
+      Host: cf3.rumedia-cdn.com
+- name: 🇷🇺 俄罗斯 (Russia) 04
+  server: fbsv6.guardora.pro
+  port: 443
+  udp: true
+  type: vless
+  uuid: bc5ec86c-3e65-4272-994c-59a924c72a68
+  tls: true
+  servername: fbsv6.guardora.pro
   skip-cert-verify: false
   client-fingerprint: firefox
   network: ws
   ws-opts:
-    path: /casc
+    path: /ws
     headers:
-      Host: cf3.rumedia-cdn.com
+      Host: fbsv6.guardora.pro
+- name: 🇷🇺 俄罗斯 (Russia) 05
+  server: 130.49.218.208
+  port: 5432
+  udp: true
+  type: vless
+  uuid: cc01f435-d561-4525-bf1f-7a9876d33207
+  flow: xtls-rprx-vision
+  tls: true
+  servername: 130.49.218.208
+  skip-cert-verify: false
+  client-fingerprint: chrome
 proxy-groups:
 - name: PROXIES
   type: select
@@ -57,6 +68,7 @@ proxy-groups:
   - 🇷🇺 俄罗斯 (Russia) 02
   - 🇷🇺 俄罗斯 (Russia) 03
   - 🇷🇺 俄罗斯 (Russia) 04
+  - 🇷🇺 俄罗斯 (Russia) 05
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -66,5 +78,6 @@ proxy-groups:
   - 🇷🇺 俄罗斯 (Russia) 02
   - 🇷🇺 俄罗斯 (Russia) 03
   - 🇷🇺 俄罗斯 (Russia) 04
+  - 🇷🇺 俄罗斯 (Russia) 05
 rules:
 - MATCH,PROXIES

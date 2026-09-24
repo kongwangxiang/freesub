@@ -4,27 +4,26 @@
   },
   "outbounds": [
     {
-      "type": "trojan",
+      "type": "vless",
       "tag": "🇮🇶 IQ 01",
-      "server": "172.67.156.62",
+      "server": "188.114.97.7",
       "server_port": 443,
-      "password": "Telegram_healer_config",
+      "uuid": "ba49d874-fe02-465d-82d3-ed981dc7694f",
       "tls": {
         "enabled": true,
-        "server_name": "IJM8x9uGWPIQrMN-lo-S.ztl55lTKPUB38y36MCtgm.WOrKeRs.Dev",
+        "server_name": "o94Yv7LIF0-aNXISd9eFehvvS7mxn6bH.Z-ULe-iKa-d-e-ne-K-e.wORkeRs.Dev",
         "insecure": false,
-        "alpn": [
-          "http/1.1"
-        ]
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
       },
       "transport": {
         "type": "ws",
-        "path": "/tr/8g28WHK4FygFkZFa",
+        "path": "/7J5lLqtBnJg9WjVT?ed",
         "headers": {
-          "Host": "IJM8x9uGWPIQrMN-lo-S.ztl55lTKPUB38y36MCtgm.WOrKeRs.Dev"
-        },
-        "max_early_data": 2560,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
+          "Host": "o94yv7lif0-anxisd9efehvvs7mxn6bh.z-ule-ika-d-e-ne-k-e.workers.dev"
+        }
       }
     },
     {

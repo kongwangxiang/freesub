@@ -5,16 +5,20 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇮🇶 IQ 01
-  server: 172.67.156.62
+  server: 188.114.97.7
   port: 443
   udp: true
-  type: trojan
-  password: Telegram_healer_config
-  sni: IJM8x9uGWPIQrMN-lo-S.ztl55lTKPUB38y36MCtgm.WOrKeRs.Dev
+  type: vless
+  uuid: ba49d874-fe02-465d-82d3-ed981dc7694f
+  tls: true
+  servername: o94Yv7LIF0-aNXISd9eFehvvS7mxn6bH.Z-ULe-iKa-d-e-ne-K-e.wORkeRs.Dev
   skip-cert-verify: false
+  client-fingerprint: chrome
   network: ws
   ws-opts:
-    path: /tr/8g28WHK4FygFkZFa
+    path: /7J5lLqtBnJg9WjVT?ed
+    headers:
+      Host: o94yv7lif0-anxisd9efehvvs7mxn6bh.z-ule-ika-d-e-ne-k-e.workers.dev
 proxy-groups:
 - name: PROXIES
   type: select

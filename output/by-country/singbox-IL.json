@@ -15,7 +15,7 @@
         "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "firefox"
         },
         "reality": {
           "enabled": true,
@@ -27,25 +27,43 @@
     {
       "type": "vless",
       "tag": "🇮🇱 以色列 (Israel) 02",
-      "server": "83.143.106.9",
-      "server_port": 8443,
-      "uuid": "3f9f2bda-0b9c-8469-7381-a73de2255619",
+      "server": "185.95.231.233",
+      "server_port": 443,
+      "uuid": "1ffa8e68-3378-4cf4-b8f6-44bf3d46d106",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "res.cdn.office.net",
+        "server_name": "store.steampowered.com",
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
-          "public_key": "4g8R0-Acc1LjppgvUopldH0Wg3JA2tPXvYB96aJnigo",
-          "short_id": ""
+          "public_key": "r4Dp3mztZaizbDk28rEOkLikk7erR9dzzc-Jrsgraho",
+          "short_id": "a1b2c3d4"
         }
-      },
-      "transport": {
-        "type": "grpc",
-        "service_name": "TunService"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇮🇱 以色列 (Israel) 03",
+      "server": "193.202.10.2",
+      "server_port": 40443,
+      "uuid": "bb0f1ed0-0298-40a1-adb1-1f5d6ab33d54",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "deepl.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "w4AYHvQnQS6olDqoG9ptLOtgehaWOsv9HQhDax5bLA4",
+          "short_id": "db46e2946fc466fd"
+        }
       }
     },
     {
@@ -54,7 +72,8 @@
       "outbounds": [
         "auto",
         "🇮🇱 以色列 (Israel) 01",
-        "🇮🇱 以色列 (Israel) 02"
+        "🇮🇱 以色列 (Israel) 02",
+        "🇮🇱 以色列 (Israel) 03"
       ]
     },
     {
@@ -62,7 +81,8 @@
       "tag": "auto",
       "outbounds": [
         "🇮🇱 以色列 (Israel) 01",
-        "🇮🇱 以色列 (Israel) 02"
+        "🇮🇱 以色列 (Israel) 02",
+        "🇮🇱 以色列 (Israel) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

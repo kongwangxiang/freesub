@@ -4,30 +4,30 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇺🇸 美国 (United States) 01 (家宽)
-  server: 216.36.124.176
-  port: 29513
+- name: 🇲🇩 摩尔多瓦 (Moldova) 01
+  server: 185.103.167.76
+  port: 4443
   udp: true
   type: vless
-  uuid: f618d6e9-c6af-40b8-bc7a-bbf450586784
+  uuid: d7c94b82-657a-4bb7-9b24-2ae566669835
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: rSI9mgtOco9D39xdbX64nv2J2BRBGQpgCOi4opw8mCo
-    short-id: 6ba85179e30d4fc2
-  servername: addons.mozilla.org
+    public-key: cYwrRCz_hKgT_JE8WywuLE3XOkAEqCTuBiUvXAaEjn8
+    short-id: 694ee64512cfcbef
+  servername: moldova.cdn-europe.org
   client-fingerprint: random
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇺🇸 美国 (United States) 01 (家宽)
+  - 🇲🇩 摩尔多瓦 (Moldova) 01
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇺🇸 美国 (United States) 01 (家宽)
+  - 🇲🇩 摩尔多瓦 (Moldova) 01
 rules:
 - MATCH,PROXIES

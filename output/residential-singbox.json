@@ -5,45 +5,31 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🇺🇸 美国 (United States) 01 (家宽)",
-      "server": "216.36.124.176",
-      "server_port": 29513,
-      "uuid": "f618d6e9-c6af-40b8-bc7a-bbf450586784",
-      "flow": "xtls-rprx-vision",
+      "tag": "🇯🇵 日本 (Japan) 01 (家宽)",
+      "server": "2.26.91.98",
+      "server_port": 1443,
+      "uuid": "d4c6b1ad-9ec4-4273-854a-f0bbf0448ab6",
       "tls": {
         "enabled": true,
-        "server_name": "addons.mozilla.org",
+        "server_name": "woc0zvrf11w2endu.dphdlc1u77bs3y4kvussbuap4p576f1ws7igthq8zbf3.workers.dev",
+        "insecure": false,
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "rSI9mgtOco9D39xdbX64nv2J2BRBGQpgCOi4opw8mCo",
-          "short_id": "6ba85179e30d4fc2"
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/@Marisa_kristi",
+        "headers": {
+          "Host": "woc0zvrf11w2endu.dphdlc1u77bs3y4kvussbuap4p576f1ws7igthq8zbf3.workers.dev"
         }
       }
     },
     {
-      "type": "shadowsocks",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 02 (家宽)",
-      "server": "r3mrcg001286ek2.cybervena.com",
-      "server_port": 50099,
-      "method": "chacha20-ietf-poly1305",
-      "password": "7e731ec3-f8e1-43f6-92cf-3978d14705c4"
-    },
-    {
-      "type": "shadowsocks",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 03 (家宽)",
-      "server": "36.224.152.189",
-      "server_port": 50099,
-      "method": "chacha20-ietf-poly1305",
-      "password": "7e731ec3-f8e1-43f6-92cf-3978d14705c4"
-    },
-    {
       "type": "vless",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 04 (家宽)",
-      "server": "118.167.209.5",
+      "tag": "🇹🇼 中国台湾 (Taiwan) 02 (家宽)",
+      "server": "118.167.206.152",
       "server_port": 24215,
       "uuid": "19d5a678-8396-4e3b-93da-ece618d0e83a",
       "tls": {
@@ -65,20 +51,16 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇺🇸 美国 (United States) 01 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 02 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 03 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 04 (家宽)"
+        "🇯🇵 日本 (Japan) 01 (家宽)",
+        "🇹🇼 中国台湾 (Taiwan) 02 (家宽)"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇺🇸 美国 (United States) 01 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 02 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 03 (家宽)",
-        "🇹🇼 中国台湾 (Taiwan) 04 (家宽)"
+        "🇯🇵 日本 (Japan) 01 (家宽)",
+        "🇹🇼 中国台湾 (Taiwan) 02 (家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
