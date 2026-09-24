@@ -4,26 +4,30 @@
   },
   "outbounds": [
     {
-      "type": "shadowsocks",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 01 (家宽)",
-      "server": "36.224.141.124",
-      "server_port": 50099,
-      "method": "chacha20-ietf-poly1305",
-      "password": "7e731ec3-f8e1-43f6-92cf-3978d14705c4"
+      "type": "trojan",
+      "tag": "🇲🇾 马来西亚 (Malaysia) 01",
+      "server": "47.250.84.25",
+      "server_port": 443,
+      "password": "5931134d1cde66bf83a54acdfebe7ab2",
+      "tls": {
+        "enabled": true,
+        "server_name": "moltbot.doctoroyy.net",
+        "insecure": true
+      }
     },
     {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇹🇼 中国台湾 (Taiwan) 01 (家宽)"
+        "🇲🇾 马来西亚 (Malaysia) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇹🇼 中国台湾 (Taiwan) 01 (家宽)"
+        "🇲🇾 马来西亚 (Malaysia) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

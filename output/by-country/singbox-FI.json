@@ -15,7 +15,7 @@
         "insecure": false,
         "utls": {
           "enabled": true,
-          "fingerprint": "firefox"
+          "fingerprint": "chrome"
         }
       },
       "transport": {
@@ -46,23 +46,39 @@
     {
       "type": "vless",
       "tag": "🇫🇮 芬兰 (Finland) 03",
-      "server": "karo.rick313.dpdns.org",
-      "server_port": 2087,
-      "uuid": "2e4e6812-be87-415b-a2e8-b0e17e9f2da7",
+      "server": "83.219.97.26",
+      "server_port": 443,
+      "uuid": "d0f0a880-0df1-48c9-bdf1-5669fb9483ce",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "karo.rick313.dpdns.org",
-        "insecure": false,
-        "alpn": [
-          "h2",
-          "http/1.1",
-          "h3"
-        ],
+        "server_name": "est1313.ggisopi.su",
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I",
+          "short_id": ""
         }
       }
+    },
+    {
+      "type": "vmess",
+      "tag": "🇫🇮 芬兰 (Finland) 04",
+      "server": "me6.movieseryalirani.ir",
+      "server_port": 57361,
+      "uuid": "ed815caa-bff1-4419-8c61-1d108eabaf1f",
+      "security": "auto"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇫🇮 芬兰 (Finland) 05",
+      "server": "p1tun4.greewebservices.ir",
+      "server_port": 1080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "cVvgP0Bz69hsErPBvqKbwQ"
     },
     {
       "type": "selector",
@@ -71,7 +87,9 @@
         "auto",
         "🇫🇮 芬兰 (Finland) 01",
         "🇫🇮 芬兰 (Finland) 02",
-        "🇫🇮 芬兰 (Finland) 03"
+        "🇫🇮 芬兰 (Finland) 03",
+        "🇫🇮 芬兰 (Finland) 04",
+        "🇫🇮 芬兰 (Finland) 05"
       ]
     },
     {
@@ -80,7 +98,9 @@
       "outbounds": [
         "🇫🇮 芬兰 (Finland) 01",
         "🇫🇮 芬兰 (Finland) 02",
-        "🇫🇮 芬兰 (Finland) 03"
+        "🇫🇮 芬兰 (Finland) 03",
+        "🇫🇮 芬兰 (Finland) 04",
+        "🇫🇮 芬兰 (Finland) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

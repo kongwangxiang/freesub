@@ -4,24 +4,25 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇹🇼 中国台湾 (Taiwan) 01 (家宽)
-  server: 36.224.141.124
-  port: 50099
+- name: 🇲🇾 马来西亚 (Malaysia) 01
+  server: 47.250.84.25
+  port: 443
   udp: true
-  type: ss
-  cipher: chacha20-ietf-poly1305
-  password: 7e731ec3-f8e1-43f6-92cf-3978d14705c4
+  type: trojan
+  password: 5931134d1cde66bf83a54acdfebe7ab2
+  sni: moltbot.doctoroyy.net
+  skip-cert-verify: true
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇹🇼 中国台湾 (Taiwan) 01 (家宽)
+  - 🇲🇾 马来西亚 (Malaysia) 01
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇹🇼 中国台湾 (Taiwan) 01 (家宽)
+  - 🇲🇾 马来西亚 (Malaysia) 01
 rules:
 - MATCH,PROXIES
