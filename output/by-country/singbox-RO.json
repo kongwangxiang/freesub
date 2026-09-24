@@ -6,34 +6,18 @@
     {
       "type": "hysteria2",
       "tag": "🇷🇴 罗马尼亚 (Romania) 01",
-      "server": "85.204.107.178",
+      "server": "85.204.107.187",
       "server_port": 8443,
       "password": "Jz40_mIJ934vK0_k9D3jz92_Vx48q_GHa1_sz0",
       "tls": {
         "enabled": true,
         "server_name": "hopp-romania-new.roxa.org",
-        "insecure": false
+        "insecure": true
       }
     },
     {
       "type": "hysteria2",
       "tag": "🇷🇴 罗马尼亚 (Romania) 02",
-      "server": "162.249.125.133",
-      "server_port": 443,
-      "password": "QCgqi_I4EkV8UR-OgQ_tG4EnVTEVvIyR2GgRBzrIn2s",
-      "tls": {
-        "enabled": true,
-        "server_name": "hy2-new.aspidnet.xyz",
-        "insecure": false
-      },
-      "obfs": {
-        "type": "salamander",
-        "password": "c1b4086fea89914496c7e10967a419216566"
-      }
-    },
-    {
-      "type": "hysteria2",
-      "tag": "🇷🇴 罗马尼亚 (Romania) 03",
       "server": "185.156.44.99",
       "server_port": 443,
       "password": "gf1:gfhysteria2024",
@@ -45,7 +29,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇷🇴 罗马尼亚 (Romania) 04",
+      "tag": "🇷🇴 罗马尼亚 (Romania) 03",
       "server": "46.28.67.55",
       "server_port": 443,
       "uuid": "d1a6a033-fdbd-46a6-a177-3370ba042b9f",
@@ -71,8 +55,7 @@
         "auto",
         "🇷🇴 罗马尼亚 (Romania) 01",
         "🇷🇴 罗马尼亚 (Romania) 02",
-        "🇷🇴 罗马尼亚 (Romania) 03",
-        "🇷🇴 罗马尼亚 (Romania) 04"
+        "🇷🇴 罗马尼亚 (Romania) 03"
       ]
     },
     {
@@ -81,8 +64,7 @@
       "outbounds": [
         "🇷🇴 罗马尼亚 (Romania) 01",
         "🇷🇴 罗马尼亚 (Romania) 02",
-        "🇷🇴 罗马尼亚 (Romania) 03",
-        "🇷🇴 罗马尼亚 (Romania) 04"
+        "🇷🇴 罗马尼亚 (Romania) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
