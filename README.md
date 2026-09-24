@@ -18,7 +18,7 @@
 
 ## 🏠 按照家宽分类节点订阅 (住宅 IP 专区)
 
-> 家宽判定六重信号: ① ip-api.com `hosting` 字段 ② `mobile` 移动网络字段 ③ Cloudflare/主流 CDN Anycast 网段比对 ④ MaxMind GeoLite2 ASN 白/黑名单 (覆盖 60+ 国家主流民用运营商) ⑤ rDNS/ISP 名称特征 ⑥ Scamalytics 风控评分复核 (fraud ≥75 降级、≥90 剔除)。排除所有云主机/数据中心/CDN 任播, 保留真实民用宽带与移动网络。
+> 家宽判定六重信号: ① ip-api.com `hosting` 字段 ② `mobile` 移动网络字段 ③ Cloudflare/主流 CDN Anycast 网段比对 ④ MaxMind GeoLite2 ASN 白/黑名单 (覆盖 60+ 国家主流民用运营商) ⑤ rDNS/ISP 名称特征 ⑥ Scamalytics 风控评分针对家宽候选的交叉核验 (fraud ≥75 降级、≥90 剔除)。排除所有云主机/数据中心/CDN 任播, 保留真实民用宽带与移动网络。
 
 | 家宽地区 | 节点数 | V2RayN 专属订阅 | Clash 专属订阅 | sing-box 专属订阅 |
 | :--- | :---: | :---: | :---: | :---: |
@@ -80,18 +80,25 @@
 
 > 如果你希望将本 GitHub 仓库设置为 **Private (私有仓库)** 保护节点资产，外部客户端无法直接拉取原生 Raw 或公共 CDN 链接，可以通过以下 Cloudflare Worker 搭建轻量级私密网关反代：
 
-### 1. 获取 GitHub 永久个人令牌 (PAT)
-1. 进入 GitHub -> **Settings** -> **Developer Settings** -> **Personal access tokens (classic)**。
-2. 点击 **Generate new token (classic)**，勾选 `repo` 权限，有效期设为 `No expiration`（永不过期）。
-3. 复制保存生成的以 `ghp_` 开头的 Token。
+### 1. 获取 GitHub Fine-grained 个人令牌 (PAT)
+1. 进入 GitHub -> **Settings** -> **Developer Settings** -> **Personal access tokens** -> **Fine-grained tokens** -> **Generate new token**。
+2. Repository access 仅授权本仓库；Permissions -> Repository permissions -> **Contents: Read-only**（最小 scope `contents:read`，按需最小授权）。
+3. **设置有效期** (Expiration, 建议 90 天内并按期轮换)。
+4. 复制生成的 Token (仅展示一次)。**切勿提交 token**: 不要把令牌写入仓库代码、提交到 git 或粘贴到公开页面。
 
 ### 2. 部署 Cloudflare Worker
-登录 Cloudflare Dashboard，创建一个新的 Worker，复制以下脚本粘贴并部署（把 `OWNER`/`REPO`/`GITHUB_TOKEN` 改成你自己的）：
+用 wrangler 将令牌存为加密 Secret (切勿把 token 明文写进 Worker 代码或提交仓库):
+
+```bash
+npx wrangler secret put GITHUB_TOKEN
+```
+
+创建/更新 Worker 并粘贴以下脚本部署（把 `OWNER`/`REPO` 改成你自己的；密钥经 `env.GITHUB_TOKEN` 从 Secret 读取，代码中不出现令牌）：
 
 ```javascript
 export default {
-  async fetch(request) {
-    const GITHUB_TOKEN = "ghp_你的GitHub永久访问令牌";
+  async fetch(request, env) {
+    const GITHUB_TOKEN = env.GITHUB_TOKEN;
     const OWNER = "kongwangxiang";
     const REPO = "freesub";
     const BRANCH = "main";
@@ -140,5 +147,5 @@ export default {
 
 ## 🛠️ 项目使用说明
 1. **自动更新机制**：GitHub Actions 每 6 小时全自动运行并刷新上述全部订阅与数据。
-2. **测活标准**：节点必须通过 ① 端口预检 ② sing-box 实际隧道 3 个 generate_204 探测 ③ 真实出口 IP 穿透获取 ④ Cloudflare 5MB 限时下载 (吞吐 ≥ 70KB/s) ⑤ TLS 证书校验非 MITM, 方可入库。
+2. **测活标准**：节点必须通过 ① sing-box 实际隧道 3 路 generate_204 探测(任一成功即通过) ② 真实出口 IP 穿透获取 ③ Cloudflare 2.5MB 限时下载 (吞吐 ≥ 70KB/s) ④ TLS 证书校验非 MITM, 方可入库。
 3. **多客户端兼容**：Clash / v2rayN / sing-box 全格式订阅。
