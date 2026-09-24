@@ -7,9 +7,18 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import main_v2 as mv
 
 BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SB = os.path.join(BASEDIR, "runtime", "sing-box.exe")  # 与 main_v2 运行时同一内核
-if not os.path.exists(SB):
-    SB = os.path.join(BASEDIR, ".sb-probe", "sing-box.exe")
+# 与 main_v2 运行时同一内核; 按平台选择候选路径并逐个 exists 探测
+if os.name == "nt":
+    _SB_CANDIDATES = [
+        os.path.join(BASEDIR, "runtime", "sing-box.exe"),
+        os.path.join(BASEDIR, ".sb-probe", "sing-box.exe"),
+    ]
+else:
+    _SB_CANDIDATES = [
+        os.path.join(BASEDIR, "runtime", "sing-box"),
+        os.path.join(BASEDIR, "runtime", "singbox"),
+    ]
+SB = next((p for p in _SB_CANDIDATES if os.path.exists(p)), None)
 
 # ══════════ 测试样本 (覆盖用户全部协议) ══════════
 SAMPLES = {
@@ -103,27 +112,31 @@ def run_test():
     print("=" * 70)
     print(f"阶段2: sing-box check 配置合法性 ({len(outbounds)} 个 outbound)")
     print("=" * 70)
-    import subprocess, tempfile
-    for name, ob in outbounds.items():
-        cfg = mv.build_test_config(ob, 53000 + (hash(name) % 500))
-        # 清理测试用多余字段 (domain_strategy 等不存在)
-        try:
-            with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:
-                json.dump(cfg, f)
-                path = f.name
-            r = subprocess.run([SB, "check", "-c", path], capture_output=True, text=True, timeout=15)
-            if r.returncode == 0:
-                print(f"  ✅ {name}: check PASS")
-            else:
-                err = (r.stderr or r.stdout or "").strip().splitlines()
-                err_short = err[-1][:100] if err else "?"
-                FAIL.append(f"[CHECK-FAIL] {name}: {err_short}")
-                print(f"  ❌ {name}: check FAIL → {err_short}")
-        finally:
+    if not SB:
+        print(f"  ⚠️ SKIP: 未找到 sing-box 二进制 (已探测: {', '.join(_SB_CANDIDATES)})")
+        print("  ⚠️ 跳过配置合法性检查 (不判失败), 继续阶段3")
+    else:
+        import subprocess, tempfile
+        for name, ob in outbounds.items():
+            cfg = mv.build_test_config(ob, 53000 + (hash(name) % 500))
+            # 清理测试用多余字段 (domain_strategy 等不存在)
             try:
-                os.remove(path)
-            except Exception:
-                pass
+                with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:
+                    json.dump(cfg, f)
+                    path = f.name
+                r = subprocess.run([SB, "check", "-c", path], capture_output=True, text=True, timeout=15)
+                if r.returncode == 0:
+                    print(f"  ✅ {name}: check PASS")
+                else:
+                    err = (r.stderr or r.stdout or "").strip().splitlines()
+                    err_short = err[-1][:100] if err else "?"
+                    FAIL.append(f"[CHECK-FAIL] {name}: {err_short}")
+                    print(f"  ❌ {name}: check FAIL → {err_short}")
+            finally:
+                try:
+                    os.remove(path)
+                except Exception:
+                    pass
 
     print()
     print("=" * 70)

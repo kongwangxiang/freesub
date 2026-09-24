@@ -12,6 +12,9 @@ jobs:
     timeout-minutes: 50
     permissions:
       contents: write
+    concurrency:
+      group: freesub-update
+      cancel-in-progress: false
 
     steps:
       - name: Checkout Code
@@ -27,6 +30,10 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r scripts/requirements.txt
+
+      - name: Run parser tests
+        run: |
+          python scripts/test_parsers.py
 
       - name: Run Real-Prober and Classifier (sing-box v1.14 全协议)
         run: |
@@ -54,5 +61,12 @@ jobs:
             echo "没有节点变动与内容更新。"
           else
             git commit -m "Auto Update: $(date -u '+%Y-%m-%d %H:%M:%S') UTC"
-            git push
+            git pull --rebase origin main || true
+            n=0
+            until git push || [ "$n" -ge 2 ]; do
+              n=$((n+1))
+              echo "push failed, retry $n/2"
+              git pull --rebase origin main || true
+              sleep 5
+            done
           fi
