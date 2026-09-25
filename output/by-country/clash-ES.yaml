@@ -18,6 +18,13 @@ proxies:
   servername: www.cloudflare.com
   client-fingerprint: chrome
 - name: 🇪🇸 西班牙 (Spain) 02
+  server: 140.174.184.5
+  port: 8388
+  udp: true
+  type: ss
+  cipher: chacha20-ietf-poly1305
+  password: qItG8SueYQcP
+- name: 🇪🇸 西班牙 (Spain) 03
   server: 212.227.235.66
   port: 2053
   udp: true
@@ -28,26 +35,6 @@ proxies:
     public-key: 7Y6Xb5Ql_03K25x8yKUSOKI2JTOMyv2nyCcFza90uxk
     short-id: 29e8dcd2b37aaa7f
   servername: www.apple.com
-  client-fingerprint: firefox
-- name: 🇪🇸 西班牙 (Spain) 03
-  server: 108.181.121.226
-  port: 8388
-  udp: true
-  type: ss
-  cipher: chacha20-ietf-poly1305
-  password: WSyL4XTwNsdv
-- name: 🇪🇸 西班牙 (Spain) 04
-  server: 87.76.179.117
-  port: 7443
-  udp: true
-  type: vless
-  uuid: cb15d1b0-e48b-4c4c-b98a-fa1103aa3723
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: 1MLoHw7RVkGefh7XUyuGg4ndxwv4vDU9en-f9JxpXRQ
-    short-id: d2061bb1
-  servername: www.samsung.com
   client-fingerprint: chrome
 proxy-groups:
 - name: PROXIES
@@ -57,7 +44,6 @@ proxy-groups:
   - 🇪🇸 西班牙 (Spain) 01
   - 🇪🇸 西班牙 (Spain) 02
   - 🇪🇸 西班牙 (Spain) 03
-  - 🇪🇸 西班牙 (Spain) 04
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -66,6 +52,5 @@ proxy-groups:
   - 🇪🇸 西班牙 (Spain) 01
   - 🇪🇸 西班牙 (Spain) 02
   - 🇪🇸 西班牙 (Spain) 03
-  - 🇪🇸 西班牙 (Spain) 04
 rules:
 - MATCH,PROXIES

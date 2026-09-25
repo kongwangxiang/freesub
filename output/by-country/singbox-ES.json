@@ -25,8 +25,16 @@
       }
     },
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇪🇸 西班牙 (Spain) 02",
+      "server": "140.174.184.5",
+      "server_port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "qItG8SueYQcP"
+    },
+    {
+      "type": "vless",
+      "tag": "🇪🇸 西班牙 (Spain) 03",
       "server": "212.227.235.66",
       "server_port": 2053,
       "uuid": "ead0dd61-d398-40ad-80d6-a0e1e516d7d3",
@@ -35,41 +43,12 @@
         "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "firefox"
+          "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
           "public_key": "7Y6Xb5Ql_03K25x8yKUSOKI2JTOMyv2nyCcFza90uxk",
           "short_id": "29e8dcd2b37aaa7f"
-        }
-      }
-    },
-    {
-      "type": "shadowsocks",
-      "tag": "🇪🇸 西班牙 (Spain) 03",
-      "server": "108.181.121.226",
-      "server_port": 8388,
-      "method": "chacha20-ietf-poly1305",
-      "password": "WSyL4XTwNsdv"
-    },
-    {
-      "type": "vless",
-      "tag": "🇪🇸 西班牙 (Spain) 04",
-      "server": "87.76.179.117",
-      "server_port": 7443,
-      "uuid": "cb15d1b0-e48b-4c4c-b98a-fa1103aa3723",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.samsung.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "1MLoHw7RVkGefh7XUyuGg4ndxwv4vDU9en-f9JxpXRQ",
-          "short_id": "d2061bb1"
         }
       }
     },
@@ -80,8 +59,7 @@
         "auto",
         "🇪🇸 西班牙 (Spain) 01",
         "🇪🇸 西班牙 (Spain) 02",
-        "🇪🇸 西班牙 (Spain) 03",
-        "🇪🇸 西班牙 (Spain) 04"
+        "🇪🇸 西班牙 (Spain) 03"
       ]
     },
     {
@@ -90,8 +68,7 @@
       "outbounds": [
         "🇪🇸 西班牙 (Spain) 01",
         "🇪🇸 西班牙 (Spain) 02",
-        "🇪🇸 西班牙 (Spain) 03",
-        "🇪🇸 西班牙 (Spain) 04"
+        "🇪🇸 西班牙 (Spain) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

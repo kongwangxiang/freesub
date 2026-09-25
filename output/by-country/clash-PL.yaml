@@ -13,20 +13,34 @@ proxies:
   password: mENfxTFQpRKKh4As
 - name: 🇵🇱 波兰 (Poland) 02
   server: 217.30.10.44
+  port: 9099
+  udp: true
+  type: ss
+  cipher: aes-256-cfb
+  password: 7heRqkPG3hg4UnRm
+- name: 🇵🇱 波兰 (Poland) 03
+  server: 217.30.10.44
+  port: 9063
+  udp: true
+  type: ss
+  cipher: aes-256-cfb
+  password: aQqJbtwFGcCCaeL3
+- name: 🇵🇱 波兰 (Poland) 04
+  server: 217.30.10.44
   port: 9041
   udp: true
   type: ss
   cipher: aes-256-cfb
   password: U6qnYRhfyDmn8sgn
-- name: 🇵🇱 波兰 (Poland) 03
+- name: 🇵🇱 波兰 (Poland) 05
   server: 217.30.10.44
   port: 9076
   udp: true
   type: ss
   cipher: aes-256-cfb
   password: S2zDyyPcmZN2h8EC
-- name: 🇵🇱 波兰 (Poland) 04
-  server: 185.223.57.16
+- name: 🇵🇱 波兰 (Poland) 06
+  server: 185.223.57.10
   port: 33743
   udp: true
   type: vless
@@ -35,11 +49,11 @@ proxies:
   reality-opts:
     public-key: wGMBs7bvzyzA0-OUiwSkOOTDEMdxEOsSdRzxiP8GGQY
   servername: www.google.com
-  client-fingerprint: chrome
+  client-fingerprint: edge
   network: grpc
   grpc-opts:
     grpc-service-name: TunService
-- name: 🇵🇱 波兰 (Poland) 05
+- name: 🇵🇱 波兰 (Poland) 07
   server: 144.31.131.38
   port: 443
   udp: true
@@ -52,7 +66,7 @@ proxies:
     short-id: db04ce8bdb8900f1
   servername: prod.pl-node-01.security-sbrf.ru
   client-fingerprint: firefox
-- name: 🇵🇱 波兰 (Poland) 06
+- name: 🇵🇱 波兰 (Poland) 08
   server: 217.60.33.215
   port: 443
   udp: true
@@ -60,22 +74,26 @@ proxies:
   password: 865e271f7c97b549b024255c9d02cebe9cc0c2c070a82b1e11bb11b9cd88dd01
   sni: streambox.wwwinternetvideo.click
   skip-cert-verify: true
-- name: 🇵🇱 波兰 (Poland) 07
-  server: 45.192.12.93
+- name: 🇵🇱 波兰 (Poland) 09
+  server: admin.wwwinternetvideo.click
   port: 443
   udp: true
   type: hysteria2
   password: YutbgyXL1mGaSlBXDoEucWvYbrDCINgUcQ6R6_At5Pjr2xCc
   sni: admin.wwwinternetvideo.click
   skip-cert-verify: false
-- name: 🇵🇱 波兰 (Poland) 08
-  server: 146.59.116.19
-  port: 17000
+- name: 🇵🇱 波兰 (Poland) 10
+  server: 144.31.2.33
+  port: 443
   udp: true
-  type: ss
-  cipher: aes-256-gcm
-  password: pX0uhU3ZjUcLWYs0Vez55BO3JoQrRlL
-- name: 🇵🇱 波兰 (Poland) 09
+  type: vless
+  uuid: cd3bb7d9-7df3-4644-ac05-c260990ac277
+  flow: xtls-rprx-vision
+  tls: true
+  servername: pl3.moritech.net
+  skip-cert-verify: false
+  client-fingerprint: firefox
+- name: 🇵🇱 波兰 (Poland) 11
   server: 144.31.5.64
   port: 443
   udp: true
@@ -84,6 +102,17 @@ proxies:
   flow: xtls-rprx-vision
   tls: true
   servername: pl6.moritech.net
+  skip-cert-verify: false
+  client-fingerprint: firefox
+- name: 🇵🇱 波兰 (Poland) 12
+  server: 144.31.5.3
+  port: 443
+  udp: true
+  type: vless
+  uuid: cd3bb7d9-7df3-4644-ac05-c260990ac277
+  flow: xtls-rprx-vision
+  tls: true
+  servername: pl4.moritech.net
   skip-cert-verify: false
   client-fingerprint: chrome
 proxy-groups:
@@ -100,6 +129,9 @@ proxy-groups:
   - 🇵🇱 波兰 (Poland) 07
   - 🇵🇱 波兰 (Poland) 08
   - 🇵🇱 波兰 (Poland) 09
+  - 🇵🇱 波兰 (Poland) 10
+  - 🇵🇱 波兰 (Poland) 11
+  - 🇵🇱 波兰 (Poland) 12
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -114,5 +146,8 @@ proxy-groups:
   - 🇵🇱 波兰 (Poland) 07
   - 🇵🇱 波兰 (Poland) 08
   - 🇵🇱 波兰 (Poland) 09
+  - 🇵🇱 波兰 (Poland) 10
+  - 🇵🇱 波兰 (Poland) 11
+  - 🇵🇱 波兰 (Poland) 12
 rules:
 - MATCH,PROXIES

@@ -4,25 +4,23 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇩🇰 丹麦 (Denmark) 01
-  server: se.xiaoliyu.cyou
-  port: 4433
+- name: 🇹🇷 土耳其 (Turkey) 01 (移动家宽)
+  server: 82.47.63.156
+  port: 2053
   udp: true
-  type: hysteria2
-  password: 19f72087-4591-4d72-930b-2697078ec2be
-  sni: se.xiaoliyu.cyou
-  skip-cert-verify: true
+  type: vless
+  uuid: 9ef61079-6f7d-4911-9608-943da85d8e6f
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇩🇰 丹麦 (Denmark) 01
+  - 🇹🇷 土耳其 (Turkey) 01 (移动家宽)
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇩🇰 丹麦 (Denmark) 01
+  - 🇹🇷 土耳其 (Turkey) 01 (移动家宽)
 rules:
 - MATCH,PROXIES

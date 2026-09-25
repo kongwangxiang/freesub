@@ -5,21 +5,24 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 01 (家宽)",
-      "server": "118.167.230.191",
-      "server_port": 24215,
-      "uuid": "19d5a678-8396-4e3b-93da-ece618d0e83a",
+      "tag": "🌐 其他地区 (Other) 01",
+      "server": "104.21.39.176",
+      "server_port": 443,
+      "uuid": "1aa96574-c28b-4ee9-855d-ebdbbf1f7e90",
       "tls": {
         "enabled": true,
-        "server_name": "addons.mozilla.org",
+        "server_name": "5-m13.AYutThAyA.kDnS.FR",
+        "insecure": false,
         "utls": {
           "enabled": true,
-          "fingerprint": "edge"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "mdWKUPMVTtTbDqK10BPb89OcqBC2-Lx-4NOYtqc1GWE",
-          "short_id": ""
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/ED3ZQPu7lqyeDGD58KabZ",
+        "headers": {
+          "Host": "5-M13.AyuTThAyA.KdNS.FR"
         }
       }
     },
@@ -28,14 +31,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇹🇼 中国台湾 (Taiwan) 01 (家宽)"
+        "🌐 其他地区 (Other) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇹🇼 中国台湾 (Taiwan) 01 (家宽)"
+        "🌐 其他地区 (Other) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
