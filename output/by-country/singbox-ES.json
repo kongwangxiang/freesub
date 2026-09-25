@@ -24,8 +24,41 @@
       }
     },
     {
-      "type": "vmess",
+      "type": "shadowsocks",
       "tag": "🇪🇸 西班牙 (Spain) 02",
+      "server": "140.174.184.5",
+      "server_port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "qItG8SueYQcP"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇪🇸 西班牙 (Spain) 03",
+      "server": "108.181.121.226",
+      "server_port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "WSyL4XTwNsdv"
+    },
+    {
+      "type": "vmess",
+      "tag": "🇪🇸 西班牙 (Spain) 04",
+      "server": "mygptagent.org",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "tls": {
+        "enabled": true,
+        "server_name": "mygptagent.org",
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws"
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "🇪🇸 西班牙 (Spain) 05",
       "server": "66.163.118.73",
       "server_port": 22324,
       "uuid": "04621bae-ab36-11ec-b909-0242ac120002",
@@ -37,7 +70,10 @@
       "outbounds": [
         "auto",
         "🇪🇸 西班牙 (Spain) 01",
-        "🇪🇸 西班牙 (Spain) 02"
+        "🇪🇸 西班牙 (Spain) 02",
+        "🇪🇸 西班牙 (Spain) 03",
+        "🇪🇸 西班牙 (Spain) 04",
+        "🇪🇸 西班牙 (Spain) 05"
       ]
     },
     {
@@ -45,7 +81,10 @@
       "tag": "auto",
       "outbounds": [
         "🇪🇸 西班牙 (Spain) 01",
-        "🇪🇸 西班牙 (Spain) 02"
+        "🇪🇸 西班牙 (Spain) 02",
+        "🇪🇸 西班牙 (Spain) 03",
+        "🇪🇸 西班牙 (Spain) 04",
+        "🇪🇸 西班牙 (Spain) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
