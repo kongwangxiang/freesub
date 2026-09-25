@@ -5,29 +5,73 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇬 新加坡 (Singapore) 01
-  server: 158.178.229.235
-  port: 56927
-  udp: true
-  type: ss
-  cipher: 2022-blake3-chacha20-poly1305
-  password: 4nphreJpAUpxvkVQmO2l37kEup8qRu7pcSYU0JbJLVM=
-- name: 🇸🇬 新加坡 (Singapore) 02
-  server: 45.32.120.173
+  server: 104.17.147.22
   port: 443
   udp: true
-  type: vmess
-  uuid: XEXEVIL
-  alterId: 0
-  cipher: auto
-- name: 🇸🇬 新加坡 (Singapore) 03
-  server: 149.88.23.202
-  port: 18000
+  type: trojan
+  password: f88f080e9b4f66c6
+  sni: Open-39.avL-a47261.worKErS.Dev
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /tr/RIe4tZSAV4RjTfHKZ24cX27AmBg0?ed=2560
+- name: 🇸🇬 新加坡 (Singapore) 02
+  server: 172.64.155.209
+  port: 443
   udp: true
-  type: vmess
-  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
-  alterId: 0
-  cipher: auto
+  type: vless
+  uuid: 11e9eea1-b1a9-4f02-a1a1-b24f7664b1cf
+  tls: true
+  servername: ancIEnt-HeaRt-60c5.dPccgIzieB.WoRKers.dEV
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /eyJqdW5rIjoiYW1sczlYWkFHOCIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0
+    headers:
+      Host: ancient-heart-60c5.dpccgizieb.workers.dev
+- name: 🇸🇬 新加坡 (Singapore) 03
+  server: 104.17.148.22
+  port: 443
+  udp: true
+  type: trojan
+  password: f88f080e9b4f66c6
+  sni: Open-39.avL-a47261.worKErS.Dev
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /tr/RIe4tZSAV4RjTfHKZ24cX27AmBg0?ed=2560
 - name: 🇸🇬 新加坡 (Singapore) 04
+  server: 104.17.3.81
+  port: 443
+  udp: true
+  type: vless
+  uuid: fc60147e-76b8-4bc5-b691-90b2da79e3d2
+  tls: true
+  servername: nautica-cff.kloningstrife002.workers.dev
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /138.2.74.219-28616
+    headers:
+      Host: nautica-cff.kloningstrife002.workers.dev
+- name: 🇸🇬 新加坡 (Singapore) 05
+  server: 84.22.150.239
+  port: 444
+  udp: true
+  type: vless
+  uuid: dc83276f-268a-4b18-9f63-63c73e11ffd8
+  tls: true
+  servername: 8n9qi6t-owl.gevc9s4n60cc3wzcmwhjyezydpmbchocxp.workers.dev
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 8n9qi6t-owl.gevc9s4n60cc3wzcmwhjyezydpmbchocxp.workers.dev
+- name: 🇸🇬 新加坡 (Singapore) 06
   server: 149.88.23.207
   port: 18000
   udp: true
@@ -35,46 +79,30 @@ proxies:
   uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
   alterId: 0
   cipher: auto
-- name: 🇸🇬 新加坡 (Singapore) 05
-  server: 5.223.74.174
-  port: 2053
-  udp: true
-  type: vless
-  uuid: 29b81e1a-1989-4778-b0cb-a7223730f59d
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: pIkxGlcFFawk7e0T-2VcdFXOc9LsjoBhl47vl8EuRgg
-    short-id: 36151c48e28cfb65
-  servername: 5.223.74.174
-  client-fingerprint: chrome
-- name: 🇸🇬 新加坡 (Singapore) 06
-  server: 146.235.16.130
-  port: 19825
-  udp: true
-  type: vless
-  uuid: 2d1ad594-80a4-4bfb-87a6-038e39701f51
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: GvvkY8xYb9QjvwvzYq_uNC4tOGd0DCxRnz6770-xgkI
-    short-id: 6ba85179e30d4fc2
-  servername: sg2-8sb.6121999.dpdns.org
-  client-fingerprint: chrome
 - name: 🇸🇬 新加坡 (Singapore) 07
-  server: 54.169.200.246
-  port: 41688
+  server: 149.88.23.202
+  port: 18000
   udp: true
-  type: vless
-  uuid: 49c0aac1-5e05-4f04-b624-248fc59e03c4
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: srwIElIGTPs0kshpN1vvPsn4wixV_pLd56y_v9m0sTk
-    short-id: 7f342137c20387
-  servername: www.intel.com
-  client-fingerprint: chrome
+  type: vmess
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
 - name: 🇸🇬 新加坡 (Singapore) 08
+  server: 158.178.229.235
+  port: 56927
+  udp: true
+  type: ss
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 4nphreJpAUpxvkVQmO2l37kEup8qRu7pcSYU0JbJLVM=
+- name: 🇸🇬 新加坡 (Singapore) 09
+  server: 45.32.120.173
+  port: 443
+  udp: true
+  type: vmess
+  uuid: XEXEVIL
+  alterId: 0
+  cipher: auto
+- name: 🇸🇬 新加坡 (Singapore) 10
   server: 206.206.76.75
   port: 443
   udp: true
@@ -86,8 +114,56 @@ proxies:
     public-key: TqIFzUEEI1pIOR8BEpkNKEXcJ6cPfE5EzHb5joIivig
     short-id: 9930177816ab09da
   servername: www.cloudflare.com
-  client-fingerprint: firefox
-- name: 🇸🇬 新加坡 (Singapore) 09
+  client-fingerprint: chrome
+- name: 🇸🇬 新加坡 (Singapore) 11
+  server: 4a453e27-tm96o0-tnggms-6gn6.sg7.hyhuawei.com
+  port: 443
+  udp: true
+  type: hysteria2
+  password: c12f73f6-e8c7-11ed-9246-f23c9164ca5d
+  sni: 4a453e27-tm96o0-tnggms-6gn6.sg7.hyhuawei.com
+  skip-cert-verify: true
+- name: 🇸🇬 新加坡 (Singapore) 12
+  server: 45.130.125.126
+  port: 443
+  udp: true
+  type: vless
+  uuid: b69b43d1-091d-4d7c-90b2-7a8bbad9d6a9
+  tls: true
+  servername: BItter-CreDIT-61b8.b76EbA0aBb.wORkerS.dEv
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /eyJqdW5rIjoiY0U2T212Y21yeEhUZHRKYSIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0
+    headers:
+      Host: BItter-CreDIT-61b8.b76EbA0aBb.wORkerS.dEv
+- name: 🇸🇬 新加坡 (Singapore) 13
+  server: 5.223.74.174
+  port: 2053
+  udp: true
+  type: vless
+  uuid: 29b81e1a-1989-4778-b0cb-a7223730f59d
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: pIkxGlcFFawk7e0T-2VcdFXOc9LsjoBhl47vl8EuRgg
+    short-id: 36151c48e28cfb65
+  servername: 5.223.74.174
+  client-fingerprint: random
+- name: 🇸🇬 新加坡 (Singapore) 14
+  server: sg2-8sb.6121999.dpdns.org
+  port: 19825
+  udp: true
+  type: vless
+  uuid: 2d1ad594-80a4-4bfb-87a6-038e39701f51
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: GvvkY8xYb9QjvwvzYq_uNC4tOGd0DCxRnz6770-xgkI
+    short-id: 6ba85179e30d4fc2
+  servername: sg2-8sb.6121999.dpdns.org
+  client-fingerprint: chrome
+- name: 🇸🇬 新加坡 (Singapore) 15
   server: 138.2.73.238
   port: 50160
   udp: true
@@ -95,33 +171,20 @@ proxies:
   password: f87376e17da040ed04c9665ce8972930
   sni: 138.2.73.238
   skip-cert-verify: true
-- name: 🇸🇬 新加坡 (Singapore) 10
-  server: 3.0.111.82
-  port: 17623
+- name: 🇸🇬 新加坡 (Singapore) 16
+  server: 46.137.202.178
+  port: 12512
   udp: true
   type: vless
-  uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  uuid: 2a6c617d-98e4-49c3-95ab-76f02fcf0150
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-    short-id: 48050fab
-  servername: www.apple.com
-  client-fingerprint: random
-- name: 🇸🇬 新加坡 (Singapore) 11
-  server: 3.0.111.82
-  port: 10574
-  udp: true
-  type: vless
-  uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-    short-id: 48050fab
-  servername: www.apple.com
-  client-fingerprint: chrome
-- name: 🇸🇬 新加坡 (Singapore) 12
+    public-key: sO0RBMr_l8TLtZaYBX8n3NdI9AtaugUqJpCR1szNsyA
+    short-id: e692a8250d2e2fd0
+  servername: www.intel.com
+  client-fingerprint: firefox
+- name: 🇸🇬 新加坡 (Singapore) 17
   server: 3.0.111.82
   port: 12972
   udp: true
@@ -134,7 +197,7 @@ proxies:
     short-id: 48050fab
   servername: www.apple.com
   client-fingerprint: chrome
-- name: 🇸🇬 新加坡 (Singapore) 13
+- name: 🇸🇬 新加坡 (Singapore) 18
   server: 91.193.58.108
   port: 2096
   udp: true
@@ -149,7 +212,7 @@ proxies:
     path: /free-server.techsonic.dev
     headers:
       Host: free-server.techsonic.dev
-- name: 🇸🇬 新加坡 (Singapore) 14
+- name: 🇸🇬 新加坡 (Singapore) 19
   server: 217.217.254.126
   port: 2053
   udp: true
@@ -160,14 +223,33 @@ proxies:
     public-key: VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw
     short-id: 87829de0e2bb82cb
   servername: www.cloudflare.com
-  client-fingerprint: chrome
-- name: 🇸🇬 新加坡 (Singapore) 15
-  server: 168.107.84.176
-  port: 56927
+  client-fingerprint: random
+- name: 🇸🇬 新加坡 (Singapore) 20
+  server: 3.0.111.82
+  port: 17623
   udp: true
-  type: ss
-  cipher: 2022-blake3-chacha20-poly1305
-  password: zfRw8qHR5DsiUSSiFqxRnNjXZ0/oOyLeNKOqv5VW0PM=
+  type: vless
+  uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+    short-id: 48050fab
+  servername: www.apple.com
+  client-fingerprint: edge
+- name: 🇸🇬 新加坡 (Singapore) 21
+  server: 3.0.111.82
+  port: 10574
+  udp: true
+  type: vless
+  uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+    short-id: 48050fab
+  servername: www.apple.com
+  client-fingerprint: chrome
 proxy-groups:
 - name: PROXIES
   type: select
@@ -188,6 +270,12 @@ proxy-groups:
   - 🇸🇬 新加坡 (Singapore) 13
   - 🇸🇬 新加坡 (Singapore) 14
   - 🇸🇬 新加坡 (Singapore) 15
+  - 🇸🇬 新加坡 (Singapore) 16
+  - 🇸🇬 新加坡 (Singapore) 17
+  - 🇸🇬 新加坡 (Singapore) 18
+  - 🇸🇬 新加坡 (Singapore) 19
+  - 🇸🇬 新加坡 (Singapore) 20
+  - 🇸🇬 新加坡 (Singapore) 21
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -208,5 +296,11 @@ proxy-groups:
   - 🇸🇬 新加坡 (Singapore) 13
   - 🇸🇬 新加坡 (Singapore) 14
   - 🇸🇬 新加坡 (Singapore) 15
+  - 🇸🇬 新加坡 (Singapore) 16
+  - 🇸🇬 新加坡 (Singapore) 17
+  - 🇸🇬 新加坡 (Singapore) 18
+  - 🇸🇬 新加坡 (Singapore) 19
+  - 🇸🇬 新加坡 (Singapore) 20
+  - 🇸🇬 新加坡 (Singapore) 21
 rules:
 - MATCH,PROXIES
