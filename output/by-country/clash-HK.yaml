@@ -17,25 +17,20 @@ proxies:
   servername: www.cloudflare.com
   client-fingerprint: firefox
 - name: 🇭🇰 中国香港 (Hong Kong) 02
-  server: 141.11.238.17
+  server: 6dd24f6b-tm96o0-tnggms-6gn6.hk3.hyhuawei.com
   port: 443
   udp: true
-  type: vless
-  uuid: 596be9d9-0bb9-41bc-bff5-1adb483cbc32
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: 3xV5ZMHcMyfWXOAD_-FdX5M973QiqUfdCo8OgPcz_k8
-    short-id: 8eb5
-  servername: www.cloudflare.com
-  client-fingerprint: chrome
+  type: hysteria2
+  password: c12f73f6-e8c7-11ed-9246-f23c9164ca5d
+  sni: 6dd24f6b-tm96o0-tnggms-6gn6.hk3.hyhuawei.com
+  skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 03
   server: 202.146.222.29
   port: 443
   udp: true
   type: hysteria2
   password: H7mP2xY9kJ4nQ8wR5tF6vB3z
-  sni: whatsapp.com
+  sni: https%3a%2f%2ft.me%2fwangcai2%d1%80%d2%b9%d2%af
   skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 04
   server: 202.146.222.174
@@ -43,47 +38,31 @@ proxies:
   udp: true
   type: hysteria2
   password: H7mP2xY9kJ4nQ8wR5tF6vB3z
-  sni: 202.146.222.174
+  sni: https%3a%2f%2ft.me%2fwangcai2
   skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 05
-  server: 202.146.222.89
-  port: 443
-  udp: true
-  type: hysteria2
-  password: H7mP2xY9kJ4nQ8wR5tF6vB3z
-  sni: 'off'
-  skip-cert-verify: true
-- name: 🇭🇰 中国香港 (Hong Kong) 06
   server: mz.hkychina.com
   port: 8443
   udp: true
   type: hysteria2
   password: HysTeria2026!Proxy
   sni: mz.hkychina.com
-  skip-cert-verify: true
-- name: 🇭🇰 中国香港 (Hong Kong) 07
-  server: hk2.xiaoliyu.cyou
-  port: 4433
+  skip-cert-verify: false
+- name: 🇭🇰 中国香港 (Hong Kong) 06
+  server: 202.146.222.89
+  port: 443
   udp: true
   type: hysteria2
-  password: 19f72087-4591-4d72-930b-2697078ec2be
-  sni: hk2.xiaoliyu.cyou
+  password: H7mP2xY9kJ4nQ8wR5tF6vB3z
+  sni: t.me
   skip-cert-verify: true
-- name: 🇭🇰 中国香港 (Hong Kong) 08
-  server: 47.240.80.220
-  port: 2052
-  udp: true
-  type: trojan
-  password: tFjD2X1F6i9FfWp2GDU5Vbi1conuaChDKIYbw9zMFrqvMoSz
-  sni: vpn.12169.top
-  skip-cert-verify: true
-- name: 🇭🇰 中国香港 (Hong Kong) 09
+- name: 🇭🇰 中国香港 (Hong Kong) 07
   server: 119.246.1.143
   port: 443
   udp: true
   type: trojan
   password: BxceQaOe
-  sni: t.me/ripaojiedian
+  sni: t.me%252fripaojiedian
   skip-cert-verify: true
 proxy-groups:
 - name: PROXIES
@@ -97,8 +76,6 @@ proxy-groups:
   - 🇭🇰 中国香港 (Hong Kong) 05
   - 🇭🇰 中国香港 (Hong Kong) 06
   - 🇭🇰 中国香港 (Hong Kong) 07
-  - 🇭🇰 中国香港 (Hong Kong) 08
-  - 🇭🇰 中国香港 (Hong Kong) 09
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -111,7 +88,5 @@ proxy-groups:
   - 🇭🇰 中国香港 (Hong Kong) 05
   - 🇭🇰 中国香港 (Hong Kong) 06
   - 🇭🇰 中国香港 (Hong Kong) 07
-  - 🇭🇰 中国香港 (Hong Kong) 08
-  - 🇭🇰 中国香港 (Hong Kong) 09
 rules:
 - MATCH,PROXIES
