@@ -4,32 +4,32 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🌐 其他地区 (Other) 01
-  server: 104.21.39.176
+- name: 🇺🇿 乌兹别克斯坦 (Uzbekistan) 01
+  server: 172.67.210.146
   port: 443
   udp: true
   type: vless
-  uuid: 1aa96574-c28b-4ee9-855d-ebdbbf1f7e90
+  uuid: 50414e45-4c5f-5a45-5553-4eef5adc237a
   tls: true
-  servername: 5-m13.AYutThAyA.kDnS.FR
+  servername: r5zenrelur2s.pqzdileiu8es.workers.dev
   skip-cert-verify: false
   client-fingerprint: chrome
   network: ws
   ws-opts:
-    path: /ED3ZQPu7lqyeDGD58KabZ
+    path: /stream/PANEL_ZEUS/4eef5adc237a/loc-1
     headers:
-      Host: 5-M13.AyuTThAyA.KdNS.FR
+      Host: r5zenrelur2s.pqzdileiu8es.workers.dev
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🌐 其他地区 (Other) 01
+  - 🇺🇿 乌兹别克斯坦 (Uzbekistan) 01
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🌐 其他地区 (Other) 01
+  - 🇺🇿 乌兹别克斯坦 (Uzbekistan) 01
 rules:
 - MATCH,PROXIES

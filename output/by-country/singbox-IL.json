@@ -6,27 +6,6 @@
     {
       "type": "vless",
       "tag": "🇮🇱 以色列 (Israel) 01",
-      "server": "185.95.231.233",
-      "server_port": 443,
-      "uuid": "1ffa8e68-3378-4cf4-b8f6-44bf3d46d106",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "store.steampowered.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "r4Dp3mztZaizbDk28rEOkLikk7erR9dzzc-Jrsgraho",
-          "short_id": "a1b2c3d4"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇮🇱 以色列 (Israel) 02",
       "server": "185.95.231.156",
       "server_port": 443,
       "uuid": "1f8cf47a-b66a-4916-979f-26edfcf44eea",
@@ -47,36 +26,43 @@
     },
     {
       "type": "vless",
-      "tag": "🇮🇱 以色列 (Israel) 03",
-      "server": "193.202.10.2",
-      "server_port": 40443,
-      "uuid": "bb0f1ed0-0298-40a1-adb1-1f5d6ab33d54",
+      "tag": "🇮🇱 以色列 (Israel) 02",
+      "server": "185.95.231.233",
+      "server_port": 443,
+      "uuid": "1ffa8e68-3378-4cf4-b8f6-44bf3d46d106",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "deepl.com",
+        "server_name": "store.steampowered.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "firefox"
+          "fingerprint": "random"
         },
         "reality": {
           "enabled": true,
-          "public_key": "w4AYHvQnQS6olDqoG9ptLOtgehaWOsv9HQhDax5bLA4",
-          "short_id": "db46e2946fc466fd"
+          "public_key": "r4Dp3mztZaizbDk28rEOkLikk7erR9dzzc-Jrsgraho",
+          "short_id": "a1b2c3d4"
         }
       }
     },
     {
       "type": "vless",
-      "tag": "🇮🇱 以色列 (Israel) 04",
-      "server": "platform115.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform115",
-        "headers": {
-          "Host": "platform115.halalkhor.info"
+      "tag": "🇮🇱 以色列 (Israel) 03",
+      "server": "185.249.153.108",
+      "server_port": 443,
+      "uuid": "4cf9c712-11c4-47d8-aa31-a1693a1aa4e5",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.nordivablog.ru",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "edge"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "xOJ3INBNzRKOKYGQZmSYczgTjTKwdYQ4BFfc75wVazw",
+          "short_id": "73c9e31ccafda20e"
         }
       }
     },
@@ -87,8 +73,7 @@
         "auto",
         "🇮🇱 以色列 (Israel) 01",
         "🇮🇱 以色列 (Israel) 02",
-        "🇮🇱 以色列 (Israel) 03",
-        "🇮🇱 以色列 (Israel) 04"
+        "🇮🇱 以色列 (Israel) 03"
       ]
     },
     {
@@ -97,8 +82,7 @@
       "outbounds": [
         "🇮🇱 以色列 (Israel) 01",
         "🇮🇱 以色列 (Israel) 02",
-        "🇮🇱 以色列 (Israel) 03",
-        "🇮🇱 以色列 (Israel) 04"
+        "🇮🇱 以色列 (Israel) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
