@@ -17,16 +17,16 @@ proxies:
   servername: est1313.ggisopi.su
   client-fingerprint: chrome
 - name: 🇫🇮 芬兰 (Finland) 02
-  server: me1.movieseryalirani.ir
-  port: 443
+  server: 185.79.138.71
+  port: 448
   udp: true
   type: vless
-  uuid: 63aaea7f-2847-4f41-afab-0836b1cf79d9
+  uuid: 0b0915d7-6800-4580-a44b-77d84f105e6a
   tls: true
   reality-opts:
-    public-key: CxRZ7oJWwR7okmOoqEEbVYCSfTaBlNA6ycf_UniyeEk
-    short-id: 8d814a
-  servername: matrix-client.matrix.org
+    public-key: CsDgNRcCwCkPIslfZpKTIK71KFpIFNsotbdzKcZVoH8
+    short-id: cd21e552537c7c0b
+  servername: www.samsung.com
   client-fingerprint: firefox
 proxy-groups:
 - name: PROXIES

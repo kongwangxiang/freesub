@@ -6,6 +6,20 @@
     {
       "type": "vless",
       "tag": "🇨🇱 智利 (Chile) 01",
+      "server": "platform108.golnamakcert.top",
+      "server_port": 80,
+      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
+      "transport": {
+        "type": "ws",
+        "path": "/platform108",
+        "headers": {
+          "Host": "platform108.halalkhor.info"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇨🇱 智利 (Chile) 02",
       "server": "platform101.golnamakcert.top",
       "server_port": 80,
       "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
@@ -19,7 +33,29 @@
     },
     {
       "type": "vless",
-      "tag": "🇨🇱 智利 (Chile) 02",
+      "tag": "🇨🇱 智利 (Chile) 03",
+      "server": "platform107.golnamakcert.top",
+      "server_port": 80,
+      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
+      "transport": {
+        "type": "ws",
+        "path": "/platform107"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇨🇱 智利 (Chile) 04",
+      "server": "platform106.golnamakcert.top",
+      "server_port": 80,
+      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
+      "transport": {
+        "type": "ws",
+        "path": "/platform106"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇨🇱 智利 (Chile) 05",
       "server": "platform103.golnamakcert.top",
       "server_port": 80,
       "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
@@ -33,7 +69,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇨🇱 智利 (Chile) 03",
+      "tag": "🇨🇱 智利 (Chile) 06",
       "server": "platform115.golnamakcert.top",
       "server_port": 80,
       "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
@@ -52,7 +88,10 @@
         "auto",
         "🇨🇱 智利 (Chile) 01",
         "🇨🇱 智利 (Chile) 02",
-        "🇨🇱 智利 (Chile) 03"
+        "🇨🇱 智利 (Chile) 03",
+        "🇨🇱 智利 (Chile) 04",
+        "🇨🇱 智利 (Chile) 05",
+        "🇨🇱 智利 (Chile) 06"
       ]
     },
     {
@@ -61,7 +100,10 @@
       "outbounds": [
         "🇨🇱 智利 (Chile) 01",
         "🇨🇱 智利 (Chile) 02",
-        "🇨🇱 智利 (Chile) 03"
+        "🇨🇱 智利 (Chile) 03",
+        "🇨🇱 智利 (Chile) 04",
+        "🇨🇱 智利 (Chile) 05",
+        "🇨🇱 智利 (Chile) 06"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
