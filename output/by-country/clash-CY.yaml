@@ -5,19 +5,6 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇨🇾 塞浦路斯 (Cyprus) 01
-  server: 2.56.123.131
-  port: 443
-  udp: true
-  type: vless
-  uuid: 0a975d79-6930-4861-a105-dc50793456de
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: wDAQ_iQ_vv6lQiB9nCxIJviEhARWOQOPyhzos8EJW3o
-    short-id: 9da47879658f9f25
-  servername: contact.yump.online
-  client-fingerprint: safari
-- name: 🇨🇾 塞浦路斯 (Cyprus) 02
   server: 194.76.154.31
   port: 40443
   udp: true
@@ -28,20 +15,18 @@ proxies:
     public-key: MN6QjUHDUXyteMdR-cDna89fq4X3qgQhLnNqTtRUbBQ
     short-id: a8ae
   servername: deepl.com
-  client-fingerprint: chrome
+  client-fingerprint: qq
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
   - 🇨🇾 塞浦路斯 (Cyprus) 01
-  - 🇨🇾 塞浦路斯 (Cyprus) 02
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
   - 🇨🇾 塞浦路斯 (Cyprus) 01
-  - 🇨🇾 塞浦路斯 (Cyprus) 02
 rules:
 - MATCH,PROXIES
