@@ -6,89 +6,22 @@
     {
       "type": "shadowsocks",
       "tag": "🇿🇦 南非 (South Africa) 01",
+      "server": "102.133.165.160",
+      "server_port": 16233,
+      "method": "chacha20-ietf-poly1305",
+      "password": "Xsy8Ox4yOV3xLlpxtjzs3X"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇿🇦 南非 (South Africa) 02",
       "server": "139.84.247.164",
       "server_port": 8388,
       "method": "chacha20-ietf-poly1305",
       "password": "tfAcRikawhNoZAhu"
     },
     {
-      "type": "shadowsocks",
-      "tag": "🇿🇦 南非 (South Africa) 02",
-      "server": "102.37.156.224",
-      "server_port": 443,
-      "method": "chacha20-ietf-poly1305",
-      "password": "aduB9HGxQHjA2SBMRjkHX6"
-    },
-    {
       "type": "vless",
       "tag": "🇿🇦 南非 (South Africa) 03",
-      "server": "platform108.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform108",
-        "headers": {
-          "Host": "platform108.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇿🇦 南非 (South Africa) 04",
-      "server": "platform107.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform107",
-        "headers": {
-          "Host": "platform107.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇿🇦 南非 (South Africa) 05",
-      "server": "platform106.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform106",
-        "headers": {
-          "Host": "platform106.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇿🇦 南非 (South Africa) 06",
-      "server": "platform103.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform103",
-        "headers": {
-          "Host": "platform103.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇿🇦 南非 (South Africa) 07",
-      "server": "platform109.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform109"
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇿🇦 南非 (South Africa) 08",
       "server": "platform101.golnamakcert.top",
       "server_port": 80,
       "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
@@ -107,12 +40,7 @@
         "auto",
         "🇿🇦 南非 (South Africa) 01",
         "🇿🇦 南非 (South Africa) 02",
-        "🇿🇦 南非 (South Africa) 03",
-        "🇿🇦 南非 (South Africa) 04",
-        "🇿🇦 南非 (South Africa) 05",
-        "🇿🇦 南非 (South Africa) 06",
-        "🇿🇦 南非 (South Africa) 07",
-        "🇿🇦 南非 (South Africa) 08"
+        "🇿🇦 南非 (South Africa) 03"
       ]
     },
     {
@@ -121,12 +49,7 @@
       "outbounds": [
         "🇿🇦 南非 (South Africa) 01",
         "🇿🇦 南非 (South Africa) 02",
-        "🇿🇦 南非 (South Africa) 03",
-        "🇿🇦 南非 (South Africa) 04",
-        "🇿🇦 南非 (South Africa) 05",
-        "🇿🇦 南非 (South Africa) 06",
-        "🇿🇦 南非 (South Africa) 07",
-        "🇿🇦 南非 (South Africa) 08"
+        "🇿🇦 南非 (South Africa) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
