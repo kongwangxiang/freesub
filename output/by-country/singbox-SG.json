@@ -4,17 +4,17 @@
   },
   "outbounds": [
     {
-      "type": "vmess",
+      "type": "shadowsocks",
       "tag": "🇸🇬 新加坡 (Singapore) 01",
-      "server": "172.237.70.226",
-      "server_port": 22324,
-      "uuid": "04621bae-ab36-11ec-b909-0242ac120002",
-      "security": "auto"
+      "server": "128.199.172.224",
+      "server_port": 8080,
+      "method": "rc4-md5",
+      "password": "14fFPrbezE3HDZzsMOr6"
     },
     {
       "type": "shadowsocks",
       "tag": "🇸🇬 新加坡 (Singapore) 02",
-      "server": "128.199.172.224",
+      "server": "68.183.227.45",
       "server_port": 8080,
       "method": "rc4-md5",
       "password": "14fFPrbezE3HDZzsMOr6"
@@ -28,12 +28,12 @@
       "security": "auto"
     },
     {
-      "type": "vmess",
+      "type": "shadowsocks",
       "tag": "🇸🇬 新加坡 (Singapore) 04",
-      "server": "149.88.23.207",
-      "server_port": 18000,
-      "uuid": "f8c8dc3d-0d37-46b0-8b34-a7232882fcfe",
-      "security": "auto"
+      "server": "161.118.198.208",
+      "server_port": 56927,
+      "method": "2022-blake3-chacha20-poly1305",
+      "password": "hAdN3/HuF6xaTXsRYwC9AvisqG5dZVfOp/6NiJKnhKY="
     },
     {
       "type": "shadowsocks",
@@ -44,51 +44,32 @@
       "password": "tci/7mDqDRns0tsnXCiXkphsz3k+zf8BdZL5uvWxrd4="
     },
     {
-      "type": "shadowsocks",
+      "type": "vmess",
       "tag": "🇸🇬 新加坡 (Singapore) 06",
-      "server": "68.183.235.122",
-      "server_port": 8080,
-      "method": "rc4-md5",
-      "password": "14fFPrbezE3HDZzsMOr6"
+      "server": "149.88.23.207",
+      "server_port": 18000,
+      "uuid": "f8c8dc3d-0d37-46b0-8b34-a7232882fcfe",
+      "security": "auto"
     },
     {
-      "type": "shadowsocks",
+      "type": "vless",
       "tag": "🇸🇬 新加坡 (Singapore) 07",
-      "server": "68.183.227.45",
-      "server_port": 8080,
-      "method": "rc4-md5",
-      "password": "14fFPrbezE3HDZzsMOr6"
+      "server": "129.150.51.127",
+      "server_port": 34249,
+      "uuid": "0590ab38-cb22-41d3-8312-6f396a5cec58",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.microsoft.com",
+        "insecure": true
+      }
     },
     {
       "type": "vless",
       "tag": "🇸🇬 新加坡 (Singapore) 08",
-      "server": "172.236.142.114",
+      "server": "206.206.76.75",
       "server_port": 443,
-      "uuid": "408fbae6-a40b-4f0b-9723-0b4ce8e3d035",
-      "tls": {
-        "enabled": true,
-        "server_name": "onhit.shalana.xyz",
-        "insecure": false,
-        "utls": {
-          "enabled": true,
-          "fingerprint": "firefox"
-        }
-      }
-    },
-    {
-      "type": "shadowsocks",
-      "tag": "🇸🇬 新加坡 (Singapore) 09",
-      "server": "68.183.227.236",
-      "server_port": 8080,
-      "method": "rc4-md5",
-      "password": "14fFPrbezE3HDZzsMOr6"
-    },
-    {
-      "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 10",
-      "server": "217.217.254.126",
-      "server_port": 2053,
-      "uuid": "cb15cce9-73ed-4928-b38c-462f0732cbe9",
+      "uuid": "1e3d3634-36ac-43ac-a439-9665d885238f",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
@@ -98,14 +79,30 @@
         },
         "reality": {
           "enabled": true,
-          "public_key": "VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw",
-          "short_id": "87829de0e2bb82cb"
+          "public_key": "TqIFzUEEI1pIOR8BEpkNKEXcJ6cPfE5EzHb5joIivig",
+          "short_id": "9930177816ab09da"
         }
       }
     },
     {
       "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 11",
+      "tag": "🇸🇬 新加坡 (Singapore) 09",
+      "server": "172.236.142.114",
+      "server_port": 443,
+      "uuid": "408fbae6-a40b-4f0b-9723-0b4ce8e3d035",
+      "tls": {
+        "enabled": true,
+        "server_name": "onhit.shalana.xyz",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇸🇬 新加坡 (Singapore) 10",
       "server": "163.128.99.14",
       "server_port": 443,
       "uuid": "bda35755-c838-49c3-a19e-3712f2d54275",
@@ -115,7 +112,7 @@
         "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "chrome"
+          "fingerprint": "safari"
         },
         "reality": {
           "enabled": true,
@@ -126,28 +123,28 @@
     },
     {
       "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 12",
-      "server": "146.235.16.130",
-      "server_port": 19825,
-      "uuid": "2d1ad594-80a4-4bfb-87a6-038e39701f51",
+      "tag": "🇸🇬 新加坡 (Singapore) 11",
+      "server": "163.128.99.57",
+      "server_port": 443,
+      "uuid": "1a049739-b873-4242-9a2b-239951eb2dd3",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "sg2-8sb.6121999.dpdns.org",
+        "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
-          "public_key": "GvvkY8xYb9QjvwvzYq_uNC4tOGd0DCxRnz6770-xgkI",
-          "short_id": "6ba85179e30d4fc2"
+          "public_key": "4S52pKhsJA4gK-_MLW8_R8TTeZsS4pH7ef6St-aKVBQ",
+          "short_id": "ab1df8505f6e0072"
         }
       }
     },
     {
       "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 13",
+      "tag": "🇸🇬 新加坡 (Singapore) 12",
       "server": "54.169.200.246",
       "server_port": 41688,
       "uuid": "49c0aac1-5e05-4f04-b624-248fc59e03c4",
@@ -168,31 +165,52 @@
     },
     {
       "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 14",
-      "server": "206.206.76.75",
-      "server_port": 443,
-      "uuid": "1e3d3634-36ac-43ac-a439-9665d885238f",
+      "tag": "🇸🇬 新加坡 (Singapore) 13",
+      "server": "sg2-8sb.6121999.dpdns.org",
+      "server_port": 19825,
+      "uuid": "2d1ad594-80a4-4bfb-87a6-038e39701f51",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "www.cloudflare.com",
+        "server_name": "sg2-8sb.6121999.dpdns.org",
         "utls": {
           "enabled": true,
-          "fingerprint": "firefox"
+          "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
-          "public_key": "TqIFzUEEI1pIOR8BEpkNKEXcJ6cPfE5EzHb5joIivig",
-          "short_id": "9930177816ab09da"
+          "public_key": "GvvkY8xYb9QjvwvzYq_uNC4tOGd0DCxRnz6770-xgkI",
+          "short_id": "6ba85179e30d4fc2"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇸🇬 新加坡 (Singapore) 14",
+      "server": "3.0.111.82",
+      "server_port": 17623,
+      "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0",
+          "short_id": "48050fab"
         }
       }
     },
     {
       "type": "vless",
       "tag": "🇸🇬 新加坡 (Singapore) 15",
-      "server": "163.128.99.57",
-      "server_port": 443,
-      "uuid": "1a049739-b873-4242-9a2b-239951eb2dd3",
+      "server": "3.0.111.82",
+      "server_port": 12972,
+      "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
@@ -203,68 +221,35 @@
         },
         "reality": {
           "enabled": true,
-          "public_key": "4S52pKhsJA4gK-_MLW8_R8TTeZsS4pH7ef6St-aKVBQ",
-          "short_id": "ab1df8505f6e0072"
+          "public_key": "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0",
+          "short_id": "48050fab"
         }
       }
     },
     {
-      "type": "hysteria2",
+      "type": "vless",
       "tag": "🇸🇬 新加坡 (Singapore) 16",
-      "server": "vpn-sg-001.fastervpn.world",
-      "server_port": 443,
-      "password": "qQe1z5kU8kN6SlKnDt9Ru3Qp",
-      "tls": {
-        "enabled": true,
-        "server_name": "vpn-sg-001.fastervpn.world",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 17",
-      "server": "3.0.111.82",
-      "server_port": 17623,
-      "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
+      "server": "46.137.202.178",
+      "server_port": 12512,
+      "uuid": "2a6c617d-98e4-49c3-95ab-76f02fcf0150",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "www.apple.com",
+        "server_name": "www.intel.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "firefox"
         },
         "reality": {
           "enabled": true,
-          "public_key": "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0",
-          "short_id": "48050fab"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 18",
-      "server": "3.0.111.82",
-      "server_port": 12972,
-      "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.apple.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "edge"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0",
-          "short_id": "48050fab"
+          "public_key": "sO0RBMr_l8TLtZaYBX8n3NdI9AtaugUqJpCR1szNsyA",
+          "short_id": "e692a8250d2e2fd0"
         }
       }
     },
     {
       "type": "hysteria2",
-      "tag": "🇸🇬 新加坡 (Singapore) 19",
+      "tag": "🇸🇬 新加坡 (Singapore) 17",
       "server": "138.2.73.238",
       "server_port": 50160,
       "password": "f87376e17da040ed04c9665ce8972930",
@@ -276,7 +261,27 @@
     },
     {
       "type": "vless",
-      "tag": "🇸🇬 新加坡 (Singapore) 20",
+      "tag": "🇸🇬 新加坡 (Singapore) 18",
+      "server": "217.217.254.126",
+      "server_port": 2053,
+      "uuid": "cb15cce9-73ed-4928-b38c-462f0732cbe9",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.cloudflare.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw",
+          "short_id": "87829de0e2bb82cb"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇸🇬 新加坡 (Singapore) 19",
       "server": "3.0.111.82",
       "server_port": 10574,
       "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
@@ -318,8 +323,7 @@
         "🇸🇬 新加坡 (Singapore) 16",
         "🇸🇬 新加坡 (Singapore) 17",
         "🇸🇬 新加坡 (Singapore) 18",
-        "🇸🇬 新加坡 (Singapore) 19",
-        "🇸🇬 新加坡 (Singapore) 20"
+        "🇸🇬 新加坡 (Singapore) 19"
       ]
     },
     {
@@ -344,8 +348,7 @@
         "🇸🇬 新加坡 (Singapore) 16",
         "🇸🇬 新加坡 (Singapore) 17",
         "🇸🇬 新加坡 (Singapore) 18",
-        "🇸🇬 新加坡 (Singapore) 19",
-        "🇸🇬 新加坡 (Singapore) 20"
+        "🇸🇬 新加坡 (Singapore) 19"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

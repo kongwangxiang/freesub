@@ -4,21 +4,16 @@
   },
   "outbounds": [
     {
-      "type": "trojan",
-      "tag": "🇮🇩 印尼 (Indonesia) 01",
-      "server": "104.18.32.87",
-      "server_port": 443,
-      "password": "018b8e7b-7813-4dcb-84a5-3c98f1521e00",
-      "tls": {
-        "enabled": true,
-        "server_name": "id1.nathaya.web.id",
-        "insecure": false
-      },
+      "type": "vless",
+      "tag": "🇺🇸 美国 (United States) 01 (移动家宽)",
+      "server": "162.159.48.32",
+      "server_port": 80,
+      "uuid": "47fcef29-ab4e-4aa6-932b-d95a18f28a4e",
       "transport": {
         "type": "ws",
-        "path": "/trojan#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET",
+        "path": "/?ed=2560security=tls",
         "headers": {
-          "Host": "id1.nathaya.web.id"
+          "Host": "8nj2r.2k8t.f88.hh.vavava.kdns.fr"
         }
       }
     },
@@ -27,14 +22,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇮🇩 印尼 (Indonesia) 01"
+        "🇺🇸 美国 (United States) 01 (移动家宽)"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇮🇩 印尼 (Indonesia) 01"
+        "🇺🇸 美国 (United States) 01 (移动家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
