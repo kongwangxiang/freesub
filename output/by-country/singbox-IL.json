@@ -15,7 +15,7 @@
         "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
@@ -36,7 +36,7 @@
         "server_name": "store.steampowered.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
@@ -46,9 +46,38 @@
       }
     },
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇮🇱 以色列 (Israel) 03",
-      "server": "193.202.10.248",
+      "server": "31.57.185.82",
+      "server_port": 41770,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "upFH0BmL9pV55mch4LvbPLe+Mf7vgG0YHGaTOT9gMG0="
+    },
+    {
+      "type": "vless",
+      "tag": "🇮🇱 以色列 (Israel) 04",
+      "server": "193.202.10.137",
+      "server_port": 2291,
+      "uuid": "25284368-40d5-4abe-9f56-54a07e88a7af",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "de2.dzvn.space",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "tLWqTzKtCCMxxOzSskvSwDB2an1bxxZ706kcNDqGNWg",
+          "short_id": "50ace5ab34f6df9b"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇮🇱 以色列 (Israel) 05",
+      "server": "arcturus.yokkastars.com",
       "server_port": 40443,
       "uuid": "bb0f1ed0-0298-40a1-adb1-1f5d6ab33d54",
       "flow": "xtls-rprx-vision",
@@ -57,7 +86,7 @@
         "server_name": "deepl.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
@@ -73,7 +102,9 @@
         "auto",
         "🇮🇱 以色列 (Israel) 01",
         "🇮🇱 以色列 (Israel) 02",
-        "🇮🇱 以色列 (Israel) 03"
+        "🇮🇱 以色列 (Israel) 03",
+        "🇮🇱 以色列 (Israel) 04",
+        "🇮🇱 以色列 (Israel) 05"
       ]
     },
     {
@@ -82,7 +113,9 @@
       "outbounds": [
         "🇮🇱 以色列 (Israel) 01",
         "🇮🇱 以色列 (Israel) 02",
-        "🇮🇱 以色列 (Israel) 03"
+        "🇮🇱 以色列 (Israel) 03",
+        "🇮🇱 以色列 (Israel) 04",
+        "🇮🇱 以色列 (Israel) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

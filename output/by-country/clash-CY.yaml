@@ -4,30 +4,30 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇦🇺 澳大利亚 (Australia) 01
-  server: 51.161.204.244
+- name: 🇨🇾 塞浦路斯 (Cyprus) 01
+  server: 31.76.111.79
   port: 443
   udp: true
   type: vless
-  uuid: 36e89875-9c53-482b-bc41-d3890e9da176
+  uuid: ac9a573b-67ff-4953-9e13-4cf43576f8f0
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: gCAazs5uxNuMZIxfDdw8wPE0nwKY4QfBfBkQveKAkEk
-    short-id: 0ad08b47f498efd2
-  servername: www.cloudflare.com
-  client-fingerprint: random
+    public-key: 8w1MyEJV4l9QeNWbYMXny5tTLNTw_9nsQ7jOuiQhix4
+    short-id: 0123456789abcdef
+  servername: hh.ru
+  client-fingerprint: firefox
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇦🇺 澳大利亚 (Australia) 01
+  - 🇨🇾 塞浦路斯 (Cyprus) 01
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇦🇺 澳大利亚 (Australia) 01
+  - 🇨🇾 塞浦路斯 (Cyprus) 01
 rules:
 - MATCH,PROXIES
