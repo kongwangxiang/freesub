@@ -4,26 +4,22 @@
   },
   "outbounds": [
     {
-      "type": "hysteria2",
+      "type": "vmess",
       "tag": "🇰🇷 韩国 (South Korea) 01",
-      "server": "152.67.200.82",
-      "server_port": 50160,
-      "password": "3d7634af8cb2c6cb4bac1c0efad8b43d",
-      "tls": {
-        "enabled": true,
-        "server_name": "152.67.200.82",
-        "insecure": true
-      }
+      "server": "140.238.2.250",
+      "server_port": 443,
+      "uuid": "41a7089a-040b-4538-8b8d-010902405bde",
+      "security": "auto"
     },
     {
       "type": "hysteria2",
       "tag": "🇰🇷 韩国 (South Korea) 02",
-      "server": "131.186.19.174",
-      "server_port": 50160,
-      "password": "7302ad33229de166d393cd56143a1e4c",
+      "server": "152.70.237.123",
+      "server_port": 2053,
+      "password": "maintell",
       "tls": {
         "enabled": true,
-        "server_name": "vk.com",
+        "server_name": "bing.com",
         "insecure": true
       }
     },
@@ -40,10 +36,22 @@
       }
     },
     {
-      "type": "vless",
+      "type": "vmess",
       "tag": "🇰🇷 韩国 (South Korea) 04",
+      "server": "132.145.80.230",
+      "server_port": 80,
+      "uuid": "5155860e-d07d-46c3-9128-3afbd84626c7",
+      "security": "auto",
+      "transport": {
+        "type": "ws",
+        "path": "/cctv13.m3u8"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇰🇷 韩国 (South Korea) 05",
       "server": "3.39.4.109",
-      "server_port": 13672,
+      "server_port": 18967,
       "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
       "flow": "xtls-rprx-vision",
       "tls": {
@@ -51,7 +59,7 @@
         "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "edge"
         },
         "reality": {
           "enabled": true,
@@ -62,9 +70,108 @@
     },
     {
       "type": "vless",
-      "tag": "🇰🇷 韩国 (South Korea) 05",
+      "tag": "🇰🇷 韩国 (South Korea) 06",
+      "server": "61.111.247.80",
+      "server_port": 443,
+      "uuid": "82C94E17-B27E-4356-82C1-2F9C79B0CF6D",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "gateway.icloud.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "Cn5_Bic3VFQ2ONvH5_npnbMYZ-oxkl4BxawPKxoRdCQ",
+          "short_id": "f8f2875b3b4cb65b"
+        }
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇰🇷 韩国 (South Korea) 07",
+      "server": "152.67.200.82",
+      "server_port": 50160,
+      "password": "3d7634af8cb2c6cb4bac1c0efad8b43d",
+      "tls": {
+        "enabled": true,
+        "server_name": "152.67.200.82",
+        "insecure": true
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇰🇷 韩国 (South Korea) 08",
+      "server": "vpn-kr-002.fastervpn.world",
+      "server_port": 443,
+      "password": "H7mP2xY9kJ4nQ9wR5tF6vB3z",
+      "tls": {
+        "enabled": true,
+        "server_name": "vpn-kr-002.fastervpn.world",
+        "insecure": true
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇰🇷 韩国 (South Korea) 09",
+      "server": "61.111.247.177",
+      "server_port": 443,
+      "uuid": "82C94E17-B27E-4356-82C1-2F9C79B0CF6D",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "gateway.icloud.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "upzGwN_6mF1HLEIWveelchmljBlEL1fTNNJryHP1h0Q",
+          "short_id": "57a9322ca488758c"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "🇰🇷 韩国 (South Korea) 10",
+      "server": "154.90.62.70",
+      "server_port": 56127,
+      "password": "p5jTPcffLgi4gaNOJd2KUTb9YEPBBD5B",
+      "tls": {
+        "enabled": true,
+        "server_name": "154.90.62.70",
+        "insecure": true
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇰🇷 韩国 (South Korea) 11",
+      "server": "61.111.247.22",
+      "server_port": 443,
+      "uuid": "82C94E17-B27E-4356-82C1-2F9C79B0CF6D",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "gateway.icloud.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "F6Asg31ihdkFCmTdIuGjq_232PMYhLsCH9k3Npaa9VI",
+          "short_id": "0d9954fe36197887"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇰🇷 韩国 (South Korea) 12",
       "server": "3.39.4.109",
-      "server_port": 18967,
+      "server_port": 13672,
       "uuid": "814bd064-544d-4255-a070-5705c03f6da9",
       "flow": "xtls-rprx-vision",
       "tls": {
@@ -83,7 +190,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇰🇷 韩国 (South Korea) 06",
+      "tag": "🇰🇷 韩国 (South Korea) 13",
       "server": "151.245.106.49",
       "server_port": 2053,
       "uuid": "a2de9567-9646-45a9-a410-7303a43bdb6c",
@@ -103,15 +210,23 @@
     },
     {
       "type": "hysteria2",
-      "tag": "🇰🇷 韩国 (South Korea) 07",
-      "server": "150-230-252-217.liao.kdns.fr",
+      "tag": "🇰🇷 韩国 (South Korea) 14",
+      "server": "131.186.19.174",
       "server_port": 50160,
-      "password": "9cfc9458e48c028ec03ff86ebc71c744",
+      "password": "7302ad33229de166d393cd56143a1e4c",
       "tls": {
         "enabled": true,
-        "server_name": "150-230-252-217.liao.kdns.fr",
+        "server_name": "t.me",
         "insecure": true
       }
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇰🇷 韩国 (South Korea) 15",
+      "server": "141.164.45.187",
+      "server_port": 6679,
+      "method": "aes-256-gcm",
+      "password": "TEzjfAYq2IjtuoS"
     },
     {
       "type": "selector",
@@ -124,7 +239,15 @@
         "🇰🇷 韩国 (South Korea) 04",
         "🇰🇷 韩国 (South Korea) 05",
         "🇰🇷 韩国 (South Korea) 06",
-        "🇰🇷 韩国 (South Korea) 07"
+        "🇰🇷 韩国 (South Korea) 07",
+        "🇰🇷 韩国 (South Korea) 08",
+        "🇰🇷 韩国 (South Korea) 09",
+        "🇰🇷 韩国 (South Korea) 10",
+        "🇰🇷 韩国 (South Korea) 11",
+        "🇰🇷 韩国 (South Korea) 12",
+        "🇰🇷 韩国 (South Korea) 13",
+        "🇰🇷 韩国 (South Korea) 14",
+        "🇰🇷 韩国 (South Korea) 15"
       ]
     },
     {
@@ -137,7 +260,15 @@
         "🇰🇷 韩国 (South Korea) 04",
         "🇰🇷 韩国 (South Korea) 05",
         "🇰🇷 韩国 (South Korea) 06",
-        "🇰🇷 韩国 (South Korea) 07"
+        "🇰🇷 韩国 (South Korea) 07",
+        "🇰🇷 韩国 (South Korea) 08",
+        "🇰🇷 韩国 (South Korea) 09",
+        "🇰🇷 韩国 (South Korea) 10",
+        "🇰🇷 韩国 (South Korea) 11",
+        "🇰🇷 韩国 (South Korea) 12",
+        "🇰🇷 韩国 (South Korea) 13",
+        "🇰🇷 韩国 (South Korea) 14",
+        "🇰🇷 韩国 (South Korea) 15"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
