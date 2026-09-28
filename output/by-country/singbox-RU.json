@@ -4,28 +4,12 @@
   },
   "outbounds": [
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇷🇺 俄罗斯 (Russia) 01",
-      "server": "176.108.246.110",
-      "server_port": 9830,
-      "uuid": "5d16ac22-6eea-426f-b778-6f4c2961faef",
-      "tls": {
-        "enabled": true,
-        "server_name": "dl.google.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU",
-          "short_id": ""
-        }
-      },
-      "transport": {
-        "type": "grpc",
-        "service_name": "grpc-tunnel"
-      }
+      "server": "176.32.35.2",
+      "server_port": 10090,
+      "method": "aes-256-gcm",
+      "password": "895b4b796a357570"
     },
     {
       "type": "selector",

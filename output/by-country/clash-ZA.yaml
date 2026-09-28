@@ -12,16 +12,12 @@ proxies:
   cipher: chacha20-ietf-poly1305
   password: tfAcRikawhNoZAhu
 - name: 🇿🇦 南非 (South Africa) 02
-  server: platform106.golnamakcert.top
-  port: 80
+  server: 102.133.165.160
+  port: 16233
   udp: true
-  type: vless
-  uuid: e13cf851-b4fd-413b-8d49-146e6eb8e5d4
-  network: ws
-  ws-opts:
-    path: /platform106
-    headers:
-      Host: platform106.halalkhor.info
+  type: ss
+  cipher: chacha20-ietf-poly1305
+  password: Xsy8Ox4yOV3xLlpxtjzs3X
 proxy-groups:
 - name: PROXIES
   type: select

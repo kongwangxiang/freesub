@@ -4,21 +4,25 @@
   },
   "outbounds": [
     {
-      "type": "trojan",
-      "tag": "🇮🇩 印尼 (Indonesia) 01",
-      "server": "104.18.32.87",
+      "type": "vless",
+      "tag": "🇺🇿 乌兹别克斯坦 (Uzbekistan) 01",
+      "server": "172.67.210.146",
       "server_port": 443,
-      "password": "018b8e7b-7813-4dcb-84a5-3c98f1521e00",
+      "uuid": "50414e45-4c5f-5a45-5553-4eef5adc237a",
       "tls": {
         "enabled": true,
-        "server_name": "id1.nathaya.web.id",
-        "insecure": false
+        "server_name": "r5zenrelur2s.pqzdileiu8es.workers.dev",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
       },
       "transport": {
         "type": "ws",
-        "path": "/trojan#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET",
+        "path": "/stream/PANEL_ZEUS/4eef5adc237a/loc-1",
         "headers": {
-          "Host": "id1.nathaya.web.id"
+          "Host": "r5zenrelur2s.pqzdileiu8es.workers.dev"
         }
       }
     },
@@ -27,14 +31,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇮🇩 印尼 (Indonesia) 01"
+        "🇺🇿 乌兹别克斯坦 (Uzbekistan) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇮🇩 印尼 (Indonesia) 01"
+        "🇺🇿 乌兹别克斯坦 (Uzbekistan) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

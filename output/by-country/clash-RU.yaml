@@ -5,19 +5,12 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇷🇺 俄罗斯 (Russia) 01
-  server: 176.108.246.110
-  port: 9830
+  server: 176.32.35.2
+  port: 10090
   udp: true
-  type: vless
-  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
-  tls: true
-  reality-opts:
-    public-key: bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU
-  servername: dl.google.com
-  client-fingerprint: chrome
-  network: grpc
-  grpc-opts:
-    grpc-service-name: grpc-tunnel
+  type: ss
+  cipher: aes-256-gcm
+  password: 895b4b796a357570
 proxy-groups:
 - name: PROXIES
   type: select

@@ -12,18 +12,12 @@
       "password": "tfAcRikawhNoZAhu"
     },
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇿🇦 南非 (South Africa) 02",
-      "server": "platform106.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform106",
-        "headers": {
-          "Host": "platform106.halalkhor.info"
-        }
-      }
+      "server": "102.133.165.160",
+      "server_port": 16233,
+      "method": "chacha20-ietf-poly1305",
+      "password": "Xsy8Ox4yOV3xLlpxtjzs3X"
     },
     {
       "type": "selector",
