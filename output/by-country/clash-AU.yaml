@@ -16,7 +16,7 @@ proxies:
     public-key: trh3vhKtu_iAKb6E2GuUvloJDZ8tN0jtzyj4kpV5IQA
     short-id: 6df42a2c
   servername: www.cloudflare.com
-  client-fingerprint: random
+  client-fingerprint: firefox
 - name: 🇦🇺 澳大利亚 (Australia) 02
   server: 51.161.204.244
   port: 443
@@ -42,7 +42,7 @@ proxies:
     public-key: JJsjBS60tj6uZp-x2tMJ_ioblXRcru_apACEkMJYnBM
     short-id: b5a3
   servername: www.cloudflare.com
-  client-fingerprint: random
+  client-fingerprint: chrome
 proxy-groups:
 - name: PROXIES
   type: select
