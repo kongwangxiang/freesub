@@ -5,57 +5,27 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇺🇸 美国 (United States) 01 (移动家宽)
-  server: 172.64.42.85
-  port: 2086
+  server: 104.18.46.234
+  port: 8080
   udp: true
   type: vless
   uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
   network: ws
   ws-opts:
-    path: /?ed=2560security=tls
+    path: '/?ed=2560security=tls '
     headers:
       Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇬🇧 英国 (United Kingdom) 02 (家宽)
-  server: 172.64.80.1
-  port: 443
-  udp: true
-  type: vless
-  uuid: 4ce7cb8a-f9b1-4bfa-a80d-9e168c61a633
-  tls: true
-  servername: curly-night-6928.ggdhchjk.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /sync
-    headers:
-      Host: curly-night-6928.ggdhchjk.workers.dev
-- name: 🇹🇼 中国台湾 (Taiwan) 03 (家宽)
-  server: hinet1.2yly.com
-  port: 24215
-  udp: true
-  type: vless
-  uuid: 19d5a678-8396-4e3b-93da-ece618d0e83a
-  tls: true
-  reality-opts:
-    public-key: mdWKUPMVTtTbDqK10BPb89OcqBC2-Lx-4NOYtqc1GWE
-  servername: addons.mozilla.org
-  client-fingerprint: chrome
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
   - 🇺🇸 美国 (United States) 01 (移动家宽)
-  - 🇬🇧 英国 (United Kingdom) 02 (家宽)
-  - 🇹🇼 中国台湾 (Taiwan) 03 (家宽)
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
   - 🇺🇸 美国 (United States) 01 (移动家宽)
-  - 🇬🇧 英国 (United Kingdom) 02 (家宽)
-  - 🇹🇼 中国台湾 (Taiwan) 03 (家宽)
 rules:
 - MATCH,PROXIES

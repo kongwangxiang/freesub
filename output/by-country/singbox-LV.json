@@ -4,41 +4,40 @@
   },
   "outbounds": [
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇱🇻 拉脱维亚 (Latvia) 01",
-      "server": "138.124.180.137",
-      "server_port": 443,
-      "uuid": "5234b2b7-5e07-422c-8159-d62a676c00c6",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.apple.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "GBdkyDLfr0LIZo_94Xv8ycAKOmkjArYzwJAEMhuXX2c",
-          "short_id": "33acba1b"
-        }
-      }
+      "server": "185.135.86.175",
+      "server_port": 9017,
+      "method": "aes-256-cfb",
+      "password": "HAVAdE3nXhqA5nHp"
     },
     {
-      "type": "hysteria2",
+      "type": "shadowsocks",
       "tag": "🇱🇻 拉脱维亚 (Latvia) 02",
-      "server": "212.192.14.212",
-      "server_port": 8113,
-      "password": "ODM2MzExOTcyMCwxNzkwNTMyNzE0ksak7YOGMD",
-      "tls": {
-        "enabled": true,
-        "server_name": "lat1.lumenvpn.tech",
-        "insecure": false
-      }
+      "server": "185.135.86.175",
+      "server_port": 9094,
+      "method": "aes-256-cfb",
+      "password": "rpgbNnU9rDDU4aWZ"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇱🇻 拉脱维亚 (Latvia) 03",
+      "server": "185.135.86.175",
+      "server_port": 9036,
+      "method": "aes-256-cfb",
+      "password": "hbtvgUz5uNYyB3Rf"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇱🇻 拉脱维亚 (Latvia) 04",
+      "server": "185.135.86.175",
+      "server_port": 9068,
+      "method": "aes-256-cfb",
+      "password": "mwgRg9hRq3b4Qnwb"
     },
     {
       "type": "vless",
-      "tag": "🇱🇻 拉脱维亚 (Latvia) 03",
+      "tag": "🇱🇻 拉脱维亚 (Latvia) 05",
       "server": "31.57.28.147",
       "server_port": 443,
       "uuid": "2412bd96-925b-43f2-81d1-0ed4f0793699",
@@ -64,7 +63,9 @@
         "auto",
         "🇱🇻 拉脱维亚 (Latvia) 01",
         "🇱🇻 拉脱维亚 (Latvia) 02",
-        "🇱🇻 拉脱维亚 (Latvia) 03"
+        "🇱🇻 拉脱维亚 (Latvia) 03",
+        "🇱🇻 拉脱维亚 (Latvia) 04",
+        "🇱🇻 拉脱维亚 (Latvia) 05"
       ]
     },
     {
@@ -73,7 +74,9 @@
       "outbounds": [
         "🇱🇻 拉脱维亚 (Latvia) 01",
         "🇱🇻 拉脱维亚 (Latvia) 02",
-        "🇱🇻 拉脱维亚 (Latvia) 03"
+        "🇱🇻 拉脱维亚 (Latvia) 03",
+        "🇱🇻 拉脱维亚 (Latvia) 04",
+        "🇱🇻 拉脱维亚 (Latvia) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

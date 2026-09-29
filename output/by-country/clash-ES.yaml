@@ -13,40 +13,28 @@ proxies:
   alterId: 0
   cipher: auto
 - name: 🇪🇸 西班牙 (Spain) 02
-  server: 185.174.137.172
-  port: 8446
-  udp: true
-  type: hysteria2
-  password: e9dc02d400b67c727aca1620
-  sni: 185.174.137.172
-  skip-cert-verify: true
-- name: 🇪🇸 西班牙 (Spain) 03
-  server: 140.174.184.5
+  server: 108.181.121.226
   port: 8388
   udp: true
   type: ss
   cipher: chacha20-ietf-poly1305
-  password: qItG8SueYQcP
-- name: 🇪🇸 西班牙 (Spain) 04
-  server: xby.mangshe.xyz
-  port: 2060
+  password: WSyL4XTwNsdv
+- name: 🇪🇸 西班牙 (Spain) 03
+  server: 66.163.118.73
+  port: 443
   udp: true
-  type: hysteria2
-  password: 5d0a6445-a30d-4522-bb1f-94f1d3ad63be
-  sni: xby.mangshe.xyz
-  skip-cert-verify: true
-- name: 🇪🇸 西班牙 (Spain) 05
-  server: 212.227.235.66
-  port: 2053
-  udp: true
-  type: vless
-  uuid: ead0dd61-d398-40ad-80d6-a0e1e516d7d3
+  type: vmess
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  alterId: 0
+  cipher: auto
   tls: true
-  reality-opts:
-    public-key: 7Y6Xb5Ql_03K25x8yKUSOKI2JTOMyv2nyCcFza90uxk
-    short-id: 29e8dcd2b37aaa7f
-  servername: www.apple.com
-  client-fingerprint: chrome
+  servername: mygptagent.org
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /linkvws
+    headers:
+      Host: mygptagent.org
 proxy-groups:
 - name: PROXIES
   type: select
@@ -55,8 +43,6 @@ proxy-groups:
   - 🇪🇸 西班牙 (Spain) 01
   - 🇪🇸 西班牙 (Spain) 02
   - 🇪🇸 西班牙 (Spain) 03
-  - 🇪🇸 西班牙 (Spain) 04
-  - 🇪🇸 西班牙 (Spain) 05
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -65,7 +51,5 @@ proxy-groups:
   - 🇪🇸 西班牙 (Spain) 01
   - 🇪🇸 西班牙 (Spain) 02
   - 🇪🇸 西班牙 (Spain) 03
-  - 🇪🇸 西班牙 (Spain) 04
-  - 🇪🇸 西班牙 (Spain) 05
 rules:
 - MATCH,PROXIES
