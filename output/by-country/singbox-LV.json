@@ -4,26 +4,76 @@
   },
   "outbounds": [
     {
-      "type": "shadowsocks",
+      "type": "vless",
       "tag": "🇱🇻 拉脱维亚 (Latvia) 01",
-      "server": "185.135.86.175",
-      "server_port": 9017,
-      "method": "aes-256-cfb",
-      "password": "HAVAdE3nXhqA5nHp"
+      "server": "138.124.180.137",
+      "server_port": 443,
+      "uuid": "5234b2b7-5e07-422c-8159-d62a676c00c6",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "GBdkyDLfr0LIZo_94Xv8ycAKOmkjArYzwJAEMhuXX2c",
+          "short_id": "33acba1b"
+        }
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇱🇻 拉脱维亚 (Latvia) 02",
+      "server": "212.192.14.212",
+      "server_port": 8113,
+      "password": "ODM2MzExOTcyMCwxNzkwNTMyNzE0ksak7YOGMD",
+      "tls": {
+        "enabled": true,
+        "server_name": "lat1.lumenvpn.tech",
+        "insecure": false
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇱🇻 拉脱维亚 (Latvia) 03",
+      "server": "31.57.28.147",
+      "server_port": 443,
+      "uuid": "2412bd96-925b-43f2-81d1-0ed4f0793699",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "download-cdn.jetbrains.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "d7yg69dK4DkaV1EPpQcgd4GBncMN9u1o1Nk9u-i7wGc",
+          "short_id": "7a18a196e730e1d5"
+        }
+      }
     },
     {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇱🇻 拉脱维亚 (Latvia) 01"
+        "🇱🇻 拉脱维亚 (Latvia) 01",
+        "🇱🇻 拉脱维亚 (Latvia) 02",
+        "🇱🇻 拉脱维亚 (Latvia) 03"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇱🇻 拉脱维亚 (Latvia) 01"
+        "🇱🇻 拉脱维亚 (Latvia) 01",
+        "🇱🇻 拉脱维亚 (Latvia) 02",
+        "🇱🇻 拉脱维亚 (Latvia) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

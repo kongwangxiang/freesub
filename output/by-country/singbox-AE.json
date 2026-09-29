@@ -4,8 +4,19 @@
   },
   "outbounds": [
     {
-      "type": "hysteria2",
+      "type": "vless",
       "tag": "🇦🇪 阿联酋 (UAE) 01",
+      "server": "104.143.223.82",
+      "server_port": 2085,
+      "uuid": "86f50dfb-b153-4aef-a723-d77bc4cf8ee3",
+      "transport": {
+        "type": "grpc",
+        "service_name": "vless"
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇦🇪 阿联酋 (UAE) 02",
       "server": "130.49.161.70",
       "server_port": 443,
       "password": "p7Q76LzlnS4hIzr1W3staBOnUe_WwSkR",
@@ -21,8 +32,8 @@
     },
     {
       "type": "hysteria2",
-      "tag": "🇦🇪 阿联酋 (UAE) 02",
-      "server": "85.204.107.178",
+      "tag": "🇦🇪 阿联酋 (UAE) 03",
+      "server": "85.204.107.181",
       "server_port": 8080,
       "password": "Jz40_mIJ934vK0_k9D3jz92_Vx48q_GHa1_sz0",
       "tls": {
@@ -33,12 +44,16 @@
     },
     {
       "type": "vless",
-      "tag": "🇦🇪 阿联酋 (UAE) 03",
-      "server": "uae.unixzone.us",
+      "tag": "🇦🇪 阿联酋 (UAE) 04",
+      "server": "84.235.244.108",
       "server_port": 22573,
       "uuid": "39947382-3212-41c9-bc3a-589574ac8b23",
       "transport": {
-        "type": "ws"
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "uae.unixzone.us"
+        }
       }
     },
     {
@@ -48,7 +63,8 @@
         "auto",
         "🇦🇪 阿联酋 (UAE) 01",
         "🇦🇪 阿联酋 (UAE) 02",
-        "🇦🇪 阿联酋 (UAE) 03"
+        "🇦🇪 阿联酋 (UAE) 03",
+        "🇦🇪 阿联酋 (UAE) 04"
       ]
     },
     {
@@ -57,7 +73,8 @@
       "outbounds": [
         "🇦🇪 阿联酋 (UAE) 01",
         "🇦🇪 阿联酋 (UAE) 02",
-        "🇦🇪 阿联酋 (UAE) 03"
+        "🇦🇪 阿联酋 (UAE) 03",
+        "🇦🇪 阿联酋 (UAE) 04"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

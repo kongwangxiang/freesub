@@ -6,6 +6,27 @@
     {
       "type": "vless",
       "tag": "🇲🇾 马来西亚 (Malaysia) 01",
+      "server": "my1.miyazono-kaori.com",
+      "server_port": 443,
+      "uuid": "4588f7a2-5df0-4f32-89d0-813a848ad593",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.setel.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "t3HU7p5iYjE9Lcq2-QHTXZFhpAvoXljTNDgmFkFN-Tc",
+          "short_id": "99f8972e3dd5ed"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇲🇾 马来西亚 (Malaysia) 02",
       "server": "platform128.golnamakcert.top",
       "server_port": 80,
       "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
@@ -18,86 +39,12 @@
       }
     },
     {
-      "type": "vless",
-      "tag": "🇲🇾 马来西亚 (Malaysia) 02",
-      "server": "platform101.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform101",
-        "headers": {
-          "Host": "platform101.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇲🇾 马来西亚 (Malaysia) 03",
-      "server": "platform103.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform103",
-        "headers": {
-          "Host": "platform103.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇲🇾 马来西亚 (Malaysia) 04",
-      "server": "platform117.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform117",
-        "headers": {
-          "Host": "platform117.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇲🇾 马来西亚 (Malaysia) 05",
-      "server": "platform118.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform118",
-        "headers": {
-          "Host": "platform118.halalkhor.info"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇲🇾 马来西亚 (Malaysia) 06",
-      "server": "platform108.golnamakcert.top",
-      "server_port": 80,
-      "uuid": "e13cf851-b4fd-413b-8d49-146e6eb8e5d4",
-      "transport": {
-        "type": "ws",
-        "path": "/platform108",
-        "headers": {
-          "Host": "platform108.halalkhor.info"
-        }
-      }
-    },
-    {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
         "🇲🇾 马来西亚 (Malaysia) 01",
-        "🇲🇾 马来西亚 (Malaysia) 02",
-        "🇲🇾 马来西亚 (Malaysia) 03",
-        "🇲🇾 马来西亚 (Malaysia) 04",
-        "🇲🇾 马来西亚 (Malaysia) 05",
-        "🇲🇾 马来西亚 (Malaysia) 06"
+        "🇲🇾 马来西亚 (Malaysia) 02"
       ]
     },
     {
@@ -105,11 +52,7 @@
       "tag": "auto",
       "outbounds": [
         "🇲🇾 马来西亚 (Malaysia) 01",
-        "🇲🇾 马来西亚 (Malaysia) 02",
-        "🇲🇾 马来西亚 (Malaysia) 03",
-        "🇲🇾 马来西亚 (Malaysia) 04",
-        "🇲🇾 马来西亚 (Malaysia) 05",
-        "🇲🇾 马来西亚 (Malaysia) 06"
+        "🇲🇾 马来西亚 (Malaysia) 02"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },
