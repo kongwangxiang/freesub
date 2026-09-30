@@ -15,7 +15,7 @@ proxies:
   obfs: salamander
   obfs-password: rG07s3COMIEvdnQipRyWzx_H_2xygNC3
 - name: 🇦🇪 阿联酋 (UAE) 02
-  server: 85.204.107.175
+  server: 85.204.107.174
   port: 8080
   udp: true
   type: hysteria2
@@ -33,6 +33,31 @@ proxies:
     path: /
     headers:
       Host: uae.unixzone.us
+- name: 🇦🇪 阿联酋 (UAE) 04
+  server: 78.17.161.75
+  port: 443
+  udp: true
+  type: vless
+  uuid: 6db7ea14-ed33-4591-a9b1-f1e91b1c0ff5
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: Jx7Z4PZ5DvGyEniIJhf6LwetaZ1_WDvPdpqtBDYOjyM
+    short-id: c2798cd4032a02b8
+  servername: www.nl.ozone.nl
+  client-fingerprint: firefox
+- name: 🇦🇪 阿联酋 (UAE) 05
+  server: 151.241.166.181
+  port: 443
+  udp: true
+  type: vless
+  uuid: e9844617-e393-4876-afa7-11859695f4ee
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: SoMfQzFhE5QfKWMZA7ZNkYP63P5hiyWEbE9fsPIP4Go
+  servername: pl.gazladder.work
+  client-fingerprint: firefox
 proxy-groups:
 - name: PROXIES
   type: select
@@ -41,6 +66,8 @@ proxy-groups:
   - 🇦🇪 阿联酋 (UAE) 01
   - 🇦🇪 阿联酋 (UAE) 02
   - 🇦🇪 阿联酋 (UAE) 03
+  - 🇦🇪 阿联酋 (UAE) 04
+  - 🇦🇪 阿联酋 (UAE) 05
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -49,5 +76,7 @@ proxy-groups:
   - 🇦🇪 阿联酋 (UAE) 01
   - 🇦🇪 阿联酋 (UAE) 02
   - 🇦🇪 阿联酋 (UAE) 03
+  - 🇦🇪 阿联酋 (UAE) 04
+  - 🇦🇪 阿联酋 (UAE) 05
 rules:
 - MATCH,PROXIES

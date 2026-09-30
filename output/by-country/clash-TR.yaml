@@ -16,20 +16,8 @@ proxies:
     public-key: fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI
     short-id: db04ce8bdb8900f1
   servername: nvidia.com
-  client-fingerprint: firefox
+  client-fingerprint: ''
 - name: 🇹🇷 土耳其 (Turkey) 02
-  server: 151.241.226.201
-  port: 2053
-  udp: true
-  type: vless
-  uuid: 0eed6293-8cf1-4e77-ac10-9c3d50d0b2f8
-  tls: true
-  reality-opts:
-    public-key: bYW_MmB_CUHrsyoCAUKviI2LZdHf63yY2yOPXbih104
-    short-id: 9e419c0759b54d6f
-  servername: www.apple.com
-  client-fingerprint: chrome
-- name: 🇹🇷 土耳其 (Turkey) 03
   server: 19990ed1bb252449.IROnlY4l.Ir
   port: 443
   udp: true
@@ -48,7 +36,6 @@ proxy-groups:
   - AUTO
   - 🇹🇷 土耳其 (Turkey) 01
   - 🇹🇷 土耳其 (Turkey) 02
-  - 🇹🇷 土耳其 (Turkey) 03
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -56,6 +43,5 @@ proxy-groups:
   proxies:
   - 🇹🇷 土耳其 (Turkey) 01
   - 🇹🇷 土耳其 (Turkey) 02
-  - 🇹🇷 土耳其 (Turkey) 03
 rules:
 - MATCH,PROXIES

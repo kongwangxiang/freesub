@@ -4,28 +4,21 @@
   },
   "outbounds": [
     {
-      "type": "trojan",
-      "tag": "🇧🇷 巴西 (Brazil) 01",
-      "server": "199.232.78.170",
-      "server_port": 443,
-      "password": "mitivpn",
+      "type": "vless",
+      "tag": "🇰🇿 哈萨克斯坦 (Kazakhstan) 01",
+      "server": "89.218.15.90",
+      "server_port": 10002,
+      "uuid": "392fcc7e-b995-11f1-a6b7-1b2272a86bd5",
       "tls": {
         "enabled": true,
-        "server_name": "ssl.fastly.com",
-        "insecure": false,
-        "alpn": [
-          "http/1.1"
-        ],
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        }
+        "server_name": "kz1.vpnjantit.com",
+        "insecure": false
       },
       "transport": {
         "type": "ws",
-        "path": "@mehrosabiran",
+        "path": "/vpnjantit",
         "headers": {
-          "Host": "mitivpn---de--s---mitivpn-11.global.ssl.fastly.net"
+          "Host": "kz1.vpnjantit.com"
         }
       }
     },
@@ -34,14 +27,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇧🇷 巴西 (Brazil) 01"
+        "🇰🇿 哈萨克斯坦 (Kazakhstan) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇧🇷 巴西 (Brazil) 01"
+        "🇰🇿 哈萨克斯坦 (Kazakhstan) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

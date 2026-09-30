@@ -13,6 +13,14 @@ proxies:
   alterId: 0
   cipher: auto
 - name: 🇰🇷 韩国 (South Korea) 02
+  server: 132.226.226.189
+  port: 50160
+  udp: true
+  type: hysteria2
+  password: 1671a252e2a97dc2bda4e515475931da
+  sni: www.bing.com
+  skip-cert-verify: true
+- name: 🇰🇷 韩国 (South Korea) 03
   server: 3.39.4.109
   port: 18967
   udp: true
@@ -24,42 +32,16 @@ proxies:
     public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
     short-id: 48050fab
   servername: www.apple.com
-  client-fingerprint: firefox
-- name: 🇰🇷 韩国 (South Korea) 03
-  server: 3.39.4.109
-  port: 13672
-  udp: true
-  type: vless
-  uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-    short-id: 48050fab
-  servername: www.apple.com
-  client-fingerprint: chrome
+  client-fingerprint: qq
 - name: 🇰🇷 韩国 (South Korea) 04
-  server: icn-a-02.auuas.com
-  port: 1891
-  udp: true
-  type: vless
-  uuid: 81c4547b-e5d8-4af8-baf0-91c5c0c05a9b
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: 2olNWILpuviXx_Nr30JZc5tpt3MgtWda7jLGwAOxPxY
-    short-id: 8378f267
-  servername: www.npmjs.com
-  client-fingerprint: edge
-- name: 🇰🇷 韩国 (South Korea) 05
-  server: 152.70.237.123
-  port: 2053
+  server: 152.69.231.175
+  port: 50160
   udp: true
   type: hysteria2
-  password: maintell
-  sni: bing.com
-  skip-cert-verify: true
-- name: 🇰🇷 韩国 (South Korea) 06
+  password: 1beb216e3f60aea9555dae60d219a5ca
+  sni: 152-69-231-175.liao.kdns.fr
+  skip-cert-verify: false
+- name: 🇰🇷 韩国 (South Korea) 05
   server: vpn-kr-002.fastervpn.world
   port: 443
   udp: true
@@ -67,6 +49,19 @@ proxies:
   password: H7mP2xY9kJ4nQ9wR5tF6vB3z
   sni: vpn-kr-002.fastervpn.world
   skip-cert-verify: true
+- name: 🇰🇷 韩国 (South Korea) 06
+  server: 132.145.80.230
+  port: 80
+  udp: true
+  type: vmess
+  uuid: 5155860e-d07d-46c3-9128-3afbd84626c7
+  alterId: 0
+  cipher: auto
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: kr02.a0a.xyz
 - name: 🇰🇷 韩国 (South Korea) 07
   server: 151.245.106.49
   port: 2053
@@ -85,7 +80,7 @@ proxies:
   udp: true
   type: hysteria2
   password: 3d7634af8cb2c6cb4bac1c0efad8b43d
-  sni: t.me
+  sni: 'off'
   skip-cert-verify: true
 - name: 🇰🇷 韩国 (South Korea) 09
   server: 154.90.62.70
@@ -96,26 +91,34 @@ proxies:
   sni: 154.90.62.70
   skip-cert-verify: true
 - name: 🇰🇷 韩国 (South Korea) 10
-  server: 152-69-231-175.liao.kdns.fr
+  server: 3.39.4.109
+  port: 13672
+  udp: true
+  type: vless
+  uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+    short-id: 48050fab
+  servername: www.apple.com
+  client-fingerprint: edge
+- name: 🇰🇷 韩国 (South Korea) 11
+  server: 152.70.237.123
+  port: 2053
+  udp: true
+  type: hysteria2
+  password: maintell
+  sni: bing.com
+  skip-cert-verify: true
+- name: 🇰🇷 韩国 (South Korea) 12
+  server: 131.186.19.174
   port: 50160
   udp: true
   type: hysteria2
-  password: 1beb216e3f60aea9555dae60d219a5ca
-  sni: 152-69-231-175.liao.kdns.fr
+  password: 7302ad33229de166d393cd56143a1e4c
+  sni: whatsapp.com
   skip-cert-verify: true
-- name: 🇰🇷 韩国 (South Korea) 11
-  server: 132.145.80.230
-  port: 80
-  udp: true
-  type: vmess
-  uuid: 5155860e-d07d-46c3-9128-3afbd84626c7
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /cctv13.m3u8
-    headers:
-      Host: kr02.a0a.xyz
 proxy-groups:
 - name: PROXIES
   type: select
@@ -132,6 +135,7 @@ proxy-groups:
   - 🇰🇷 韩国 (South Korea) 09
   - 🇰🇷 韩国 (South Korea) 10
   - 🇰🇷 韩国 (South Korea) 11
+  - 🇰🇷 韩国 (South Korea) 12
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -148,5 +152,6 @@ proxy-groups:
   - 🇰🇷 韩国 (South Korea) 09
   - 🇰🇷 韩国 (South Korea) 10
   - 🇰🇷 韩国 (South Korea) 11
+  - 🇰🇷 韩国 (South Korea) 12
 rules:
 - MATCH,PROXIES
