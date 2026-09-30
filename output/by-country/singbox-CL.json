@@ -5,24 +5,21 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🇺🇸 美国 (United States) 01 (移动家宽)",
-      "server": "104.21.78.9",
+      "tag": "🇨🇱 智利 (Chile) 01",
+      "server": "34.176.187.219",
       "server_port": 443,
-      "uuid": "a8890c1b-3622-3106-c4be-d8671be32d2b",
+      "uuid": "ad5325f8-f0b3-41c4-a561-113529b60e70",
       "tls": {
         "enabled": true,
-        "server_name": "summer-meadow-af5b.woowoorrrkk.workers.dev",
-        "insecure": false,
+        "server_name": "www.cloudflare.com",
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
-        }
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/sync?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET",
-        "headers": {
-          "Host": "summer-meadow-af5b.woowoorrrkk.workers.dev"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "HnHVuSObMrldWGzq1-Eb93fwgu6QQRp6H0_8LX3ikDc",
+          "short_id": "2c2d919f5183d0b7"
         }
       }
     },
@@ -31,14 +28,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇺🇸 美国 (United States) 01 (移动家宽)"
+        "🇨🇱 智利 (Chile) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇺🇸 美国 (United States) 01 (移动家宽)"
+        "🇨🇱 智利 (Chile) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

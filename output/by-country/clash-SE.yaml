@@ -5,45 +5,43 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇪 瑞典 (Sweden) 01
-  server: sw-01.vacvps.com
+  server: 34.51.187.118
   port: 443
   udp: true
   type: vless
-  uuid: 84a3061b-3573-4a3c-a631-f26c31209268
-  flow: xtls-rprx-vision
+  uuid: e4be912f-68e8-4d51-80a4-1342b646f8e0
   tls: true
   reality-opts:
-    public-key: bDAry75taTMaPJII9vRrJuXAjQglTJxCOVWraQ5BozY
-  servername: sw-01.vacvps.com
-  client-fingerprint: firefox
+    public-key: fV003yDr_sb_Wkgz6MxnIUJMgD15osWhzU-HZ5fLPFg
+    short-id: 79ff7d51e3c56323
+  servername: www.cloudflare.com
+  client-fingerprint: chrome
 - name: 🇸🇪 瑞典 (Sweden) 02
-  server: surstreming.vvzzkontaktezzvv.garden
+  server: 34.51.240.236
   port: 443
   udp: true
   type: vless
-  uuid: 4bdeee92-97e8-414d-bef6-ec1d5e2ab73b
-  flow: xtls-rprx-vision
+  uuid: 788950f8-dbd9-4234-a42c-a7204665ce9f
   tls: true
   reality-opts:
-    public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
-    short-id: fb442438e2223836
-  servername: surstreming.vvzzkontaktezzvv.garden
+    public-key: SOvacyM6CABhBHYdOHvhXbkNLHJBHuAkoJj2Z13xKlE
+    short-id: b4a6faed784ff461
+  servername: www.cloudflare.com
   client-fingerprint: chrome
 - name: 🇸🇪 瑞典 (Sweden) 03
-  server: 62.60.159.81
-  port: 2053
+  server: 176.108.246.110
+  port: 9830
   udp: true
   type: vless
-  uuid: fc00adfb-232a-46ce-8b93-0c70e516aa8a
+  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
   tls: true
   reality-opts:
-    public-key: ygmJxS-Mc7g0buNSUTVGhazT-FoBjyYtLLfUYIQxFTw
-    short-id: d0ea1847066af5a6
-  servername: www.samsung.com
+    public-key: bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU
+  servername: dl.google.com
   client-fingerprint: chrome
   network: grpc
   grpc-opts:
-    grpc-service-name: grpce5bb9e71
+    grpc-service-name: grpc-tunnel
 proxy-groups:
 - name: PROXIES
   type: select
