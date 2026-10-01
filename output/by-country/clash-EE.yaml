@@ -6,6 +6,17 @@ log-level: info
 proxies:
 - name: 🇪🇪 爱沙尼亚 (Estonia) 01
   server: 94.183.170.135
+  port: 443
+  udp: true
+  type: vless
+  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: estproxy4.lockdwn.com
+- name: 🇪🇪 爱沙尼亚 (Estonia) 02
+  server: 94.183.170.135
   port: 8443
   udp: true
   type: vless
@@ -13,18 +24,37 @@ proxies:
   tls: true
   servername: estproxy4.lockdwn.com
   skip-cert-verify: false
-  client-fingerprint: firefox
+  client-fingerprint: edge
+- name: 🇪🇪 爱沙尼亚 (Estonia) 03
+  server: ee10.zazazuza.ru
+  port: 8443
+  udp: true
+  type: vless
+  uuid: 6c713691-3ca2-4446-ad25-113d1bed6b03
+  tls: true
+  servername: fdghyt.com
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /vpn-wss/fluxor/59011/
+    headers:
+      Host: fdghyt.com
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
   - 🇪🇪 爱沙尼亚 (Estonia) 01
+  - 🇪🇪 爱沙尼亚 (Estonia) 02
+  - 🇪🇪 爱沙尼亚 (Estonia) 03
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
   - 🇪🇪 爱沙尼亚 (Estonia) 01
+  - 🇪🇪 爱沙尼亚 (Estonia) 02
+  - 🇪🇪 爱沙尼亚 (Estonia) 03
 rules:
 - MATCH,PROXIES

@@ -5,360 +5,215 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇩🇪 德国 (Germany) 01
-  server: 104.21.76.194
+  server: 104.21.36.36
   port: 443
   udp: true
-  type: trojan
-  password: Telegram_healer_config
-  sni: X8xus4X7UTZMDozv2.bZuH25LZINNeTwTOcXYIcx.WORkERs.deV
+  type: vless
+  uuid: 41750e18-7143-49a3-bdac-4edcb3c8b8f3
+  tls: true
+  servername: h3hadzojqmjxwseayj0dwe4o0.ade-1018.workers.dev
   skip-cert-verify: false
+  client-fingerprint: chrome
   network: ws
   ws-opts:
-    path: /tr/nDuppKYyUqsEcG0rcQEg5sghG0?ed
+    path: /vl/ml3Epzqnzr8r2cTPtolbD5lTi1GWsZOP?ed=2560
+    headers:
+      Host: h3hadzojqmjxwseayj0dwe4o0.ade-1018.workers.dev
 - name: 🇩🇪 德国 (Germany) 02
-  server: 104.18.34.21
-  port: 8443
+  server: 8.209.74.72
+  port: 20001
   udp: true
-  type: vless
-  uuid: 656bb400-3b7a-47e3-94b0-0362f3865072
-  tls: true
-  servername: socks5.revil-time3.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /socks5://128.140.46.169:13482
-    headers:
-      Host: socks5.revil-time3.workers.dev
+  type: ss
+  cipher: chacha20-ietf-poly1305
+  password: PWpjPo3tqhPN4yRZ
 - name: 🇩🇪 德国 (Germany) 03
-  server: 104.21.61.141
-  port: 443
+  server: 213.202.208.199
+  port: 7001
   udp: true
-  type: vless
-  uuid: f85183cf-af02-4656-b1e9-3a61dced201f
-  tls: true
-  servername: fReeWORLd.aliAicODe47649.woRKers.Dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/a6yBMrki2p7ptrchleFfb?ed=2560
-    headers:
-      Host: freeworld.aliaicode47649.workers.dev
+  type: ss
+  cipher: aes-256-gcm
+  password: RexnBgU7EV5ADxG
 - name: 🇩🇪 德国 (Germany) 04
-  server: 172.67.145.5
-  port: 443
+  server: 31.76.11.83
+  port: 26070
   udp: true
   type: vless
-  uuid: 20836693-ea23-4f40-a1e7-48a6da897917
-  tls: true
-  servername: netra-85a0ca.shoameni19.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/bluTTbb7MO8rvX1COEYH4WW4qzbr2aui
-    headers:
-      Host: netra-85a0ca.shoameni19.workers.dev
+  uuid: e676c6c8-44a8-4a1d-82cc-821a1f70f0c0
 - name: 🇩🇪 德国 (Germany) 05
-  server: 172.67.167.77
-  port: 443
+  server: 51.195.126.38
+  port: 8388
   udp: true
-  type: vless
-  uuid: cc08d2d0-8a7a-4469-81d2-c43704451271
-  tls: true
-  servername: 9tg-d0htbrb5e3tp0c-o7ix23cx0f.ftfgblgft6-1h2iv2oo4h0.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/6871nrbnl9WsdAiOUInt
-    headers:
-      Host: 9tg-d0htbrb5e3tp0c-o7ix23cx0f.ftfgblgft6-1h2iv2oo4h0.workers.dev
+  type: ss
+  cipher: chacha20-ietf-poly1305
+  password: 2YdE4lFOid5a
 - name: 🇩🇪 德国 (Germany) 06
-  server: 104.21.16.109
-  port: 443
+  server: 185.177.229.128
+  port: 22324
   udp: true
-  type: vless
-  uuid: cc08d2d0-8a7a-4469-81d2-c43704451271
-  tls: true
-  servername: 9tg-d0htbrb5e3tp0c-o7ix23cx0f.ftfgblgft6-1h2iv2oo4h0.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/6871nrbnl9WsdAiOUInt
-    headers:
-      Host: 9tg-d0htbrb5e3tp0c-o7ix23cx0f.ftfgblgft6-1h2iv2oo4h0.workers.dev
+  type: vmess
+  uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  alterId: 0
+  cipher: auto
 - name: 🇩🇪 德国 (Germany) 07
-  server: 104.21.81.162
-  port: 443
+  server: 169.150.210.233
+  port: 8080
   udp: true
-  type: vless
-  uuid: 20836693-ea23-4f40-a1e7-48a6da897917
-  tls: true
-  servername: netra-85a0ca.shoameni19.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/bluTTbb7MO8rvX1COEYH4WW4qzbr2aui
-    headers:
-      Host: netra-85a0ca.shoameni19.workers.dev
+  type: ss
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
 - name: 🇩🇪 德国 (Germany) 08
-  server: 172.67.203.158
-  port: 443
+  server: freesocks.work
+  port: 2052
   udp: true
   type: vless
-  uuid: 911b84e1-d046-4fbf-bfc0-c168791115ef
-  tls: true
-  servername: 12YGbaE0K3gN0z0f.mEhrsHADHaDdadI8.WorkerS.DEv
-  skip-cert-verify: false
-  client-fingerprint: chrome
+  uuid: e3fb01b6-69b4-41d7-babf-696d992de194
   network: ws
   ws-opts:
-    path: /vl/YCNmDFbqMu7cgTzgsfEWGtBD8kR
+    path: /@BlueKnight_net--@BlueKnight_net
     headers:
-      Host: 12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev
+      Host: uwu.blueknightnet.qzz.io
 - name: 🇩🇪 德国 (Germany) 09
-  server: 104.21.96.1
-  port: 443
+  server: 209.46.102.22
+  port: 8388
   udp: true
-  type: vless
-  uuid: 0836463b-214f-4af6-aa85-85a56a62388e
-  tls: true
-  servername: d2127a49-flat-wood-c4b5.milia-akbarpoor.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: d2127a49-flat-wood-c4b5.milia-akbarpoor.workers.dev
+  type: ss
+  cipher: chacha20-ietf-poly1305
+  password: 1hhrqrokj3ag
 - name: 🇩🇪 德国 (Germany) 10
-  server: 104.21.69.37
+  server: meow-berlin.nethcloud.top
   port: 443
   udp: true
-  type: vless
-  uuid: 911b84e1-d046-4fbf-bfc0-c168791115ef
-  tls: true
-  servername: 12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/uWq9DFRgj8BwQiSXmZ46
-    headers:
-      Host: 12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev
+  type: hysteria2
+  password: 4cbefb4d-328c-411d-bf76-780df1082df8
+  sni: meow-berlin.nethcloud.top
+  skip-cert-verify: true
 - name: 🇩🇪 德国 (Germany) 11
-  server: 188.114.96.8
-  port: 443
+  server: 85.234.100.9
+  port: 40443
   udp: true
-  type: trojan
-  password: Telegram_healer_config
-  sni: y9p34jpjmqjazaypf.piiwddilxjcqehr17af22u7xk-yu.workers.dev
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /tr/1nWXnOaq1ajP7PKxbRS7Sdck48oy?ed=2560
+  type: vless
+  uuid: bb0f1ed0-0298-40a1-adb1-1f5d6ab33d54
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: w4AYHvQnQS6olDqoG9ptLOtgehaWOsv9HQhDax5bLA4
+    short-id: db46e2946fc466fd
+  servername: deepl.com
+  client-fingerprint: random
 - name: 🇩🇪 德国 (Germany) 12
-  server: 188.114.97.8
-  port: 8443
+  server: 162.55.242.208
+  port: 2053
   udp: true
   type: vless
-  uuid: d4d2d3f3-9dec-4e8f-8daf-145ecac96e66
+  uuid: 659ffdfa-47d2-47d7-af40-5afe0907eead
   tls: true
-  servername: cRIMSON-LeAf-7E45.hzhdUuEBFjDCB.workERs.DEv
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /eyJqdW5rIjoiODgwQ1AwWDV0MnFTRWE1cCIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=
-    headers:
-      Host: crimson-leaf-7e45.hzhduuebfjdcb.workers.dev
+  reality-opts:
+    public-key: jeS6Zu-p1Gf6GtraIAbpgQoSeT26Xq3GqgqVxccbVhY
+    short-id: 4d14da19b19cfc8c
+  servername: www.cloudflare.com
+  client-fingerprint: firefox
 - name: 🇩🇪 德国 (Germany) 13
-  server: 63.141.128.22
-  port: 443
+  server: iranivib.kashimo.top
+  port: 57007
   udp: true
   type: vless
-  uuid: b8b01773-36b1-4b49-9bd0-6249f52345b4
+  uuid: ce4b2104-f1fe-4216-ad67-8c21869b9118
+  flow: xtls-rprx-vision
   tls: true
-  servername: MiSty-tooth-78cA.FoboGAH414-e7B.WoRKERs.DEv
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /eyJqdW5rIjoiTkNUaFg0ZnJNUjhhcyIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=
-    headers:
-      Host: MiSty-tooth-78cA.FoboGAH414-e7B.WoRKERs.DEv
+  reality-opts:
+    public-key: xJrOVncq9U06-mrcoQMJRVT0ZI3pKiL870j_FYHnswg
+    short-id: 86652c20afc7a2bc
+  servername: scone-pa.clients6.google.com
+  client-fingerprint: chrome
 - name: 🇩🇪 德国 (Germany) 14
-  server: 104.21.70.21
+  server: nasnet-571296497-direct.mbghalibaf.com
   port: 443
   udp: true
-  type: trojan
-  password: Telegram_healer_config
-  sni: bjsa2ygfitzjtho8ucze29xf2m2q9c.g3fiajpf0erm9k3x6ww-yegzl2.workers.dev
+  type: vless
+  uuid: nasnet
+  flow: xtls-rprx-vision
+  tls: true
+  servername: nasnet-571296497-direct.mbghalibaf.com
   skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /tr/J6IJuAAWkqyiEt8UkeRnVdLlkLIGukLr?ed=2560
+  client-fingerprint: chrome
 - name: 🇩🇪 德国 (Germany) 15
-  server: 104.19.164.155
-  port: 2083
+  server: 35.246.185.109
+  port: 443
   udp: true
-  type: vless
-  uuid: 532a9115-aee7-4d39-9638-1e5146de075b
-  tls: true
-  servername: muddy-math-c1fc.tmpnriqueau89.workers.dev
+  type: trojan
+  password: M7v%w11Se*
+  sni: dggg.wsone.icu
   skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: muddy-math-c1fc.tmpnriqueau89.workers.dev
 - name: 🇩🇪 德国 (Germany) 16
-  server: 104.21.42.129
-  port: 2087
+  server: 2.58.81.221
+  port: 80
   udp: true
-  type: trojan
-  password: eabf1999fefbb7d2
-  sni: WaYSi.wAYsI6688.WOrkeRS.deV
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /tr/sMpzOZ0eWEt6jbZ1jjN3BaM7LLoQ
+  type: ss
+  cipher: aes-256-gcm
+  password: kKEd0rBrd56Furjz
 - name: 🇩🇪 德国 (Germany) 17
-  server: 66.81.247.155
-  port: 2083
+  server: 189.24.82.195
+  port: 443
   udp: true
   type: vless
-  uuid: 6cc29a05-4828-4e48-a34a-20b7ada60e85
+  uuid: bf7ca7a3-a028-488e-b9f1-34e467d6d897
   tls: true
-  servername: testmikonim.hydrymhmdamyn7.workers.dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
+  reality-opts:
+    public-key: oXHb-GX9ExLRs-CcFwllm6zp99jpx7yAdxrvAV1sZ18
+    short-id: 3eaacc9b
+  servername: itunes.apple.com
+  client-fingerprint: ''
   network: ws
   ws-opts:
-    path: /OAZko425kNFF0PpQ
+    path: /ws
     headers:
-      Host: testmikonim.hydrymhmdamyn7.workers.dev
+      Host: itunes.apple.com
 - name: 🇩🇪 德国 (Germany) 18
-  server: 172.66.44.124
-  port: 8443
+  server: de1.xiaoliyu.cyou
+  port: 4433
   udp: true
-  type: vless
-  uuid: b2f2f9f2-1864-48ea-839b-22815faff1f1
-  tls: true
-  servername: stf839dvvyog9d2qa4-b8z6ahgn7b7qi.pages.dev
-  skip-cert-verify: false
-  client-fingerprint: randomized
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: stf839dvvyog9d2qa4-b8z6ahgn7b7qi.pages.dev
+  type: hysteria2
+  password: 19f72087-4591-4d72-930b-2697078ec2be
+  sni: de1.xiaoliyu.cyou
+  skip-cert-verify: true
 - name: 🇩🇪 德国 (Germany) 19
-  server: 199.232.78.170
+  server: 193.108.117.54
   port: 443
   udp: true
-  type: trojan
-  password: mitivpn
-  sni: ssl.fastly.com
+  type: vmess
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  alterId: 0
+  cipher: auto
+  tls: true
+  servername: aidrivercat.org
   skip-cert-verify: false
   network: ws
   ws-opts:
-    path: '@mehrosabiran'
+    path: /linkvws
 - name: 🇩🇪 德国 (Germany) 20
-  server: 188.114.97.7
+  server: covers.pantera-radio.ru
   port: 443
   udp: true
-  type: vless
-  uuid: ba49d874-fe02-465d-82d3-ed981dc7694f
-  tls: true
-  servername: o94Yv7LIF0-aNXISd9eFehvvS7mxn6bH.Z-ULe-iKa-d-e-ne-K-e.wORkeRs.Dev
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /7J5lLqtBnJg9WjVT?ed
-    headers:
-      Host: o94yv7lif0-anxisd9efehvvs7mxn6bh.z-ule-ika-d-e-ne-k-e.workers.dev
+  type: hysteria2
+  password: 0a11d3b4-682c-4bfb-afb0-820b8285cb4b
+  sni: covers.pantera-radio.ru
+  skip-cert-verify: true
 - name: 🇩🇪 德国 (Germany) 21
-  server: 104.21.70.223
+  server: port2.axiomed.ir
   port: 443
   udp: true
   type: vless
-  uuid: 527451fe-ee1f-4e6f-94ca-808f055f7c9b
+  uuid: d443c411-85e4-4e0e-8251-2294d7e7ae0b
   tls: true
-  servername: 05a5f9v5a6cm563ieoye7j-8tnpd.hsysyegegrygvvvdujhh.workers.dev
+  servername: JwD9bmigRp5s8PqHAYvpR6DJ6Ol.fORNewIRaN-1014.wOrkErS.Dev
   skip-cert-verify: false
   client-fingerprint: chrome
   network: ws
   ws-opts:
-    path: /vl/ERYN0G44hia16zhR
+    path: /vl/II2kyrr06FWkCZfkFs?ed=2560
     headers:
-      Host: 05a5f9v5a6cm563ieoye7j-8tnpd.hsysyegegrygvvvdujhh.workers.dev
+      Host: jwd9bmigrp5s8pqhayvpr6dj6ol.fornewiran-1014.workers.dev
 - name: 🇩🇪 德国 (Germany) 22
-  server: 188.114.98.134
-  port: 443
-  udp: true
-  type: vless
-  uuid: ba49d874-fe02-465d-82d3-ed981dc7694f
-  tls: true
-  servername: o94yv7LiF0-AnxIsd9EFehVvs7mXn6bh.z-UlE-ikA-d-e-nE-k-E.WorkeRs.dEv
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: o94yv7lif0-anxisd9efehvvs7mxn6bh.z-ule-ika-d-e-ne-k-e.workers.dev
-- name: 🇩🇪 德国 (Germany) 23
-  server: 104.21.6.186
-  port: 443
-  udp: true
-  type: vless
-  uuid: c07346da-5799-40c1-9d5a-5ea3ca3ac9e2
-  tls: true
-  servername: zHcLJ7Kx6wq0LE6w-ONNWUeonk1hfTn4.ImanbIenG27.WoRKers.DEv
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /vl/x4H5rhMsHGnY0L8MlLT9HFspaKsh7?ed=2560
-    headers:
-      Host: zhclj7kx6wq0le6w-onnwueonk1hftn4.imanbieng27.workers.dev
-- name: 🇩🇪 德国 (Germany) 24
-  server: 162.159.153.4
-  port: 443
-  udp: true
-  type: vless
-  uuid: f2a73750-3087-48ff-a763-1348c15dce68
-  tls: true
-  servername: rayan-007.maxima.dpdns.org
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: rayan-007.maxima.dpdns.org
-- name: 🇩🇪 德国 (Germany) 25
-  server: 162.159.152.4
-  port: 443
-  udp: true
-  type: vless
-  uuid: f2a73750-3087-48ff-a763-1348c15dce68
-  tls: true
-  servername: rayan-007.maxima.dpdns.org
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: rayan-007.maxima.dpdns.org
-- name: 🇩🇪 德国 (Germany) 26
   server: 185.177.229.129
   port: 22324
   udp: true
@@ -366,72 +221,86 @@ proxies:
   uuid: 04621bae-ab36-11ec-b909-0242ac120002
   alterId: 0
   cipher: auto
+- name: 🇩🇪 德国 (Germany) 23
+  server: de2.miyazono-kaori.com
+  port: 443
+  udp: true
+  type: vless
+  uuid: f1d601f2-cc29-4fc2-bafc-7ac833af466a
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: JH9UnU0LFCDS3Q8zR7dhQDYrQ4iZGDgDB-sQcQ1q-kA
+    short-id: 5a9ab320
+  servername: www.siemens.com
+  client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 24
+  server: OV-Germany1.09vpn.com
+  port: 80
+  udp: true
+  type: vless
+  uuid: 7d90f043-ed7f-40c9-ac2f-352987904958
+  network: ws
+  ws-opts:
+    path: /vless/
+- name: 🇩🇪 德国 (Germany) 25
+  server: 89.39.121.186
+  port: 3444
+  udp: true
+  type: vless
+  uuid: ec1b9bc3-82bb-42f9-b75a-5c78efe160f2
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: FbVQL4BtNGLa_0gFjedYc1caA7Ouvygbn4VCHj5uSQk
+    short-id: 274c4ebf488820b1
+  servername: www.bing.com
+  client-fingerprint: ''
+- name: 🇩🇪 德国 (Germany) 26
+  server: 111.88.74.239
+  port: 443
+  udp: true
+  type: vless
+  uuid: 88a4915f-d68d-44aa-b4a4-36b99a2ab1ed
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: s0lbZ5BO3ctZjE8DzsXkNL0NvLl6FgLG6532NQzXigo
+    short-id: c56d4f1c
+  servername: google.com
+  client-fingerprint: safari
 - name: 🇩🇪 德国 (Germany) 27
-  server: 31.77.8.97
-  port: 110
+  server: de247.fillmoo.info
+  port: 8443
   udp: true
-  type: vmess
-  uuid: d2d8601b-c14b-42c6-b8ea-33889bce152a
-  alterId: 0
-  cipher: auto
+  type: vless
+  uuid: 9ef782e0-25d5-42e8-8ecd-02522d0c745b
+  tls: true
+  reality-opts:
+    public-key: 2jUsxVyWXcNXhksgk-MuwLHt4VUCoeqZQj0fDEvFuR8
+    short-id: 19afd0ac7f6310
+  servername: yahoo.com
+  client-fingerprint: chrome
 - name: 🇩🇪 德国 (Germany) 28
-  server: 188.245.25.223
-  port: 8402
-  udp: true
-  type: vless
-  uuid: 0c1b7949-fe09-43d9-863f-2c031f66bfc1
-- name: 🇩🇪 德国 (Germany) 29
-  server: 31.76.11.83
-  port: 23326
-  udp: true
-  type: vmess
-  uuid: 3dff544a-379e-41f9-95d9-4b95a8e4026e
-  alterId: 0
-  cipher: auto
-- name: 🇩🇪 德国 (Germany) 30
-  server: 31.76.11.83
-  port: 26070
-  udp: true
-  type: vless
-  uuid: e676c6c8-44a8-4a1d-82cc-821a1f70f0c0
-- name: 🇩🇪 德国 (Germany) 31
-  server: 209.46.102.22
-  port: 8388
-  udp: true
-  type: ss
-  cipher: chacha20-ietf-poly1305
-  password: 1hhrqrokj3ag
-- name: 🇩🇪 德国 (Germany) 32
-  server: 216.106.187.60
-  port: 22324
-  udp: true
-  type: vmess
-  uuid: 04621bae-ab36-11ec-b909-0242ac120002
-  alterId: 0
-  cipher: auto
-- name: 🇩🇪 德国 (Germany) 33
-  server: 51.195.126.38
-  port: 8388
-  udp: true
-  type: ss
-  cipher: chacha20-ietf-poly1305
-  password: 2YdE4lFOid5a
-- name: 🇩🇪 德国 (Germany) 34
-  server: 185.226.172.8
-  port: 8008
+  server: 2.58.81.221
+  port: 443
   udp: true
   type: ss
   cipher: aes-256-gcm
-  password: XKFKl2rULjIp74
-- name: 🇩🇪 德国 (Germany) 35
-  server: 3.120.109.26
+  password: kKEd0rBrd56Furjz
+- name: 🇩🇪 德国 (Germany) 29
+  server: 34.159.243.3
   port: 443
   udp: true
-  type: trojan
-  password: UX82473651
-  sni: actual-squid.rooster465.autos
-  skip-cert-verify: true
-- name: 🇩🇪 德国 (Germany) 36
+  type: vless
+  uuid: 753fa5ef-0b08-4fd3-b688-173ff594b758
+  tls: true
+  reality-opts:
+    public-key: XRYeVrK7q9baNj66NmBBIX_sllPJtxOBTjrxTaQMQ2U
+    short-id: 7394ea3cc2106697
+  servername: www.cloudflare.com
+  client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 30
   server: 199.247.23.162
   port: 80
   udp: true
@@ -440,7 +309,82 @@ proxies:
   network: ws
   ws-opts:
     path: /
+- name: 🇩🇪 德国 (Germany) 31
+  server: 82.39.171.142
+  port: 443
+  udp: true
+  type: vless
+  uuid: d65cc14c-f53f-4fe2-b262-97856601319c
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
+    short-id: c39cc7310a
+  servername: yahoo.com
+  client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 32
+  server: germa12.ggisopi.su
+  port: 443
+  udp: true
+  type: vless
+  uuid: d0f0a880-0df1-48c9-bdf1-5669fb9483ce
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I
+  servername: germa12.ggisopi.su
+  client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 33
+  server: 31.77.8.97
+  port: 110
+  udp: true
+  type: vmess
+  uuid: d2d8601b-c14b-42c6-b8ea-33889bce152a
+  alterId: 0
+  cipher: auto
+- name: 🇩🇪 德国 (Germany) 34
+  server: 82.118.19.153
+  port: 443
+  udp: true
+  type: vless
+  uuid: adcaa148-7c66-4282-a81a-99ec8afa029d
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: Tiuy8om5Lk0pWL95-8LaFFTwH0vbURVMoOkaW9xGaiE
+    short-id: 670ed9f350bd8ee0
+  servername: www.cloudflare.com
+  client-fingerprint: qq
+- name: 🇩🇪 德国 (Germany) 35
+  server: actual-squid.rooster465.autos
+  port: 443
+  udp: true
+  type: trojan
+  password: UX82473651
+  sni: actual-squid.rooster465.autos
+  skip-cert-verify: true
+- name: 🇩🇪 德国 (Germany) 36
+  server: 199.232.78.101
+  port: 443
+  udp: true
+  type: trojan
+  password: mitivpn
+  sni: ssl.fastly.com
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/NLSus---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN
+    headers:
+      Host: mitivpn---de--s---mitivpn-11.global.ssl.fastly.net
 - name: 🇩🇪 德国 (Germany) 37
+  server: 95.85.252.78
+  port: 9443
+  udp: true
+  type: hysteria2
+  password: e3c3b722-1264-4cdc-a97c-b0a1bb73cd67
+  sni: 95.85.252.78
+  skip-cert-verify: true
+- name: 🇩🇪 德国 (Germany) 38
   server: 31.77.161.15
   port: 443
   udp: true
@@ -452,16 +396,34 @@ proxies:
     public-key: fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI
     short-id: db04ce8bdb8900f1
   servername: nvidia.com
-  client-fingerprint: random
-- name: 🇩🇪 德国 (Germany) 38
-  server: alive-flea.rooster465.autos
-  port: 443
-  udp: true
-  type: trojan
-  password: UX82473651
-  sni: alive-flea.rooster465.autos
-  skip-cert-verify: true
+  client-fingerprint: chrome
 - name: 🇩🇪 德国 (Germany) 39
+  server: 185.226.172.8
+  port: 8008
+  udp: true
+  type: ss
+  cipher: aes-256-gcm
+  password: XKFKl2rULjIp74
+- name: 🇩🇪 德国 (Germany) 40
+  server: 194.48.250.8
+  port: 9443
+  udp: true
+  type: hysteria2
+  password: e3c3b722-1264-4cdc-a97c-b0a1bb73cd67
+  sni: onecloudstream.com
+  skip-cert-verify: true
+- name: 🇩🇪 德国 (Germany) 41
+  server: 167.233.140.137
+  port: 8080
+  udp: true
+  type: vless
+  uuid: 50d10e6c-37e1-4512-b35a-2d4e0adfd079
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: play.google.com
+- name: 🇩🇪 德国 (Germany) 42
   server: id-nl-01.mintrocket.org
   port: 443
   udp: true
@@ -474,31 +436,52 @@ proxies:
     short-id: fee1f986a72444db
   servername: id-nl-01.mintrocket.org
   client-fingerprint: safari
-- name: 🇩🇪 德国 (Germany) 40
-  server: 91.132.160.209
+- name: 🇩🇪 德国 (Germany) 43
+  server: nasnet-571299667-direct.mbghalibaf.com
   port: 443
   udp: true
   type: vless
-  uuid: 2412bd96-925b-43f2-81d1-0ed4f0793699
+  uuid: e8b1500b-e9e8-5492-8312-f4eadf7d0767
   flow: xtls-rprx-vision
   tls: true
-  reality-opts:
-    public-key: 9XSdNkmBhBszLYoODqMrm7r_JRur2PRbzF9T1Uf2AV0
-    short-id: f1004027e382c2fa
-  servername: dlcdn.apache.org
-  client-fingerprint: random
-- name: 🇩🇪 德国 (Germany) 41
-  server: 57.129.41.216
-  port: 80
+  servername: nasnet-571299667-direct.mbghalibaf.com
+  skip-cert-verify: false
+  client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 44
+  server: 193.24.210.211
+  port: 25040
   udp: true
-  type: vless
-  uuid: 7d74eae4-8a06-4306-a923-ad686f30bf26
+  type: trojan
+  password: Km/pIG4AGCjCOiGWj5FsWA==
+  sni: /gay-anal
+  skip-cert-verify: true
   network: ws
   ws-opts:
-    path: /vless/
-    headers:
-      Host: OV-Germany1.09vpn.com
-- name: 🇩🇪 德国 (Germany) 42
+    path: /
+- name: 🇩🇪 德国 (Germany) 45
+  server: 176.109.111.154
+  port: 9881
+  udp: true
+  type: vless
+  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
+  tls: true
+  reality-opts:
+    public-key: Dfgu8Ey0M8Hz4gXGZAwQ3H9jLt2HByVsjAOTWiuKDB0
+    short-id: aabbccdd
+  servername: dl.google.com
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: grpc-tunnel
+- name: 🇩🇪 德国 (Germany) 46
+  server: 216.106.187.60
+  port: 22324
+  udp: true
+  type: vmess
+  uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  alterId: 0
+  cipher: auto
+- name: 🇩🇪 德国 (Germany) 47
   server: 31.70.111.146
   port: 443
   udp: true
@@ -511,79 +494,7 @@ proxies:
     short-id: d7de3a6ff4018957
   servername: www.apple.com
   client-fingerprint: chrome
-- name: 🇩🇪 德国 (Germany) 43
-  server: 57.129.96.67
-  port: 443
-  udp: true
-  type: vless
-  uuid: e8b1500b-e9e8-5492-8312-f4eadf7d0767
-  flow: xtls-rprx-vision
-  tls: true
-  servername: nasnet-571299667-direct.mbghalibaf.com
-  skip-cert-verify: false
-- name: 🇩🇪 德国 (Germany) 44
-  server: rubifen.adaspoloandco.com
-  port: 443
-  udp: true
-  type: vless
-  uuid: cf39fab0-bb85-42cb-9945-2ad69d78e575
-  tls: true
-  servername: rubifen.adaspoloandco.com
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /GOrbEh
-- name: 🇩🇪 德国 (Germany) 45
-  server: arcturus.yokkastars.com
-  port: 40443
-  udp: true
-  type: vless
-  uuid: bb0f1ed0-0298-40a1-adb1-1f5d6ab33d54
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: w4AYHvQnQS6olDqoG9ptLOtgehaWOsv9HQhDax5bLA4
-    short-id: db46e2946fc466fd
-  servername: deepl.com
-  client-fingerprint: chrome
-- name: 🇩🇪 德国 (Germany) 46
-  server: 213.178.141.33
-  port: 443
-  udp: true
-  type: vless
-  uuid: d0f0a880-0df1-48c9-bdf1-5669fb9483ce
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I
-  servername: germa12.ggisopi.su
-  client-fingerprint: chrome
-- name: 🇩🇪 德国 (Germany) 47
-  server: 0cf703b86ea5a239.RaVEnlO.iR
-  port: 8080
-  udp: true
-  type: vless
-  uuid: 50d10e6c-37e1-4512-b35a-2d4e0adfd079
-  network: ws
-  ws-opts:
-    path: /
 - name: 🇩🇪 德国 (Germany) 48
-  server: 2.58.81.221
-  port: 443
-  udp: true
-  type: ss
-  cipher: aes-256-gcm
-  password: kKEd0rBrd56Furjz
-- name: 🇩🇪 德国 (Germany) 49
-  server: de1.xiaoliyu.cyou
-  port: 4433
-  udp: true
-  type: hysteria2
-  password: 6a3fe9d0-0d68-4f29-ae99-5771d4217a45
-  sni: 'off'
-  skip-cert-verify: true
-- name: 🇩🇪 德国 (Germany) 50
   server: 82.39.171.12
   port: 443
   udp: true
@@ -596,23 +507,81 @@ proxies:
     short-id: c39cc7310a
   servername: yahoo.com
   client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 49
+  server: 0cf703b86ea5a239.RaVEnlO.iR
+  port: 8080
+  udp: true
+  type: vless
+  uuid: 50d10e6c-37e1-4512-b35a-2d4e0adfd079
+  network: ws
+  ws-opts:
+    path: /
+- name: 🇩🇪 德国 (Germany) 50
+  server: dehys.superbuba.top
+  port: 443
+  udp: true
+  type: hysteria2
+  password: d4cae7df-50a1-428c-bd62-881c8f3bbd90
+  sni: dehys.superbuba.top
+  skip-cert-verify: false
 - name: 🇩🇪 德国 (Germany) 51
-  server: 80.93.202.147
+  server: 64.118.158.56
   port: 443
   udp: true
   type: vless
-  uuid: 50414e45-4c5f-5a45-5553-b52a90ada6ab
+  uuid: 8af93649-403b-46d8-9966-923d4c58402c
+  flow: xtls-rprx-vision
   tls: true
-  servername: trex-panel-ew6n46.zeus-e0oqfp.workers.dev
-  skip-cert-verify: false
+  reality-opts:
+    public-key: XTarABsaaFbjYNk6lRKnUzGavHzeqMIP7B8dZGNCvkE
+    short-id: 5c6481cdd4
+  servername: buckeye-retail-website.amazon.com
   client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /stream/TrexBridge/b52a90ada6ab
-    headers:
-      Host: trex-panel-ew6n46.zeus-e0oqfp.workers.dev
 - name: 🇩🇪 德国 (Germany) 52
-  server: 176.108.241.226
+  server: 104.194.159.237
+  port: 8443
+  udp: true
+  type: vless
+  uuid: 8afeb33c-b686-43e9-a629-0d98f991ec28
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: L5cKU_oSpJsGd3ffemej3Wy7V6KzqjIUC2T5jaCyPys
+    short-id: 1aec480577a542ee
+  servername: github.com
+  client-fingerprint: ios
+- name: 🇩🇪 德国 (Germany) 53
+  server: de-918a1965.sishka.network
+  port: 443
+  udp: true
+  type: vless
+  uuid: 5f5677a6-f1fd-4911-b32a-cfbc506f0cf6
+  flow: xtls-rprx-vision
+  tls: true
+  servername: de-918a1965.sishka.network
+  skip-cert-verify: false
+- name: 🇩🇪 德国 (Germany) 54
+  server: num3-ge.specialteam2.com
+  port: 2626
+  udp: true
+  type: vless
+  uuid: 86f62b39-e8d4-4095-8e0e-e1bc60b4b2ce
+  tls: true
+  reality-opts:
+    public-key: PWQTEqDK7DXsRxV0w74VoF0p7dNKbkbIcLt0o4_QaHU
+    short-id: 29e8472db54c86dc
+  servername: www.goo.gl
+  client-fingerprint: chrome
+- name: 🇩🇪 德国 (Germany) 55
+  server: 31.76.11.83
+  port: 23326
+  udp: true
+  type: vmess
+  uuid: 3dff544a-379e-41f9-95d9-4b95a8e4026e
+  alterId: 0
+  cipher: auto
+- name: 🇩🇪 德国 (Germany) 56
+  server: 45.132.176.161
   port: 9891
   udp: true
   type: vless
@@ -620,25 +589,45 @@ proxies:
   tls: true
   reality-opts:
     public-key: Dfgu8Ey0M8Hz4gXGZAwQ3H9jLt2HByVsjAOTWiuKDB0
-    short-id: aabb
   servername: dl.google.com
   client-fingerprint: chrome
   network: grpc
   grpc-opts:
     grpc-service-name: grpc-tunnel
-- name: 🇩🇪 德国 (Germany) 53
-  server: 95.81.75.9
-  port: 57160
+- name: 🇩🇪 德国 (Germany) 57
+  server: 188.245.25.223
+  port: 1085
   udp: true
   type: vless
-  uuid: 68ad9a6d-2463-4c31-92a7-31547b9d4783
-  flow: xtls-rprx-vision
+  uuid: 0c1b7949-fe09-43d9-863f-2c031f66bfc1
+- name: 🇩🇪 德国 (Germany) 58
+  server: 176.109.111.7
+  port: 9881
+  udp: true
+  type: vless
+  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
   tls: true
   reality-opts:
-    public-key: Tbu7sr_pvHngDWFIa0ApL5UL9vEGxlHESd9g53KQehw
-    short-id: 77b5
-  servername: funpay.com
-  client-fingerprint: ''
+    public-key: Dfgu8Ey0M8Hz4gXGZAwQ3H9jLt2HByVsjAOTWiuKDB0
+    short-id: aa
+  servername: dl.google.com
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: grpc-tunnel
+- name: 🇩🇪 德国 (Germany) 59
+  server: rubifen.adaspoloandco.com
+  port: 443
+  udp: true
+  type: vless
+  uuid: cf39fab0-bb85-42cb-9945-2ad69d78e575
+  tls: true
+  servername: rubifen.adaspoloandco.com
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /GOrbEh
 proxy-groups:
 - name: PROXIES
   type: select
@@ -697,6 +686,12 @@ proxy-groups:
   - 🇩🇪 德国 (Germany) 51
   - 🇩🇪 德国 (Germany) 52
   - 🇩🇪 德国 (Germany) 53
+  - 🇩🇪 德国 (Germany) 54
+  - 🇩🇪 德国 (Germany) 55
+  - 🇩🇪 德国 (Germany) 56
+  - 🇩🇪 德国 (Germany) 57
+  - 🇩🇪 德国 (Germany) 58
+  - 🇩🇪 德国 (Germany) 59
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -755,5 +750,11 @@ proxy-groups:
   - 🇩🇪 德国 (Germany) 51
   - 🇩🇪 德国 (Germany) 52
   - 🇩🇪 德国 (Germany) 53
+  - 🇩🇪 德国 (Germany) 54
+  - 🇩🇪 德国 (Germany) 55
+  - 🇩🇪 德国 (Germany) 56
+  - 🇩🇪 德国 (Germany) 57
+  - 🇩🇪 德国 (Germany) 58
+  - 🇩🇪 德国 (Germany) 59
 rules:
 - MATCH,PROXIES
