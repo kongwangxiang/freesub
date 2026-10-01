@@ -291,6 +291,29 @@ def run_test():
         print("  ❌ ssh 未导出为空")
     else:
         print("  ✅ ssh 导出为空 OK")
+    if mv._ss_outbound("h", 8388, "aes-256-gcm", "pw") is None:
+        FAIL.append("[P4] 合法 ss 方法被误杀")
+        print("  ❌ 合法 ss 方法被误杀")
+    elif mv._ss_outbound("h", 8388, "g~v^=my>k=", "pw") is not None:
+        FAIL.append("[P4] 垃圾 ss 方法未拦截")
+        print("  ❌ 垃圾 ss 方法未拦截")
+    elif mv.parse_node_uri("ss://aes-256-gcm:Z2FyYmFnZXB3ZA@h.example.com:8388#x") is None:
+        FAIL.append("[P4] ss 明文userinfo 解析回归")
+        print("  ❌ ss 明文解析回归")
+    elif mv._clean_fp("unsafe") != "" or mv._clean_fp("Chrome") != "chrome":
+        FAIL.append("[P4] fingerprint 清洗异常")
+        print("  ❌ fingerprint 清洗异常")
+    else:
+        _tj = mv.parse_trojan("trojan://pw@h.example.com:443?sni=h.example.com&fp=unsafe#x")
+        _vr = mv.parse_vless("vless://b831381d-6324-4d53-ad4f-8cda48b30811@h.example.com:443?encryption=none&security=reality&sni=h.example.com&fp=unsafe&pbk=QUJD&sid=#x")
+        if not _tj or "utls" in (_tj.get("tls") or {}):
+            FAIL.append("[P4] trojan 非法 fp 未剥离")
+            print("  ❌ trojan 非法 fp 未剥离")
+        elif not _vr or (_vr.get("tls") or {}).get("utls", {}).get("fingerprint") != "chrome":
+            FAIL.append("[P4] reality 非法 fp 未回退 chrome")
+            print("  ❌ reality 非法 fp 未回退")
+        else:
+            print("  ✅ ss 白名单 + fp 清洗 OK")
     if mv.tcp_precheck("127.0.0.1", 1, "vless") is not False:
         FAIL.append("[P3] 闭端口应判死")
         print("  ❌ 闭端口未判死")

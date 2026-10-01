@@ -585,7 +585,7 @@ def _parse_tls_params(params: dict, host: str) -> dict:
         tls = {
             "enabled": True,
             "server_name": params.get("sni", params.get("peer", host)),
-            "utls": {"enabled": True, "fingerprint": params.get("fp", "chrome")},
+            "utls": {"enabled": True, "fingerprint": _clean_fp(params.get("fp")) or "chrome"},
             "reality": {"enabled": True, "public_key": pbk, "short_id": params.get("sid", "")},
         }
     elif security in ("tls", "xtls"):
@@ -595,8 +595,9 @@ def _parse_tls_params(params: dict, host: str) -> dict:
             "insecure": params.get("allowInsecure", "0") in ("1", "true"),
             "alpn": params.get("alpn", "").split(",") if params.get("alpn") else None,
         }
-        if params.get("fp"):
-            tls["utls"] = {"enabled": True, "fingerprint": params["fp"]}
+        _fp = _clean_fp(params.get("fp"))
+        if _fp:
+            tls["utls"] = {"enabled": True, "fingerprint": _fp}
         if tls.get("alpn") is None:
             del tls["alpn"]
     return tls or None
@@ -746,8 +747,9 @@ def parse_trojan(uri: str):
     }
     if params.get("alpn"):
         outbound["tls"]["alpn"] = params["alpn"].split(",")
-    if params.get("fp"):
-        outbound["tls"]["utls"] = {"enabled": True, "fingerprint": params["fp"]}
+    _fp = _clean_fp(params.get("fp"))
+    if _fp:
+        outbound["tls"]["utls"] = {"enabled": True, "fingerprint": _fp}
     transport = _parse_transport(params)
     if transport:
         outbound["transport"] = transport
@@ -786,14 +788,25 @@ def parse_ss(uri: str):
 
 
 def _ss_outbound(host, port, method, password):
+    method = (method or "").strip().lower()
+    if method not in ("none", "aes-128-gcm", "aes-256-gcm", "chacha20-ietf-poly1305",
+                      "xchacha20-ietf-poly1305", "2022-blake3-aes-128-gcm",
+                      "2022-blake3-aes-256-gcm", "2022-blake3-chacha20-poly1305") or not password:
+        return None
     return {
         "type": "shadowsocks",
         "tag": "node",
         "server": host,
         "server_port": int(port),
-        "method": method.strip().lower(),
+        "method": method,
         "password": password,
     }
+
+
+def _clean_fp(fp) -> str:
+    fp = str(fp or "").strip().lower()
+    return fp if fp in ("chrome", "firefox", "safari", "ios", "android", "edge",
+                        "360", "qq", "random", "randomized") else ""
 
 
 def parse_hysteria2(uri: str):
@@ -1032,10 +1045,8 @@ def clash_proxy_to_outbound(p: dict):
         return None
 
     if t == "ss":
-        ob["type"] = "shadowsocks"
-        ob["method"] = str(p.get("cipher", "")).lower()
-        ob["password"] = str(p.get("password", ""))
-        if not ob["method"] or not ob["password"]:
+        ob = _ss_outbound(server, port, str(p.get("cipher", "")), str(p.get("password", "")))
+        if not ob:
             return None
         if p.get("plugin"):
             ob["plugin"] = str(p["plugin"])
@@ -1071,17 +1082,17 @@ def clash_proxy_to_outbound(p: dict):
         ro = p.get("reality-opts") or p.get("reality_opts") or {}
         pbk = ro.get("public-key") or ro.get("public_key")
         if pbk:
-            fp = p.get("client-fingerprint") or p.get("client_fingerprint") or "chrome"
+            fp = _clean_fp(p.get("client-fingerprint") or p.get("client_fingerprint")) or "chrome"
             ob["tls"] = {
                 "enabled": True,
                 "server_name": str(sni or server),
-                "utls": {"enabled": True, "fingerprint": str(fp)},
+                "utls": {"enabled": True, "fingerprint": fp},
                 "reality": {"enabled": True, "public_key": str(pbk),
                             "short_id": str(ro.get("short-id") or ro.get("short_id") or "")},
             }
         elif p.get("tls"):
-            fp = p.get("client-fingerprint") or p.get("client_fingerprint")
-            ob["tls"] = _tls({"utls": {"enabled": True, "fingerprint": str(fp)}} if fp else None)
+            fp = _clean_fp(p.get("client-fingerprint") or p.get("client_fingerprint"))
+            ob["tls"] = _tls({"utls": {"enabled": True, "fingerprint": fp}} if fp else None)
         tr = _transport()
         if tr:
             ob["transport"] = tr
@@ -1094,6 +1105,9 @@ def clash_proxy_to_outbound(p: dict):
         ob["tls"] = _tls()
         if p.get("alpn"):
             ob["tls"]["alpn"] = _alpn_list(p["alpn"])
+        _cfp = _clean_fp(p.get("client-fingerprint") or p.get("client_fingerprint"))
+        if _cfp:
+            ob["tls"]["utls"] = {"enabled": True, "fingerprint": _cfp}
         tr = _transport()
         if tr:
             ob["transport"] = tr
