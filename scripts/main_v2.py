@@ -1549,19 +1549,46 @@ def test_single_node(item, keep_alive_check=True, chain_relay=None):
         proxies = {"http": f"socks5h://127.0.0.1:{socks_port}",
                    "https": f"socks5h://127.0.0.1:{socks_port}"}
 
-        # --- 1) 活性探测: 分层超时重试 (首击宽 12s 容慢节点保准确率; 重试窄 4s 快速放弃死节点) ---
+        # --- 1) 活性探测 (两档: 3 路 4s 并行快筛 + 仅超时给一次 12s 补测) ---
+        #   快筛命中即活; 速败(拒连/重置/DNS)直接判死不补测; 唯有超时(建连慢)才补测保慢节点
         alive_hits, latency_ms = 0, 99999
         t0 = time.time()
-        for i, url in enumerate(LIVENESS_URLS):
-            timeout = PROBE_TIMEOUT if i == 0 else PROBE_RETRY_TIMEOUT
+        saw_timeout = False
+
+        def _probe(url):
             try:
-                r = PROBE_SESSION.get(url, proxies=proxies, timeout=timeout, allow_redirects=False)
+                r = PROBE_SESSION.get(url, proxies=proxies, timeout=PROBE_RETRY_TIMEOUT,
+                                      allow_redirects=False)
+                if r.status_code in (204, 200):
+                    return (True, time.time() - t0, False)
+                return (False, None, False)
+            except requests.exceptions.Timeout:
+                return (False, None, True)
+            except Exception:
+                return (False, None, False)
+
+        probe_ex = ThreadPoolExecutor(max_workers=3)
+        try:
+            futs = [probe_ex.submit(_probe, u) for u in LIVENESS_URLS]
+            for fut in as_completed(futs):
+                ok, elapsed, timed_out = fut.result()
+                if timed_out:
+                    saw_timeout = True
+                if ok:
+                    alive_hits += 1
+                    latency_ms = min(latency_ms, elapsed * 1000)
+                    break
+        finally:
+            probe_ex.shutdown(wait=False, cancel_futures=True)
+        if alive_hits == 0 and saw_timeout:
+            try:
+                r = PROBE_SESSION.get(LIVENESS_URLS[0], proxies=proxies, timeout=PROBE_TIMEOUT,
+                                      allow_redirects=False)
                 if r.status_code in (204, 200):
                     alive_hits += 1
                     latency_ms = min(latency_ms, (time.time() - t0) * 1000)
-                    break  # 任一成功即可
             except Exception:
-                continue
+                pass
         if alive_hits == 0:
             _bump_counter(_PROBE_FAILS, "liveness_dead")
             return None
