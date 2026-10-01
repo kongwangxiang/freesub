@@ -1065,10 +1065,25 @@ def resolve_host(host: str) -> str:
         return ""
 
 
+_SOCKS_PORT_LOCK = threading.Lock()
+_SOCKS_PORTS_IN_USE = set()
+
+
 def _alloc_socks_port() -> int:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(("127.0.0.1", 0))
-        return s.getsockname()[1]
+    with _SOCKS_PORT_LOCK:
+        for _ in range(200):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.bind(("127.0.0.1", 0))
+                port = s.getsockname()[1]
+            if port not in _SOCKS_PORTS_IN_USE:
+                _SOCKS_PORTS_IN_USE.add(port)
+                return port
+    raise RuntimeError("无可用 SOCKS 测试端口")
+
+
+def _release_socks_port(port: int):
+    with _SOCKS_PORT_LOCK:
+        _SOCKS_PORTS_IN_USE.discard(port)
 
 
 def build_test_config(outbound: dict, socks_port: int, chain_relay: dict = None) -> dict:
@@ -1406,6 +1421,7 @@ def test_single_node(item, keep_alive_check=True, chain_relay=None):
         _bump_counter(_INTERNAL_ERRORS, type(e).__name__)
         return None
     finally:
+        _release_socks_port(socks_port)
         if proc and proc.poll() is None:
             proc.kill()
             try:
@@ -1729,7 +1745,14 @@ def classify_network_type(ip: str, country: str, asn, org: str, ip_api_rec: dict
 def outbound_to_clash(node: dict, name: str) -> dict:
     """sing-box outbound → Clash (Meta/mihomo) proxy dict"""
     t = node.get("type")
-    server, port = node["server"], node["server_port"]
+    server = node["server"]
+    # 端口跳跃节点 (hy2 mport): 无 server_port 时取 server_ports 首区间起始端口 (同 v2ray 链路 fallback)
+    if node.get("server_port"):
+        port = node["server_port"]
+    elif node.get("server_ports"):
+        port = int(str(node["server_ports"][0]).split(":")[0])
+    else:
+        return None
     proxy = {"name": name, "server": server, "port": port, "udp": True}
 
     if t == "vless":
@@ -1853,6 +1876,7 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
     else:
         return ""
     server = node["server"]
+    host = f"[{server}]" if ":" in server and not server.startswith("[") else server
     tls = node.get("tls") or {}
     transport = node.get("transport") or {}
 
@@ -1933,7 +1957,7 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
         if node.get("flow"):
             q["flow"] = node["flow"]
         query = urllib.parse.urlencode(q)
-        return f"vless://{node['uuid']}@{server}:{port}?{query}#{urllib.parse.quote(name)}"
+        return f"vless://{node['uuid']}@{host}:{port}?{query}#{urllib.parse.quote(name)}"
     if t == "trojan":
         q = {"security": "tls"}
         if tls.get("server_name"):
@@ -1963,14 +1987,14 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
                 if transport.get("host"):
                     q["host"] = transport["host"]
         query = urllib.parse.urlencode(q)
-        return f"trojan://{urllib.parse.quote(node['password'])}@{server}:{port}?{query}#{urllib.parse.quote(name)}"
+        return f"trojan://{urllib.parse.quote(node['password'])}@{host}:{port}?{query}#{urllib.parse.quote(name)}"
     if t == "shadowsocks":
         # SIP002: userinfo = urlsafe-base64(method:password), ★ 必须保留 padding ("=")
         # 实测: rstrip("=") 砍 padding 后 v2rayN 解析失败 (无 padding 的畸形 base64)
         # urlsafe 字母表 (A-Za-z0-9-_) + "=" 均为 URI 合法字符, 不需再 quote (quote 反而破坏 "=")
         userinfo = base64.urlsafe_b64encode(
             f"{node['method']}:{node['password']}".encode()).decode()
-        return f"ss://{userinfo}@{server}:{port}#{urllib.parse.quote(name)}"
+        return f"ss://{userinfo}@{host}:{port}#{urllib.parse.quote(name)}"
     if t == "hysteria2":
         q = {}
         if tls.get("server_name"):
@@ -1983,7 +2007,7 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
         if node.get("server_ports"):
             q["mport"] = ",".join(p.replace(":", "-") for p in node["server_ports"])
         query = urllib.parse.urlencode(q)
-        return f"hysteria2://{urllib.parse.quote(node['password'])}@{server}:{port}?{query}#{urllib.parse.quote(name)}"
+        return f"hysteria2://{urllib.parse.quote(node['password'])}@{host}:{port}?{query}#{urllib.parse.quote(name)}"
     if t == "tuic":
         q = {
             "congestion_control": node.get("congestion_control", "bbr"),
@@ -1995,7 +2019,7 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
         if tls.get("insecure"):
             q["allow_insecure"] = "1"
         query = urllib.parse.urlencode(q)
-        return f"tuic://{urllib.parse.quote(node['uuid'])}:{urllib.parse.quote(node['password'])}@{server}:{port}?{query}#{urllib.parse.quote(name)}"
+        return f"tuic://{urllib.parse.quote(node['uuid'])}:{urllib.parse.quote(node['password'])}@{host}:{port}?{query}#{urllib.parse.quote(name)}"
     if t == "anytls":
         q = {}
         if tls.get("server_name"):
@@ -2003,7 +2027,7 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
         if tls.get("insecure"):
             q["insecure"] = "1"
         query = urllib.parse.urlencode(q)
-        return f"anytls://{urllib.parse.quote(node['password'])}@{server}:{port}?{query}#{urllib.parse.quote(name)}"
+        return f"anytls://{urllib.parse.quote(node['password'])}@{host}:{port}?{query}#{urllib.parse.quote(name)}"
     return ""
 
 
@@ -2661,19 +2685,14 @@ def main():
 
     # 4.5 ★ 重复节点结果回填: 同 凭据+目标 的重复 URI 继承测活结果 (凭据相同 → 服务端表现一致)
     if DEDUP_MAP:
-        result_by_key = {}
-        for r in test_results:
-            key = ((r["server"] or "").lower(), r["port"], r["proto"])
-            result_by_key[key] = r
+        # 代表节点的 raw 就是 DEDUP_MAP[key][0](首个出现的 URI，其余为重复项)
+        result_by_raw = {r.get("raw"): r for r in test_results}
         expanded = list(test_results)
         backfilled = 0
-        # 反向索引: server:port:proto → 原始 fingerprint (从 DEDUP_MAP 的 key 直接继承)
         for key, uris in DEDUP_MAP.items():
             if len(uris) <= 1:
                 continue
-            # 用 key 的前三段 (server, port, proto) 找测活结果
-            lookup = (key[0], key[1], key[2])
-            r = result_by_key.get(lookup)
+            r = result_by_raw.get(uris[0])
             if not r or not r.get("alive"):
                 continue
             for extra_uri in uris[1:]:
@@ -2712,17 +2731,25 @@ def main():
     try:
         repo_name = os.environ.get("GITHUB_REPOSITORY", "").strip()
         if repo_name and "/" in repo_name:
-            purged, failed = 0, 0
-            for f in glob.glob(os.path.join(BASEDIR, "output", "**", "*.*"), recursive=True):
+            files = glob.glob(os.path.join(BASEDIR, "output", "**", "*.*"), recursive=True)
+            counts = {"ok": 0, "fail": 0}
+            clock = threading.Lock()
+
+            def _purge_one(f):
                 rel = os.path.relpath(f, BASEDIR).replace("\\", "/")
                 try:
                     DIRECT_SESSION.get(
                         f"https://purge.jsdelivr.net/gh/{repo_name}@main/{rel}",
                         timeout=10)
-                    purged += 1
+                    k = "ok"
                 except Exception:
-                    failed += 1
-            print(f"[+] jsdelivr CDN 缓存刷新: {purged} 个文件 ({failed} 失败)")
+                    k = "fail"
+                with clock:
+                    counts[k] += 1
+
+            with ThreadPoolExecutor(max_workers=16) as ex:
+                list(ex.map(_purge_one, files))
+            print(f"[+] jsdelivr CDN 缓存刷新: {counts['ok']} 个文件 ({counts['fail']} 失败)")
     except Exception as e:
         print(f"[!] CDN 刷新跳过: {e}")
 

@@ -162,6 +162,42 @@ def run_test():
 
     print()
     print("=" * 70)
+    print(f"阶段4: 导出器回归测试 ({len(outbounds)} 个 outbound → clash/v2ray/singbox)")
+    print("=" * 70)
+    for name, ob in outbounds.items():
+        tag = "Test-" + name
+        try:
+            link = mv.outbound_to_v2ray_link(dict(ob), tag)
+            if not link:
+                FAIL.append(f"[EXPORT-EMPTY] {name}: v2ray 导出为空")
+                print(f"  ❌ {name}: v2ray 导出为空")
+                continue
+            reparsed = mv.parse_node_uri(link)
+            if not reparsed:
+                FAIL.append(f"[EXPORT-ROUNDTRIP] {name}: 导出后无法再解析")
+                print(f"  ❌ {name}: 导出 roundtrip 失败")
+                continue
+            _, rsrv, rport, rproto = reparsed
+            assert rproto == ob["type"], f"协议漂移 {ob['type']}→{rproto}"
+            assert rsrv == ob["server"], f"server 漂移 {ob['server']}→{rsrv}"
+            exp_port = ob.get("server_port") or int(str(ob["server_ports"][0]).split(":")[0])
+            assert rport == exp_port, f"port 漂移 {exp_port}→{rport}"
+            cp = mv.outbound_to_clash(dict(ob), tag)
+            if not cp or cp.get("server") != ob["server"] or not cp.get("port"):
+                FAIL.append(f"[EXPORT-CLASH] {name}: clash 导出缺字段/崩溃")
+                print(f"  ❌ {name}: clash 导出异常")
+                continue
+            sb = mv.outbound_to_singbox(dict(ob), tag)
+            assert sb.get("tag") == tag, "singbox tag 丢失"
+            if name == "hy2_hop":
+                assert cp.get("ports"), "mport ports 丢失"
+            print(f"  ✅ {name}: roundtrip OK ({rproto} {rsrv}:{rport})")
+        except Exception as e:
+            FAIL.append(f"[EXPORT-EXC] {name}: {type(e).__name__} {str(e)[:80]}")
+            print(f"  ❌ {name}: 异常 {type(e).__name__}")
+
+    print()
+    print("=" * 70)
     if FAIL:
         print(f"共 {len(FAIL)} 项失败:")
         for f in FAIL:

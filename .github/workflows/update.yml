@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 120
     permissions:
       contents: write
     concurrency:
@@ -19,6 +19,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Cache runtime (sing-box + GeoLite)
+        uses: actions/cache@v4
+        with:
+          path: runtime
+          key: runtime-${{ runner.os }}-singbox-v1.14.0-geolite
 
       - name: Set up Python
         uses: actions/setup-python@v5
