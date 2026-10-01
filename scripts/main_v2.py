@@ -78,6 +78,17 @@ SOURCE_URLS = [
     "https://raw.githubusercontent.com/Alirewa/V2ray-Configs/main/config.txt",
     "https://raw.githubusercontent.com/Alirewa/V2ray-Configs/main/sub1.txt",
     "https://raw.githubusercontent.com/mfuu/FreeProxies/master/sub",
+    "https://raw.githubusercontent.com/MustafaBaqer/VestraNet-Nodes/main/subscriptions/mix-base64.txt",
+    "https://raw.githubusercontent.com/MustafaBaqer/VestraNet-Nodes/main/subscriptions/mix-normal.txt",
+    "https://raw.githubusercontent.com/Delta-Kronecker/V2ray-Config/main/config/all_configs.txt",
+    "https://raw.githubusercontent.com/morpheusadam/v2ray-config/main/subs/bundles/best.txt",
+    "https://raw.githubusercontent.com/SoliSpirit/v2ray-configs/main/Subscriptions/Sub1.txt",
+    "https://raw.githubusercontent.com/yafeisun/v2raynode/refs/heads/main/result/nodetotal.txt",
+    "https://raw.githubusercontent.com/ProblemTheCode/SylphNet-public/refs/heads/main/sub/sub.txt",
+    "https://raw.githubusercontent.com/yuesuizhengrong/proxy-node-collector/main/data/subscription.txt",
+    "https://raw.githubusercontent.com/mohammadaz2/v2rayConfigsForYou/main/configs.txt",
+    "https://raw.githubusercontent.com/Farid-Karimi/Config-Collector/main/mixed_iran.txt",
+    "https://raw.githubusercontent.com/chaishpish/free_server_v2ray/main/@TFMTProto",
 ]
 
 OUTPUT_DIR = "output"
