@@ -291,6 +291,17 @@ def run_test():
         print("  ❌ ssh 未导出为空")
     else:
         print("  ✅ ssh 导出为空 OK")
+    if mv.tcp_precheck("127.0.0.1", 1, "vless") is not False:
+        FAIL.append("[P3] 闭端口应判死")
+        print("  ❌ 闭端口未判死")
+    elif mv.tcp_precheck("127.0.0.1", 1, "hysteria2") is not True:
+        FAIL.append("[P3] QUIC 系应放行")
+        print("  ❌ QUIC 系未放行")
+    elif mv.tcp_precheck("nonexistent.invalid", 443, "vless") is not False:
+        FAIL.append("[P3] 不可解析域名应判死")
+        print("  ❌ 不可解析域名未判死")
+    else:
+        print("  ✅ TCP 预检 OK")
 
     print()
     print("=" * 70)

@@ -125,7 +125,7 @@ SPEED_TEST_URLS = [               # 测速端点多路 (实测部分节点商屏
     "https://cachefly.cachefly.net/10mb.test",
 ]
 TRACE_URL = "https://www.cloudflare.com/cdn-cgi/trace"      # warp=on 检测套壳节点
-MAX_WORKERS_TEST    = 48            # 同时 sing-box 实测节点数 (Azure 2C7G 实测 24→48 稳定; sing-box 单实例 < 30MB)
+MAX_WORKERS_TEST    = 96            # 同时 sing-box 实测节点数 (Azure 2C7G: 48→96; sing-box <30MB/实例, I/O 等待为主, 靠线程数换吞吐)
 MAX_WORKERS_FETCH   = 8
 MAX_WORKERS_CLASSIFY = 32
 
@@ -1332,6 +1332,24 @@ def _release_socks_port(port: int):
         _SOCKS_PORTS_IN_USE.discard(port)
 
 
+TCP_PRECHECK_TIMEOUT = 3.0
+
+
+def tcp_precheck(server: str, port: int, proto: str) -> bool:
+    """TCP 系协议先做 L4 直连探测: 建连失败则 sing-box 全流程必然失败, 直接判死 (省 ~30s+ 超时).
+    QUIC 系 (hy2/tuic) 无 TCP 可探, 直接放行由 sing-box 裁决。"""
+    if proto in ("hysteria2", "tuic"):
+        return True
+    try:
+        ip = resolve_host(server)
+        if not ip:
+            return False
+        with socket.create_connection((ip, port), timeout=TCP_PRECHECK_TIMEOUT):
+            return True
+    except Exception:
+        return False
+
+
 def build_test_config(outbound: dict, socks_port: int, chain_relay: dict = None) -> dict:
     node = dict(outbound)
     node["tag"] = "node"
@@ -1687,6 +1705,10 @@ def run_liveness_test(candidates: list) -> list:
     done_count = [0]
 
     def _work(item):
+        _raw, _ob, _server, _port, _proto = item
+        if not tcp_precheck(_server, _port, _proto):
+            _bump_counter(_PROBE_FAILS, "tcp_precheck_dead")
+            return None
         return test_single_node(item)
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS_TEST) as ex:
