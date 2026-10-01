@@ -6,34 +6,66 @@
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-      "server": "2193972c-tmkao0-u1vxv2-v3c2.hk3.hyhuawei.com",
+      "server": "bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com",
       "server_port": 443,
-      "password": "5f091cbe-fb34-11ea-9777-f23c9164ca5d",
+      "password": "6ddb6a68-d5f5-ca30-3943-cf0c9876d50c",
       "tls": {
         "enabled": true,
-        "server_name": "2193972c-tmkao0-u1vxv2-v3c2.hk3.hyhuawei.com",
+        "server_name": "bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com",
         "insecure": true
       }
     },
     {
+      "type": "vless",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
+      "server": "42.200.173.5",
+      "server_port": 443,
+      "uuid": "b98d4c6e-6770-4a31-8256-a4750cdea0e7",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "s3.ap-east-1.amazonaws.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "0i_xAxYgSNx5NMpK2lOaWGS-CvAiD_LneYPO0MF0owo",
+          "short_id": "1a"
+        }
+      }
+    },
+    {
       "type": "vmess",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 02 (移动家宽)",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)",
       "server": "zfd-hkv2.kunlun01dns.com",
-      "server_port": 16113,
+      "server_port": 16115,
       "uuid": "0802ac03-7973-39ef-a019-ba02de6c01e1",
       "security": "auto"
     },
     {
-      "type": "hysteria2",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
-      "server": "44577f17-tm96o0-tne5x4-1rfon.nw4.hyhuawei.com",
-      "server_port": 443,
-      "password": "aed1cc24-351d-11ef-ba52-f23c9164ca5d",
-      "tls": {
-        "enabled": true,
-        "server_name": "44577f17-tm96o0-tne5x4-1rfon.nw4.hyhuawei.com",
-        "insecure": false
+      "type": "vmess",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 04 (家宽)",
+      "server": "az-1.linkaa.xyz",
+      "server_port": 53617,
+      "uuid": "6E571484-4166-4699-8F58-B34A1823691F",
+      "security": "auto",
+      "transport": {
+        "type": "ws",
+        "path": "/game/resources",
+        "headers": {
+          "Host": "az-1.linkaa.xyz"
+        }
       }
+    },
+    {
+      "type": "vmess",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)",
+      "server": "dog-hk.kunlun01dns.com",
+      "server_port": 21022,
+      "uuid": "9464ca40-dd75-3742-a628-d931a9f413b2",
+      "security": "auto"
     },
     {
       "type": "selector",
@@ -41,8 +73,10 @@
       "outbounds": [
         "auto",
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 02 (移动家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 04 (家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)"
       ]
     },
     {
@@ -50,8 +84,10 @@
       "tag": "auto",
       "outbounds": [
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 02 (移动家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 04 (家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

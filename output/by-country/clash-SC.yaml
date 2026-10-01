@@ -5,17 +5,6 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇨 塞舌尔 (Seychelles) 01
-  server: 104.18.39.218
-  port: 2082
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /?ed=2560security=tls
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇸🇨 塞舌尔 (Seychelles) 02
   server: 154.84.56.198
   port: 443
   udp: true
@@ -27,8 +16,8 @@ proxies:
     public-key: EHQEopoNqm2q8R2uu8ffAIpI-k2q-9Z5RUWafETWVGs
     short-id: b7e4a1c9d3f60528
   servername: www.universityofcalifornia.edu
-  client-fingerprint: firefox
-- name: 🇸🇨 塞舌尔 (Seychelles) 03
+  client-fingerprint: chrome
+- name: 🇸🇨 塞舌尔 (Seychelles) 02
   server: 45.207.207.25
   port: 443
   udp: true
@@ -42,7 +31,6 @@ proxy-groups:
   - AUTO
   - 🇸🇨 塞舌尔 (Seychelles) 01
   - 🇸🇨 塞舌尔 (Seychelles) 02
-  - 🇸🇨 塞舌尔 (Seychelles) 03
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -50,6 +38,5 @@ proxy-groups:
   proxies:
   - 🇸🇨 塞舌尔 (Seychelles) 01
   - 🇸🇨 塞舌尔 (Seychelles) 02
-  - 🇸🇨 塞舌尔 (Seychelles) 03
 rules:
 - MATCH,PROXIES

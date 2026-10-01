@@ -5,27 +5,16 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇦🇪 阿联酋 (UAE) 01
-  server: 104.143.223.230
-  port: 2085
-  udp: true
-  type: vless
-  uuid: 8dafd22b-72fc-4d78-ae00-33affecb8fcd
-  network: grpc
-  grpc-opts:
-    grpc-service-name: vless
-- name: 🇦🇪 阿联酋 (UAE) 02
-  server: node-nl.shtormvpn.shop
+  server: 130.49.161.70
   port: 443
   udp: true
-  type: vless
-  uuid: cc4d63e2-3a86-49b3-9598-328bbe93e56c
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: yI6maXxTQ8zRHg39X8YMQtKW-IVfNIn0_OCUIQKmcXw
-  servername: google.com
-  client-fingerprint: firefox
-- name: 🇦🇪 阿联酋 (UAE) 03
+  type: hysteria2
+  password: p7Q76LzlnS4hIzr1W3staBOnUe_WwSkR
+  sni: hy2.aspidnet.xyz
+  skip-cert-verify: true
+  obfs: salamander
+  obfs-password: rG07s3COMIEvdnQipRyWzx_H_2xygNC3
+- name: 🇦🇪 阿联酋 (UAE) 02
   server: 78.40.195.140
   port: 443
   udp: true
@@ -38,17 +27,7 @@ proxies:
     short-id: 98096455d963bdbb
   servername: www.booking.com
   client-fingerprint: firefox
-- name: 🇦🇪 阿联酋 (UAE) 04
-  server: 130.49.161.70
-  port: 443
-  udp: true
-  type: hysteria2
-  password: p7Q76LzlnS4hIzr1W3staBOnUe_WwSkR
-  sni: hy2.aspidnet.xyz
-  skip-cert-verify: false
-  obfs: salamander
-  obfs-password: rG07s3COMIEvdnQipRyWzx_H_2xygNC3
-- name: 🇦🇪 阿联酋 (UAE) 05
+- name: 🇦🇪 阿联酋 (UAE) 03
   server: 146.70.102.82
   port: 443
   udp: true
@@ -60,9 +39,9 @@ proxies:
     public-key: GDer6NQYXdbccrFI0tLn2671PjCvrcSy0R7TKY8vG1k
     short-id: 002fb4ec7b3088cc
   servername: www.datadoghq.com
-  client-fingerprint: chrome
-- name: 🇦🇪 阿联酋 (UAE) 06
-  server: 84.235.244.108
+  client-fingerprint: firefox
+- name: 🇦🇪 阿联酋 (UAE) 04
+  server: uae.unixzone.us
   port: 22573
   udp: true
   type: vless
@@ -72,6 +51,39 @@ proxies:
     path: /
     headers:
       Host: uae.unixzone.us
+- name: 🇦🇪 阿联酋 (UAE) 05
+  server: av513u.sysopnova.art
+  port: 443
+  udp: true
+  type: vless
+  uuid: 3710fc0f-5f0c-4b9c-a5d4-40cb419e943a
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: WKN5yaRN05O2WdCURXRmS-yBVYaabaFWOvGudX6ohWc
+    short-id: b97e7d4582b6fa6e
+  servername: yandex.ru
+  client-fingerprint: firefox
+- name: 🇦🇪 阿联酋 (UAE) 06
+  server: 144.31.49.47
+  port: 443
+  udp: true
+  type: hysteria2
+  password: YutbgyXL1mGaSlBXDoEucWvYbrDCINgUcQ6R6_At5Pjr2xCc
+  sni: admin.wwwinternetvideo.click
+  skip-cert-verify: false
+- name: 🇦🇪 阿联酋 (UAE) 07
+  server: node-nl.shtormvpn.shop
+  port: 443
+  udp: true
+  type: vless
+  uuid: cc4d63e2-3a86-49b3-9598-328bbe93e56c
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: yI6maXxTQ8zRHg39X8YMQtKW-IVfNIn0_OCUIQKmcXw
+  servername: google.com
+  client-fingerprint: edge
 proxy-groups:
 - name: PROXIES
   type: select
@@ -83,6 +95,7 @@ proxy-groups:
   - 🇦🇪 阿联酋 (UAE) 04
   - 🇦🇪 阿联酋 (UAE) 05
   - 🇦🇪 阿联酋 (UAE) 06
+  - 🇦🇪 阿联酋 (UAE) 07
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -94,5 +107,6 @@ proxy-groups:
   - 🇦🇪 阿联酋 (UAE) 04
   - 🇦🇪 阿联酋 (UAE) 05
   - 🇦🇪 阿联酋 (UAE) 06
+  - 🇦🇪 阿联酋 (UAE) 07
 rules:
 - MATCH,PROXIES

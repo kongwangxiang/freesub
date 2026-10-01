@@ -4,51 +4,9 @@
   },
   "outbounds": [
     {
-      "type": "vless",
-      "tag": "🇮🇩 印尼 (Indonesia) 01",
-      "server": "103.172.197.3",
-      "server_port": 16006,
-      "uuid": "f8c9d2a1-da40-4f90-b671-11772a0b13d6",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.cloudflare.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "safari"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "ll7JTP628PuBMZJvx6fuhGSmCRSURnReAetmhCEL8GU",
-          "short_id": ""
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇮🇩 印尼 (Indonesia) 02",
-      "server": "103.172.197.2",
-      "server_port": 29172,
-      "uuid": "3977434d-6a9b-4858-8ced-80326ba5e367",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "aws.amazon.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "firefox"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "pff94OJwuKXnF7_3SJ8KKJuAN4GJtInBlR-kg-4mwzQ",
-          "short_id": ""
-        }
-      }
-    },
-    {
       "type": "trojan",
-      "tag": "🇮🇩 印尼 (Indonesia) 03",
-      "server": "188.114.97.6",
+      "tag": "🇮🇩 印尼 (Indonesia) 01",
+      "server": "104.21.70.21",
       "server_port": 443,
       "password": "018b8e7b-7813-4dcb-84a5-3c98f1521e00",
       "tls": {
@@ -65,13 +23,80 @@
       }
     },
     {
+      "type": "vless",
+      "tag": "🇮🇩 印尼 (Indonesia) 02",
+      "server": "103.172.197.2",
+      "server_port": 29172,
+      "uuid": "3977434d-6a9b-4858-8ced-80326ba5e367",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "aws.amazon.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "qq"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "pff94OJwuKXnF7_3SJ8KKJuAN4GJtInBlR-kg-4mwzQ",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "🇮🇩 印尼 (Indonesia) 03",
+      "server": "az-1.linkaa.xyz",
+      "server_port": 55386,
+      "uuid": "6E571484-4166-4699-8F58-B34A1823691F",
+      "security": "auto",
+      "transport": {
+        "type": "ws",
+        "path": "/game/resources",
+        "headers": {
+          "Host": "az-1.linkaa.xyz"
+        }
+      }
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇮🇩 印尼 (Indonesia) 04",
+      "server": "103.160.63.199",
+      "server_port": 31348,
+      "method": "chacha20-ietf-poly1305",
+      "password": "8C5valhOd8vfwaTXUSZ6Zyb0Ip34lRR5z7P8az"
+    },
+    {
+      "type": "vless",
+      "tag": "🇮🇩 印尼 (Indonesia) 05",
+      "server": "103.172.197.3",
+      "server_port": 16006,
+      "uuid": "f8c9d2a1-da40-4f90-b671-11772a0b13d6",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.cloudflare.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "ll7JTP628PuBMZJvx6fuhGSmCRSURnReAetmhCEL8GU",
+          "short_id": ""
+        }
+      }
+    },
+    {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
         "🇮🇩 印尼 (Indonesia) 01",
         "🇮🇩 印尼 (Indonesia) 02",
-        "🇮🇩 印尼 (Indonesia) 03"
+        "🇮🇩 印尼 (Indonesia) 03",
+        "🇮🇩 印尼 (Indonesia) 04",
+        "🇮🇩 印尼 (Indonesia) 05"
       ]
     },
     {
@@ -80,7 +105,9 @@
       "outbounds": [
         "🇮🇩 印尼 (Indonesia) 01",
         "🇮🇩 印尼 (Indonesia) 02",
-        "🇮🇩 印尼 (Indonesia) 03"
+        "🇮🇩 印尼 (Indonesia) 03",
+        "🇮🇩 印尼 (Indonesia) 04",
+        "🇮🇩 印尼 (Indonesia) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

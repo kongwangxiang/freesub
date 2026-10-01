@@ -5,18 +5,12 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇦🇹 奥地利 (Austria) 01
-  server: 104.18.30.64
-  port: 2053
+  server: 82.110.60.9
+  port: 19999
   udp: true
-  type: trojan
-  password: '@MrVpn294'
-  sni: 8jlDmDT24EoG8QjvQgS2NOh1.MAeLIn313.WorKERS.DEV
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /tr/z9e6AWiiaxtgkjdQXbd45JZ?ed=2560
-    headers:
-      Host: 8jldmdt24eog8qjvqgs2noh1.maelin313.workers.dev
+  type: ss
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
 - name: 🇦🇹 奥地利 (Austria) 02
   server: 152.53.1.40
   port: 443
@@ -31,13 +25,6 @@ proxies:
   servername: at.quattro-tech.ru
   client-fingerprint: qq
 - name: 🇦🇹 奥地利 (Austria) 03
-  server: 82.110.60.9
-  port: 19999
-  udp: true
-  type: ss
-  cipher: aes-256-gcm
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-- name: 🇦🇹 奥地利 (Austria) 04
   server: 31.77.227.6
   port: 52006
   udp: true
@@ -47,7 +34,6 @@ proxies:
   tls: true
   servername: bigdick.gamegrow.ru
   skip-cert-verify: false
-  client-fingerprint: chrome
 proxy-groups:
 - name: PROXIES
   type: select
@@ -56,7 +42,6 @@ proxy-groups:
   - 🇦🇹 奥地利 (Austria) 01
   - 🇦🇹 奥地利 (Austria) 02
   - 🇦🇹 奥地利 (Austria) 03
-  - 🇦🇹 奥地利 (Austria) 04
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -65,6 +50,5 @@ proxy-groups:
   - 🇦🇹 奥地利 (Austria) 01
   - 🇦🇹 奥地利 (Austria) 02
   - 🇦🇹 奥地利 (Austria) 03
-  - 🇦🇹 奥地利 (Austria) 04
 rules:
 - MATCH,PROXIES
