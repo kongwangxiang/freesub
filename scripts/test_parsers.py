@@ -286,7 +286,7 @@ def run_test():
     else:
         print("  ✅ get_rdns OK")
     _ssh = mv.parse_ssh("ssh://u:p@h.example.com:22#x")
-    if mv.outbound_to_v2ray_link(_ssh[0], "t") != "":
+    if not _ssh or mv.outbound_to_v2ray_link(_ssh, "t") != "":
         FAIL.append("[P2] ssh 应导出为空")
         print("  ❌ ssh 未导出为空")
     else:
