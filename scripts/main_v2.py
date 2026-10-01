@@ -434,6 +434,11 @@ def ensure_directories():
     os.makedirs(COUNTRY_DIR, exist_ok=True)
     os.makedirs(RESIDENTIAL_COUNTRY_DIR, exist_ok=True)
     os.makedirs(RUNTIME_DIR, exist_ok=True)
+    for f in glob.glob(os.path.join(RUNTIME_DIR, "sb_*.json")):
+        try:
+            os.remove(f)
+        except OSError:
+            pass
 
 
 def is_ip_literal(host: str) -> bool:
@@ -673,13 +678,14 @@ def parse_vmess(uri: str):
     port = int(data.get("port", 0) or 0)
     if not server or port <= 0:
         return None
+    scy = str(data.get("scy", "auto") or "auto").lower()
     outbound = {
         "type": "vmess",
         "tag": "node",
         "server": server,
         "server_port": port,
         "uuid": str(data.get("id", "")).strip(),
-        "security": "auto",
+        "security": scy if scy in ("auto", "aes-128-gcm", "chacha20-poly1305", "none", "zero") else "auto",
     }
     aid = int(data.get("aid", 0) or 0)
     if aid > 0:
@@ -946,6 +952,222 @@ PARSERS = {
     "ssh://": parse_ssh,
 }
 
+def _first_present(d: dict, *keys, default=None):
+    for k in keys:
+        v = d.get(k)
+        if v is not None and v != "":
+            return v
+    return default
+
+
+def clash_proxy_to_outbound(p: dict):
+    """Clash/Meta proxy 词条 → sing-box outbound(尽力转换); 不支持的协议返回 None(由测活裁决改为直接跳过: ssr/wireguard/中转类本流水线无法测活)"""
+    if not isinstance(p, dict):
+        return None
+    t = str(p.get("type", "")).lower()
+    server = p.get("server")
+    try:
+        port = int(p.get("port") or 0)
+    except (TypeError, ValueError):
+        return None
+    if not server or not (0 < port <= 65535):
+        return None
+    server = str(server)
+    ob = {"tag": "node", "server": server, "server_port": port}
+    sni = _first_present(p, "sni", "servername", "peer")
+    skip = _first_present(p, "skip-cert-verify", "skip_cert_verify", "insecure", "allowInsecure", default=False)
+    insecure = skip is True or str(skip).lower() in ("1", "true", "yes")
+
+    def _tls(extra=None):
+        tls = {"enabled": True}
+        if sni:
+            tls["server_name"] = str(sni)
+        if insecure:
+            tls["insecure"] = True
+        if extra:
+            tls.update(extra)
+        return tls
+
+    def _alpn_list(v):
+        if isinstance(v, list):
+            return [str(a) for a in v if a]
+        return [x for x in str(v or "").split(",") if x]
+
+    def _transport():
+        net = str(p.get("network", "")).lower()
+        if net in ("", "tcp", "none"):
+            return None
+        if net == "ws":
+            o = p.get("ws-opts") or p.get("ws_opts") or {}
+            t_ = {"type": "ws"}
+            if o.get("path"):
+                t_["path"] = str(o["path"])
+            if o.get("headers"):
+                t_["headers"] = {str(k): str(v) for k, v in o["headers"].items()}
+            return t_
+        if net == "grpc":
+            o = p.get("grpc-opts") or p.get("grpc_opts") or {}
+            t_ = {"type": "grpc"}
+            svc = o.get("grpc-service-name") or o.get("grpc_service_name")
+            if svc:
+                t_["service_name"] = str(svc)
+            return t_
+        if net in ("h2", "http"):
+            o = p.get("h2-opts") or p.get("h2_opts") or {}
+            t_ = {"type": "http"}
+            if o.get("host"):
+                h = o["host"]
+                t_["host"] = [str(x) for x in h] if isinstance(h, list) else [str(h)]
+            if o.get("path"):
+                t_["path"] = str(o["path"])
+            return t_
+        if net == "httpupgrade":
+            o = p.get("httpupgrade-opts") or p.get("httpupgrade_opts") or {}
+            t_ = {"type": "httpupgrade"}
+            if o.get("path"):
+                t_["path"] = str(o["path"])
+            if o.get("host"):
+                t_["host"] = str(o["host"])
+            return t_
+        return None
+
+    if t == "ss":
+        ob["type"] = "shadowsocks"
+        ob["method"] = str(p.get("cipher", "")).lower()
+        ob["password"] = str(p.get("password", ""))
+        if not ob["method"] or not ob["password"]:
+            return None
+        if p.get("plugin"):
+            ob["plugin"] = str(p["plugin"])
+            plug_opts = p.get("plugin-opts") or p.get("plugin_opts")
+            if plug_opts:
+                ob["plugin_opts"] = str(plug_opts)
+        return ob
+    if t == "vmess":
+        ob["type"] = "vmess"
+        ob["uuid"] = str(p.get("uuid", ""))
+        if not ob["uuid"]:
+            return None
+        try:
+            aid = int(p.get("alterId", p.get("alter_id", 0)) or 0)
+        except (TypeError, ValueError):
+            aid = 0
+        if aid:
+            ob["alter_id"] = aid
+        ob["security"] = str(p.get("cipher", "auto") or "auto")
+        if p.get("tls"):
+            ob["tls"] = _tls()
+        tr = _transport()
+        if tr:
+            ob["transport"] = tr
+        return ob
+    if t == "vless":
+        ob["type"] = "vless"
+        ob["uuid"] = str(p.get("uuid", ""))
+        if not ob["uuid"]:
+            return None
+        if p.get("flow"):
+            ob["flow"] = str(p["flow"])
+        ro = p.get("reality-opts") or p.get("reality_opts") or {}
+        pbk = ro.get("public-key") or ro.get("public_key")
+        if pbk:
+            fp = p.get("client-fingerprint") or p.get("client_fingerprint") or "chrome"
+            ob["tls"] = {
+                "enabled": True,
+                "server_name": str(sni or server),
+                "utls": {"enabled": True, "fingerprint": str(fp)},
+                "reality": {"enabled": True, "public_key": str(pbk),
+                            "short_id": str(ro.get("short-id") or ro.get("short_id") or "")},
+            }
+        elif p.get("tls"):
+            fp = p.get("client-fingerprint") or p.get("client_fingerprint")
+            ob["tls"] = _tls({"utls": {"enabled": True, "fingerprint": str(fp)}} if fp else None)
+        tr = _transport()
+        if tr:
+            ob["transport"] = tr
+        return ob
+    if t == "trojan":
+        ob["type"] = "trojan"
+        ob["password"] = str(p.get("password", ""))
+        if not ob["password"]:
+            return None
+        ob["tls"] = _tls()
+        if p.get("alpn"):
+            ob["tls"]["alpn"] = _alpn_list(p["alpn"])
+        tr = _transport()
+        if tr:
+            ob["transport"] = tr
+        return ob
+    if t in ("hysteria2", "hy2"):
+        ob["type"] = "hysteria2"
+        ob["password"] = str(p.get("password", p.get("auth", "")))
+        if not ob["password"]:
+            return None
+        ob["tls"] = _tls()
+        if p.get("alpn"):
+            ob["tls"]["alpn"] = _alpn_list(p["alpn"])
+        if p.get("obfs"):
+            ob["obfs"] = {"type": str(p["obfs"]),
+                          "password": str(p.get("obfs-password") or p.get("obfs_password") or "")}
+        ports = p.get("ports") or p.get("mport")
+        if ports:
+            pr = _parse_port_range(str(ports))
+            if pr:
+                ob["server_ports"] = pr
+                ob.pop("server_port", None)
+        return ob
+    if t == "tuic":
+        ob["type"] = "tuic"
+        ob["uuid"] = str(p.get("uuid", ""))
+        ob["password"] = str(p.get("password", ""))
+        if not ob["uuid"] or not ob["password"]:
+            return None
+        ob["congestion_control"] = str(p.get("congestion-controller") or p.get("congestion_control")
+                                       or p.get("congestion_controller") or "bbr")
+        ob["udp_relay_mode"] = str(p.get("udp-relay-mode") or p.get("udp_relay_mode") or "native")
+        ob["tls"] = _tls()
+        ob["tls"]["alpn"] = _alpn_list(p.get("alpn", "h3"))
+        return ob
+    if t == "anytls":
+        ob["type"] = "anytls"
+        ob["password"] = str(p.get("password", ""))
+        if not ob["password"]:
+            return None
+        ob["tls"] = _tls()
+        return ob
+    return None
+
+
+_STRUCTURED_OUTBOUND_TYPES = {"vless", "vmess", "trojan", "shadowsocks", "hysteria2", "tuic", "anytls"}
+
+
+def singbox_json_to_uris(data) -> set:
+    """sing-box JSON 出站列表 → v2ray URI 集合(经标准导出器转译, 失败项丢弃)"""
+    results = set()
+    items = []
+    if isinstance(data, dict):
+        for key in ("outbounds", "proxies"):
+            v = data.get(key)
+            if isinstance(v, list):
+                items.extend(v)
+    elif isinstance(data, list):
+        items = data
+    for idx, entry in enumerate(items):
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("type", "")).lower() not in _STRUCTURED_OUTBOUND_TYPES:
+            continue
+        if not entry.get("server"):
+            continue
+        try:
+            link = outbound_to_v2ray_link(dict(entry), f"sj-{idx}")
+        except Exception:
+            continue
+        if link:
+            results.add(link)
+    return results
+
+
 # 排除明显加密残缺/占位节点
 BLACKLIST_NAME_HINTS = re.compile(r"(剩余流量|流量重置|expire|expired|官网|套餐|telegram\.me|t\.me/|获取订阅)", re.I)
 
@@ -994,6 +1216,30 @@ def extract_nodes_from_text(text: str) -> set:
         clean = m.strip().rstrip(".,;'\"")
         if len(clean) > 12:
             results.add(clean)
+    if not results and (("proxies:" in text) or ("outbounds" in text)):
+        # 结构化订阅 (Clash YAML / sing-box JSON): 转译为标准 URI 后续流程不变
+        try:
+            data = yaml.safe_load(text)
+        except Exception:
+            data = None
+        if isinstance(data, dict):
+            proxies = data.get("proxies")
+            if isinstance(proxies, list):
+                for p in proxies:
+                    ob = clash_proxy_to_outbound(p)
+                    if not ob:
+                        continue
+                    try:
+                        link = outbound_to_v2ray_link(ob, f"clash-{len(results)}")
+                    except Exception:
+                        continue
+                    if link:
+                        results.add(link)
+            items = data.get("outbounds")
+            if isinstance(items, list):
+                results.update(singbox_json_to_uris(data))
+        elif isinstance(data, list):
+            results.update(singbox_json_to_uris(data))
     return results
 
 
@@ -1579,25 +1825,53 @@ def chain_retest(test_results: list) -> list:
 # 阶段 C: 出口 IP 批量情报 (ip-api.com 免费 batch) + 离线兜底
 # ═══════════════════════════════════════════N═══════════════════════
 
-_IP_API_CACHE = {}
-_IP_API_CACHE_LOCK = threading.Lock()
+IP_API_CACHE_TTL = 24 * 3600
+IP_API_CACHE_MAX = 20000
+_IP_API_CACHE_FILE = os.path.join(RUNTIME_DIR, "ip_api_cache.json")
+
+
+def _load_ip_api_disk_cache() -> dict:
+    try:
+        with open(_IP_API_CACHE_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _save_ip_api_disk_cache(cache: dict):
+    try:
+        if len(cache) > IP_API_CACHE_MAX:
+            cache = dict(sorted(cache.items(), key=lambda kv: kv[1].get("ts", 0), reverse=True)[:IP_API_CACHE_MAX])
+        tmp = _IP_API_CACHE_FILE + ".part"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(cache, f)
+        os.replace(tmp, _IP_API_CACHE_FILE)
+    except Exception as e:
+        print(f"[!] ip-api 缓存落盘失败: {e}")
 
 
 def ip_api_batch_lookup(ip_list: list) -> dict:
     """ip-api.com batch (免费 HTTP, ≤100/req, 15 req/min → 1500 IP/min)
-    模块级缓存: 键为排序后的 IP 元组 — 相同 IP 集合直接复用, 不重复限速查询"""
-    cache_key = tuple(sorted(set(ip_list)))
-    if cache_key:
-        with _IP_API_CACHE_LOCK:
-            if cache_key in _IP_API_CACHE:
-                print(f"[*] ip-api 批量缓存命中 ({len(cache_key)} IP), 复用上次结果")
-                return dict(_IP_API_CACHE[cache_key])
+    跨轮持久化: runtime/ip_api_cache.json, 24h TTL (runtime/ 经 actions/cache 跨 CI 保留，同 IP 每日只查一次)"""
+    now = time.time()
+    disk = _load_ip_api_disk_cache()
     info = {}
+    for ip in dict.fromkeys(ip_list):
+        ent = disk.get(ip)
+        if ent and now - ent.get("ts", 0) < IP_API_CACHE_TTL and isinstance(ent.get("rec"), dict):
+            info[ip] = ent["rec"]
+    missing = [ip for ip in dict.fromkeys(ip_list) if ip not in info]
+    if missing:
+        print(f"[*] ip-api 缓存命中 {len(info)}/{len(set(ip_list))}, 需查询 {len(missing)}")
+    else:
+        print(f"[*] ip-api 全部缓存命中 ({len(info)} IP), 跳过在线查询")
+        return info
     session = requests.Session()
-    session.trust_env = True  # 直连即可; ip-api.com 免费层全球可达 (CI 无代理/本地走系统代理均可)
-    total_batches = (len(ip_list) + IP_API_BATCH_SIZE - 1) // IP_API_BATCH_SIZE
-    for bi, i in enumerate(range(0, len(ip_list), IP_API_BATCH_SIZE), 1):
-        chunk = ip_list[i:i + IP_API_BATCH_SIZE]
+    session.trust_env = True
+    total_batches = (len(missing) + IP_API_BATCH_SIZE - 1) // IP_API_BATCH_SIZE
+    for bi, i in enumerate(range(0, len(missing), IP_API_BATCH_SIZE), 1):
+        chunk = missing[i:i + IP_API_BATCH_SIZE]
         payload = [{"query": ip} for ip in chunk]
         for attempt in range(3):
             try:
@@ -1618,9 +1892,9 @@ def ip_api_batch_lookup(ip_list: list) -> dict:
             print(f"[*] ip-api 进度: 批 {bi}/{total_batches} ({len(info)} IP 已查)")
         if bi < total_batches:
             time.sleep(IP_API_BATCH_RPS_INTERVAL)
-    if cache_key:
-        with _IP_API_CACHE_LOCK:
-            _IP_API_CACHE[cache_key] = dict(info)
+    for ip, rec in info.items():
+        disk[ip] = {"ts": now, "rec": rec}
+    _save_ip_api_disk_cache(disk)
     return info
 
 
@@ -1644,15 +1918,18 @@ def offline_ip_lookup(ip: str, country_reader, asn_reader) -> tuple:
 
 
 def get_rdns(ip: str) -> str:
-    old = socket.getdefaulttimeout()
-    try:
-        socket.setdefaulttimeout(2.0)
-        host, _, _ = socket.gethostbyaddr(ip)
-        return host.lower()
-    except Exception:
-        return ""
-    finally:
-        socket.setdefaulttimeout(old)
+    out = []
+
+    def _do():
+        try:
+            out.append(socket.gethostbyaddr(ip)[0].lower())
+        except Exception:
+            pass
+
+    th = threading.Thread(target=_do, daemon=True)
+    th.start()
+    th.join(timeout=2.0)
+    return out[0] if out else ""
 
 
 def classify_network_type(ip: str, country: str, asn, org: str, ip_api_rec: dict = None) -> tuple:
@@ -1796,7 +2073,7 @@ def outbound_to_clash(node: dict, name: str) -> dict:
         proxy["type"] = "vmess"
         proxy["uuid"] = node["uuid"]
         proxy["alterId"] = node.get("alter_id", 0)
-        proxy["cipher"] = "auto"
+        proxy["cipher"] = node.get("security", "auto") or "auto"
         tls = node.get("tls") or {}
         if tls.get("enabled"):
             proxy["tls"] = True
@@ -1826,6 +2103,8 @@ def outbound_to_clash(node: dict, name: str) -> dict:
             proxy["network"] = transport["type"]
             if transport["type"] == "ws":
                 proxy["ws-opts"] = {"path": transport.get("path", "/")}
+                if transport.get("headers"):
+                    proxy["ws-opts"]["headers"] = transport["headers"]
             elif transport["type"] == "grpc":
                 proxy["grpc-opts"] = {"grpc-service-name": transport.get("service_name", "")}
     elif t == "shadowsocks":
@@ -1885,7 +2164,7 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
         data = {
             "v": "2", "ps": name, "add": server, "port": str(port),
             "id": node["uuid"], "aid": str(node.get("alter_id", 0)),
-            "scy": "auto", "net": ttype,
+            "scy": node.get("security", "auto") or "auto", "net": ttype,
             "type": "none",
             "host": "", "path": "",
             "tls": "tls" if tls.get("enabled") else "",
@@ -2325,9 +2604,11 @@ def export_all(unique_nodes, residential, non_residential):
         for idx, item in enumerate(nodes_list, start=1):
             name = make_node_name(item, idx, force_res)
             ob = item["outbound"]
-            if not ob:
+            if not ob or ob.get("type") == "ssh":
                 continue
-            links.append(outbound_to_v2ray_link(ob, name))
+            link = outbound_to_v2ray_link(ob, name)
+            if link:
+                links.append(link)
             cp = outbound_to_clash(ob, name)
             if cp:
                 proxies.append(cp)

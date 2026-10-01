@@ -198,6 +198,102 @@ def run_test():
 
     print()
     print("=" * 70)
+    print("阶段5: 结构化源 + P2 回归测试")
+    print("=" * 70)
+    CLASH_SAMPLES = {
+        "clash_vless_ws": {"type": "vless", "server": "cdn.example.com", "port": 443,
+            "uuid": "b831381d-6324-4d53-ad4f-8cda48b30811", "tls": True, "servername": "cdn.example.com",
+            "network": "ws", "ws-opts": {"path": "/ws", "headers": {"Host": "cdn.example.com"}}},
+        "clash_trojan_ws": {"type": "trojan", "server": "tj.example.com", "port": 443, "password": "pw",
+            "sni": "tj.example.com", "network": "ws",
+            "ws-opts": {"path": "/tj", "headers": {"Host": "tj.example.com"}}},
+        "clash_hy2_hop": {"type": "hysteria2", "server": "hop.example.com", "port": 443, "password": "pw",
+            "sni": "hop.example.com", "ports": "2087-2097,443"},
+        "clash_tuic": {"type": "tuic", "server": "tuic.example.com", "port": 443,
+            "uuid": "b831381d-6324-4d53-ad4f-8cda48b30811", "password": "pw", "sni": "tuic.example.com"},
+        "clash_ss": {"type": "ss", "server": "ss.example.com", "port": 8388,
+            "cipher": "aes-256-gcm", "password": "pw"},
+        "clash_vmess": {"type": "vmess", "server": "vm.example.com", "port": 443,
+            "uuid": "b831381d-6324-4d53-ad4f-8cda48b30811", "alterId": 0, "cipher": "auto",
+            "tls": True, "servername": "vm.example.com", "network": "ws",
+            "ws-opts": {"path": "/vm", "headers": {"Host": "vm.example.com"}}},
+    }
+    for name, p in CLASH_SAMPLES.items():
+        ob = mv.clash_proxy_to_outbound(p)
+        if not ob:
+            FAIL.append(f"[STRUCT] {name}: clash 转译失败")
+            print(f"  ❌ {name}: clash 转译失败")
+            continue
+        link = mv.outbound_to_v2ray_link(dict(ob), "Test-" + name)
+        rp = mv.parse_node_uri(link) if link else None
+        exp_port = ob.get("server_port") or int(str(ob["server_ports"][0]).split(":")[0])
+        if not rp or rp[3] != ob["type"] or rp[1] != ob["server"] or rp[2] != exp_port:
+            FAIL.append(f"[STRUCT] {name}: 转译 roundtrip 失败")
+            print(f"  ❌ {name}: 转译 roundtrip 失败")
+            continue
+        cp = mv.outbound_to_clash(dict(ob), "Test-" + name)
+        if not cp or not cp.get("port"):
+            FAIL.append(f"[STRUCT] {name}: clash 导出失败")
+            print(f"  ❌ {name}: clash 导出失败")
+            continue
+        print(f"  ✅ {name}: {ob['type']} {ob['server']}:{exp_port}")
+    # P2a: trojan-ws Host 头必须进 clash
+    _tob = mv.clash_proxy_to_outbound(CLASH_SAMPLES["clash_trojan_ws"])
+    _tcp = mv.outbound_to_clash(_tob, "t")
+    if _tcp.get("ws-opts", {}).get("headers", {}).get("Host") != "tj.example.com":
+        FAIL.append("[P2] trojan-ws clash Host 头丢失")
+        print("  ❌ trojan-ws Host 头丢失")
+    else:
+        print("  ✅ trojan-ws Host 头保留")
+    # P2b: vmess scy 保留 + 非法值回退 auto
+    _vc = dict(json.loads(mv.b64_decode(SAMPLES["vmess_ws"][8:])))
+    _vc["scy"] = "chacha20-poly1305"
+    _vu = "vmess://" + mv.base64.b64encode(json.dumps(_vc).encode()).decode()
+    _vp = mv.parse_vmess(_vu)
+    _vc["scy"] = "nonsense"
+    _vu2 = "vmess://" + mv.base64.b64encode(json.dumps(_vc).encode()).decode()
+    _vp2 = mv.parse_vmess(_vu2)
+    if not _vp or _vp.get("security") != "chacha20-poly1305" or not _vp2 or _vp2.get("security") != "auto":
+        FAIL.append("[P2] vmess scy 保留/回退异常")
+        print("  ❌ vmess scy 异常")
+    else:
+        print("  ✅ vmess scy 保留/回退 OK")
+    # sing-box JSON 摄入 + 不支持类型跳过
+    _sj = {"outbounds": [dict(outbounds["vless_reality_vision"], tag="x"),
+                         {"type": "selector", "tag": "s", "outbounds": []},
+                         {"type": "direct", "tag": "direct"}]}
+    _suris = mv.singbox_json_to_uris(_sj)
+    if len(_suris) != 1:
+        FAIL.append(f"[P2] singbox JSON 摄入异常: {len(_suris)}")
+        print("  ❌ singbox JSON 摄入异常")
+    else:
+        print("  ✅ singbox JSON 摄入 OK")
+    _mini = "proxies:\n  - {type: ss, server: s.example.com, port: 8388, cipher: aes-256-gcm, password: pw}\n"
+    _mgot = mv.extract_nodes_from_text(_mini)
+    if len(_mgot) != 1 or not next(iter(_mgot)).startswith("ss://"):
+        FAIL.append("[P2] Clash YAML 端到端提取异常")
+        print("  ❌ Clash YAML 端到端提取异常")
+    else:
+        print("  ✅ Clash YAML 端到端提取 OK")
+    if mv.clash_proxy_to_outbound({"type": "wireguard", "server": "x", "port": 1}) is not None:
+        FAIL.append("[P2] wireguard 应被跳过")
+        print("  ❌ wireguard 未跳过")
+    else:
+        print("  ✅ 不支持类型跳过 OK")
+    if not isinstance(mv.get_rdns("127.0.0.1"), str):
+        FAIL.append("[P2] get_rdns 返回类型异常")
+        print("  ❌ get_rdns 异常")
+    else:
+        print("  ✅ get_rdns OK")
+    _ssh = mv.parse_ssh("ssh://u:p@h.example.com:22#x")
+    if mv.outbound_to_v2ray_link(_ssh[0], "t") != "":
+        FAIL.append("[P2] ssh 应导出为空")
+        print("  ❌ ssh 未导出为空")
+    else:
+        print("  ✅ ssh 导出为空 OK")
+
+    print()
+    print("=" * 70)
     if FAIL:
         print(f"共 {len(FAIL)} 项失败:")
         for f in FAIL:
