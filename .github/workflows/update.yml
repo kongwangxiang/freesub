@@ -20,6 +20,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Prepare runtime dir (actions/cache 要求路径存在)
+        run: mkdir -p runtime
+
       - name: Cache runtime (sing-box + GeoLite)
         uses: actions/cache@v4
         with:
