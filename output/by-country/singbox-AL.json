@@ -5,20 +5,22 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🇬🇪 格鲁吉亚 (Georgia) 01",
-      "server": "geo.shkola112.site",
+      "tag": "🇦🇱 AL 01",
+      "server": "144.31.131.38",
       "server_port": 443,
-      "uuid": "76ac91c5-ea82-4046-8ee7-2ffbb563ac94",
+      "uuid": "adc11f30-e4cb-4985-bf5e-f9ded69c019f",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "geo.shkola112.site",
-        "insecure": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/api-vless",
-        "headers": {
-          "Host": "geo.shkola112.site"
+        "server_name": "prod.pl-node-01.security-sbrf.ru",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI",
+          "short_id": "db04ce8bdb8900f1"
         }
       }
     },
@@ -27,14 +29,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇬🇪 格鲁吉亚 (Georgia) 01"
+        "🇦🇱 AL 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇬🇪 格鲁吉亚 (Georgia) 01"
+        "🇦🇱 AL 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

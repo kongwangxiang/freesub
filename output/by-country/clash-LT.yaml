@@ -5,19 +5,6 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇱🇹 立陶宛 (Lithuania) 01
-  server: 62.77.158.1
-  port: 443
-  udp: true
-  type: vless
-  uuid: 2eceaf2b-a775-5a9c-9990-dad2b3660fb6
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: sVhkyiMXvpofflCdSszxQmsqOXV1kg1Ldxq1a9mOPjs
-    short-id: 6a
-  servername: online.1c.ru
-  client-fingerprint: random
-- name: 🇱🇹 立陶宛 (Lithuania) 02
   server: litva1.ali-bard.online
   port: 443
   udp: true
@@ -29,7 +16,7 @@ proxies:
     public-key: SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I
   servername: litva1.ali-bard.online
   client-fingerprint: firefox
-- name: 🇱🇹 立陶宛 (Lithuania) 03
+- name: 🇱🇹 立陶宛 (Lithuania) 02
   server: 84.32.151.226
   port: 443
   udp: true
@@ -51,7 +38,6 @@ proxy-groups:
   - AUTO
   - 🇱🇹 立陶宛 (Lithuania) 01
   - 🇱🇹 立陶宛 (Lithuania) 02
-  - 🇱🇹 立陶宛 (Lithuania) 03
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -59,6 +45,5 @@ proxy-groups:
   proxies:
   - 🇱🇹 立陶宛 (Lithuania) 01
   - 🇱🇹 立陶宛 (Lithuania) 02
-  - 🇱🇹 立陶宛 (Lithuania) 03
 rules:
 - MATCH,PROXIES

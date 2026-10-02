@@ -5,93 +5,30 @@ mode: rule
 log-level: info
 proxies:
 - name: 🌐 其他地区 (Other) 01
-  server: ccs2g.pai50288.uk
-  port: 443
+  server: cctvhikvision.center
+  port: 2053
   udp: true
   type: vless
-  uuid: 8be461cb-a0df-47cf-bc0d-4d9e6a22fa74
+  uuid: e3fb01b6-69b4-41d7-babf-696d992de194
   tls: true
-  servername: ccs2g.pai50288.uk
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /pai50288
-    headers:
-      Host: ccs2g.pai50288.uk
-- name: 🌐 其他地区 (Other) 02
-  server: 104.18.37.127
-  port: 443
-  udp: true
-  type: trojan
-  password: humanity
-  sni: wWw.Volumeroot.cOm.
+  servername: uwu.blueknightnet.qzz.io
   skip-cert-verify: false
   network: ws
   ws-opts:
-    path: /assignment
+    path: /@BlueKnight_net--@BlueKnight_net--@BlueKnight_net--@BlueKnight_net--@BlueKnight_net--@BlueKnight_net
     headers:
-      Host: www.volumerOot.coM.
-- name: 🌐 其他地区 (Other) 03
-  server: 104.18.37.127
-  port: 443
-  udp: true
-  type: trojan
-  password: humanity
-  sni: wWw.Volumeroot.cOm.
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /assignment
-    headers:
-      Host: www.volumerOot.coM.
-- name: 🌐 其他地区 (Other) 04
-  server: 104.17.121.43
-  port: 443
-  udp: true
-  type: trojan
-  password: humanity
-  sni: www.calmlunch.com
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /assignment
-    headers:
-      Host: www.calmlunch.com
-- name: 🌐 其他地区 (Other) 05
-  server: 104.21.3.219
-  port: 443
-  udp: true
-  type: vless
-  uuid: 8be461cb-a0df-47cf-bc0d-4d9e6a22fa74
-  tls: true
-  servername: ccs2g.pai50288.uk
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /pai50288
-    headers:
-      Host: ccs2g.pai50288.uk
+      Host: uwu.blueknightnet.qzz.io
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
   - 🌐 其他地区 (Other) 01
-  - 🌐 其他地区 (Other) 02
-  - 🌐 其他地区 (Other) 03
-  - 🌐 其他地区 (Other) 04
-  - 🌐 其他地区 (Other) 05
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
   - 🌐 其他地区 (Other) 01
-  - 🌐 其他地区 (Other) 02
-  - 🌐 其他地区 (Other) 03
-  - 🌐 其他地区 (Other) 04
-  - 🌐 其他地区 (Other) 05
 rules:
 - MATCH,PROXIES

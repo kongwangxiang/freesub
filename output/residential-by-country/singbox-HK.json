@@ -6,45 +6,37 @@
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-      "server": "5e293df6-tmm5c0-tujecz-1qkeg.hk3.hyhuawei.com",
+      "server": "e96c3741-tmm5c0-tw2fdz-1s824.hk3.hyhuawei.com",
       "server_port": 443,
-      "password": "a305ac08-d136-11ee-b6db-f23c91cfbbc9",
+      "password": "6d4abac0-86e6-11ef-83cc-f23c913c8d2b",
       "tls": {
         "enabled": true,
-        "server_name": "5e293df6-tmm5c0-tujecz-1qkeg.hk3.hyhuawei.com",
+        "server_name": "e96c3741-tmm5c0-tw2fdz-1s824.hk3.hyhuawei.com",
         "insecure": true
       }
     },
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-      "server": "0b16a4e6-tmm5c0-tpkh0c-1r7od.nw4.hyhuawei.com",
+      "server": "0fd83b77-tmm5c0-tuklme-ueq.nw4.hyhuawei.com",
       "server_port": 443,
-      "password": "6d56436c-150d-11f0-b0c8-f23c913c8d2b",
+      "password": "91df5a86-fcdd-11ef-94aa-f23c913c8d2b",
       "tls": {
         "enabled": true,
-        "server_name": "0b16a4e6-tmm5c0-tpkh0c-1r7od.nw4.hyhuawei.com",
+        "server_name": "0fd83b77-tmm5c0-tuklme-ueq.nw4.hyhuawei.com",
         "insecure": true
       }
     },
     {
-      "type": "vless",
+      "type": "anytls",
       "tag": "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
-      "server": "218.250.216.236",
+      "server": "ac7548f3ebe045b39a90288ff1e97528.pnuqcnp.cn",
       "server_port": 443,
-      "uuid": "6d56436c-150d-11f0-b0c8-f23c913c8d2b",
+      "password": "9sK2mP8xQ7vL3nZ6",
       "tls": {
         "enabled": true,
-        "server_name": "download.windowsupdate.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "firefox"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "c9DdggKaJGSH7FN3JgGbi9ZvsUqOGGpIr7BhzTWeTCo",
-          "short_id": ""
-        }
+        "server_name": "ac7548f3ebe045b39a90288ff1e97528.lwdnxf.cn",
+        "insecure": true
       }
     },
     {

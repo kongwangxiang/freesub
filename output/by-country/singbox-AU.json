@@ -4,24 +4,15 @@
   },
   "outbounds": [
     {
-      "type": "vless",
+      "type": "hysteria2",
       "tag": "🇦🇺 澳大利亚 (Australia) 01",
-      "server": "51.161.204.244",
+      "server": "vpn-au-001.fastervpn.world",
       "server_port": 443,
-      "uuid": "36e89875-9c53-482b-bc41-d3890e9da176",
-      "flow": "xtls-rprx-vision",
+      "password": "H7mP2xY9kJ4nQ8wR5tF6vB3z",
       "tls": {
         "enabled": true,
-        "server_name": "www.cloudflare.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "firefox"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "gCAazs5uxNuMZIxfDdw8wPE0nwKY4QfBfBkQveKAkEk",
-          "short_id": "0ad08b47f498efd2"
-        }
+        "server_name": "vpn-au-001.fastervpn.world",
+        "insecure": true
       }
     },
     {
@@ -41,31 +32,24 @@
       }
     },
     {
-      "type": "hysteria2",
+      "type": "vless",
       "tag": "🇦🇺 澳大利亚 (Australia) 03",
-      "server": "vpn-au-001.fastervpn.world",
+      "server": "51.161.204.244",
       "server_port": 443,
-      "password": "H7mP2xY9kJ4nQ8wR5tF6vB3z",
+      "uuid": "36e89875-9c53-482b-bc41-d3890e9da176",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "vpn-au-001.fastervpn.world",
-        "insecure": true
-      }
-    },
-    {
-      "type": "hysteria2",
-      "tag": "🇦🇺 澳大利亚 (Australia) 04",
-      "server": "137.23.3.238",
-      "server_port": 20000,
-      "password": "b42d90fa667942aebc734d60",
-      "tls": {
-        "enabled": true,
-        "server_name": "rmgyvpn.rest",
-        "insecure": true
-      },
-      "obfs": {
-        "type": "salamander",
-        "password": "b42d90fa667942aebc734d60"
+        "server_name": "www.cloudflare.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "gCAazs5uxNuMZIxfDdw8wPE0nwKY4QfBfBkQveKAkEk",
+          "short_id": "0ad08b47f498efd2"
+        }
       }
     },
     {
@@ -75,8 +59,7 @@
         "auto",
         "🇦🇺 澳大利亚 (Australia) 01",
         "🇦🇺 澳大利亚 (Australia) 02",
-        "🇦🇺 澳大利亚 (Australia) 03",
-        "🇦🇺 澳大利亚 (Australia) 04"
+        "🇦🇺 澳大利亚 (Australia) 03"
       ]
     },
     {
@@ -85,8 +68,7 @@
       "outbounds": [
         "🇦🇺 澳大利亚 (Australia) 01",
         "🇦🇺 澳大利亚 (Australia) 02",
-        "🇦🇺 澳大利亚 (Australia) 03",
-        "🇦🇺 澳大利亚 (Australia) 04"
+        "🇦🇺 澳大利亚 (Australia) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

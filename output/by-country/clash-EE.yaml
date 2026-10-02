@@ -5,34 +5,33 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇪🇪 爱沙尼亚 (Estonia) 01
-  server: 94.183.170.135
+  server: 5.181.202.58
   port: 443
   udp: true
   type: vless
-  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
-  network: ws
-  ws-opts:
-    path: /
+  uuid: 8f6e49e6-7f03-4f10-9da9-1716158d80ed
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: V2JprbR_aJkS7uX6anyU3nrswGxdvDQT2HpY4WnzuC8
+    short-id: 5629431325884ff0
+  servername: eston3.o4ka-internet.com
+  client-fingerprint: firefox
 - name: 🇪🇪 爱沙尼亚 (Estonia) 02
-  server: 109.206.241.10
-  port: 449
-  udp: true
-  type: trojan
-  password: oiiaB38ywjEHCWRs_O_a_1113_Il_KeyyyHop_Bes1
-  sni: 109.206.241.10
-  skip-cert-verify: true
-- name: 🇪🇪 爱沙尼亚 (Estonia) 03
-  server: 94.183.170.135
-  port: 8443
+  server: 89.125.13.202
+  port: 443
   udp: true
   type: vless
-  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
+  uuid: 87fd990d-ca93-440a-bbd4-e8281c4a0910
+  flow: xtls-rprx-vision
   tls: true
-  servername: estproxy4.lockdwn.com
-  skip-cert-verify: false
+  reality-opts:
+    public-key: g36Z7YIqJMJP-uv3DBr72X5jvfjyW1qIAxa8TkWmpmQ
+    short-id: ad6e08b22389abd2
+  servername: d3-ee1.cloud-cdn.xyz
   client-fingerprint: edge
-- name: 🇪🇪 爱沙尼亚 (Estonia) 04
-  server: ee174.mech-pro.online
+- name: 🇪🇪 爱沙尼亚 (Estonia) 03
+  server: 212.87.190.36
   port: 443
   udp: true
   type: vless
@@ -43,7 +42,16 @@ proxies:
     public-key: jbiddtGRgeBvlkjbuA3aU-WPjKgEX87tOVh1mFfvOUI
     short-id: 16e0f049
   servername: ee174.mech-pro.online
-  client-fingerprint: qq
+  client-fingerprint: random
+- name: 🇪🇪 爱沙尼亚 (Estonia) 04
+  server: 94.183.170.135
+  port: 443
+  udp: true
+  type: vless
+  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
+  network: ws
+  ws-opts:
+    path: /
 - name: 🇪🇪 爱沙尼亚 (Estonia) 05
   server: 93.89.220.37
   port: 443
@@ -56,6 +64,63 @@ proxies:
     public-key: lwKaUQ81wJUJRsqAPsfTPj5V_f9N50UYEwzRI_nuq2g
     short-id: e88cb983f3c97528
   servername: ibm.com
+  client-fingerprint: qq
+- name: 🇪🇪 爱沙尼亚 (Estonia) 06
+  server: 94.183.170.135
+  port: 8443
+  udp: true
+  type: vless
+  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
+  tls: true
+  servername: estproxy4.lockdwn.com
+  skip-cert-verify: false
+- name: 🇪🇪 爱沙尼亚 (Estonia) 07
+  server: ee10.zazazuza.ru
+  port: 8443
+  udp: true
+  type: vless
+  uuid: 6c713691-3ca2-4446-ad25-113d1bed6b03
+  tls: true
+  servername: fdghyt.com
+  skip-cert-verify: false
+  client-fingerprint: firefox
+  network: ws
+  ws-opts:
+    path: /vpn-wss/fluxor/59011/
+    headers:
+      Host: fdghyt.com
+- name: 🇪🇪 爱沙尼亚 (Estonia) 08
+  server: 109.206.241.10
+  port: 449
+  udp: true
+  type: trojan
+  password: oiiaB38ywjEHCWRs_O_a_1113_Il_KeyyyHop_Bes1
+  sni: russiapower.accesscam.org
+  skip-cert-verify: true
+- name: 🇪🇪 爱沙尼亚 (Estonia) 09
+  server: 163.245.52.91
+  port: 443
+  udp: true
+  type: vless
+  uuid: 87fd990d-ca93-440a-bbd4-e8281c4a0910
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: g36Z7YIqJMJP-uv3DBr72X5jvfjyW1qIAxa8TkWmpmQ
+    short-id: ad6e08b22389abd2
+  servername: d3-ee1.cloud-cdn.xyz
+  client-fingerprint: edge
+- name: 🇪🇪 爱沙尼亚 (Estonia) 10
+  server: ee.h1cloud.net
+  port: 25895
+  udp: true
+  type: vless
+  uuid: f90b7d43-69e2-4b46-a672-8029bc6796a2
+  tls: true
+  reality-opts:
+    public-key: jOVKSP-bS9OkILJ8Epz8hadh6qhavCrOiJYeF0NCn0k
+    short-id: a73f0410d728c823
+  servername: www.samsung.com
   client-fingerprint: random
 proxy-groups:
 - name: PROXIES
@@ -67,6 +132,11 @@ proxy-groups:
   - 🇪🇪 爱沙尼亚 (Estonia) 03
   - 🇪🇪 爱沙尼亚 (Estonia) 04
   - 🇪🇪 爱沙尼亚 (Estonia) 05
+  - 🇪🇪 爱沙尼亚 (Estonia) 06
+  - 🇪🇪 爱沙尼亚 (Estonia) 07
+  - 🇪🇪 爱沙尼亚 (Estonia) 08
+  - 🇪🇪 爱沙尼亚 (Estonia) 09
+  - 🇪🇪 爱沙尼亚 (Estonia) 10
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -77,5 +147,10 @@ proxy-groups:
   - 🇪🇪 爱沙尼亚 (Estonia) 03
   - 🇪🇪 爱沙尼亚 (Estonia) 04
   - 🇪🇪 爱沙尼亚 (Estonia) 05
+  - 🇪🇪 爱沙尼亚 (Estonia) 06
+  - 🇪🇪 爱沙尼亚 (Estonia) 07
+  - 🇪🇪 爱沙尼亚 (Estonia) 08
+  - 🇪🇪 爱沙尼亚 (Estonia) 09
+  - 🇪🇪 爱沙尼亚 (Estonia) 10
 rules:
 - MATCH,PROXIES

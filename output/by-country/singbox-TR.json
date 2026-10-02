@@ -4,8 +4,45 @@
   },
   "outbounds": [
     {
-      "type": "shadowsocks",
+      "type": "vless",
       "tag": "🇹🇷 土耳其 (Turkey) 01",
+      "server": "85.192.48.142",
+      "server_port": 443,
+      "uuid": "adc11f30-e4cb-4985-bf5e-f9ded69c019f",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "nvidia.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI",
+          "short_id": "db04ce8bdb8900f1"
+        }
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇹🇷 土耳其 (Turkey) 02",
+      "server": "me17.msjia8844.site",
+      "server_port": 7443,
+      "password": "M8LP9DztTr3znqCkmf-r08CQLBLLFK1r",
+      "tls": {
+        "enabled": true,
+        "server_name": "me17.msjia8844.site",
+        "insecure": false
+      },
+      "obfs": {
+        "type": "salamander",
+        "password": "u3Soh9_Ui0UmcuY6vk0ug8Lq"
+      }
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇹🇷 土耳其 (Turkey) 03",
       "server": "206.1.103.221",
       "server_port": 17721,
       "method": "2022-blake3-aes-256-gcm",
@@ -13,7 +50,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 02",
+      "tag": "🇹🇷 土耳其 (Turkey) 04",
       "server": "78.135.73.47",
       "server_port": 443,
       "uuid": "25e16692-d097-4e69-9e2d-8415609c1968",
@@ -34,7 +71,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 03",
+      "tag": "🇹🇷 土耳其 (Turkey) 05",
       "server": "151.241.226.201",
       "server_port": 2053,
       "uuid": "0eed6293-8cf1-4e77-ac10-9c3d50d0b2f8",
@@ -43,92 +80,12 @@
         "server_name": "www.apple.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "firefox"
         },
         "reality": {
           "enabled": true,
           "public_key": "bYW_MmB_CUHrsyoCAUKviI2LZdHf63yY2yOPXbih104",
           "short_id": "9e419c0759b54d6f"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 04",
-      "server": "85.192.48.142",
-      "server_port": 443,
-      "uuid": "adc11f30-e4cb-4985-bf5e-f9ded69c019f",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "nvidia.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "random"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI",
-          "short_id": "db04ce8bdb8900f1"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 05",
-      "server": "shop.neexbyte.ir",
-      "server_port": 8443,
-      "uuid": "8bb52771-052e-40b5-ab53-c6e151ad2290",
-      "tls": {
-        "enabled": true,
-        "server_name": "shop.neexbyte.ir",
-        "insecure": false
-      },
-      "transport": {
-        "type": "ws"
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 06",
-      "server": "169.40.32.73",
-      "server_port": 2053,
-      "uuid": "9ef61079-6f7d-4911-9608-943da85d8e6f"
-    },
-    {
-      "type": "trojan",
-      "tag": "🇹🇷 土耳其 (Turkey) 07",
-      "server": "nimm.mpd.cc.cd",
-      "server_port": 2053,
-      "password": "e309e031-991e-4656-9934-44d10deb8fd8",
-      "tls": {
-        "enabled": true,
-        "server_name": "nimm.mpd.cc.cd",
-        "insecure": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/0962"
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 08",
-      "server": "83.217.9.140",
-      "server_port": 43000,
-      "uuid": "85163fd9-6f73-4eea-b1df-3b327dacbabf",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "83.217.9.140",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "ptE_QnAka3pXNEf8BYKpA9CHdgj4U4xXTixjYWOji0U",
-          "short_id": "68d2eb23"
         }
       }
     },
@@ -141,10 +98,7 @@
         "🇹🇷 土耳其 (Turkey) 02",
         "🇹🇷 土耳其 (Turkey) 03",
         "🇹🇷 土耳其 (Turkey) 04",
-        "🇹🇷 土耳其 (Turkey) 05",
-        "🇹🇷 土耳其 (Turkey) 06",
-        "🇹🇷 土耳其 (Turkey) 07",
-        "🇹🇷 土耳其 (Turkey) 08"
+        "🇹🇷 土耳其 (Turkey) 05"
       ]
     },
     {
@@ -155,10 +109,7 @@
         "🇹🇷 土耳其 (Turkey) 02",
         "🇹🇷 土耳其 (Turkey) 03",
         "🇹🇷 土耳其 (Turkey) 04",
-        "🇹🇷 土耳其 (Turkey) 05",
-        "🇹🇷 土耳其 (Turkey) 06",
-        "🇹🇷 土耳其 (Turkey) 07",
-        "🇹🇷 土耳其 (Turkey) 08"
+        "🇹🇷 土耳其 (Turkey) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

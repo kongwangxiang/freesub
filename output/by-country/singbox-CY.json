@@ -4,16 +4,8 @@
   },
   "outbounds": [
     {
-      "type": "shadowsocks",
-      "tag": "🇨🇾 塞浦路斯 (Cyprus) 01",
-      "server": "45.149.114.171",
-      "server_port": 777,
-      "method": "chacha20-ietf-poly1305",
-      "password": "Jeoq8ujfkqZKKvACQhoqBQ1PA3uq4242"
-    },
-    {
       "type": "vless",
-      "tag": "🇨🇾 塞浦路斯 (Cyprus) 02",
+      "tag": "🇨🇾 塞浦路斯 (Cyprus) 01",
       "server": "194.76.154.31",
       "server_port": 40443,
       "uuid": "9f0baff8-bdee-4de9-9515-bcc4932b41fa",
@@ -22,7 +14,7 @@
         "server_name": "deepl.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "firefox"
         },
         "reality": {
           "enabled": true,
@@ -33,8 +25,8 @@
     },
     {
       "type": "vless",
-      "tag": "🇨🇾 塞浦路斯 (Cyprus) 03",
-      "server": "185.166.154.111",
+      "tag": "🇨🇾 塞浦路斯 (Cyprus) 02",
+      "server": "cdn.bulkavpn.top",
       "server_port": 443,
       "uuid": "91d734be-a3d0-4d50-83ab-74cf7b6966fa",
       "flow": "xtls-rprx-vision",
@@ -54,7 +46,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇨🇾 塞浦路斯 (Cyprus) 04",
+      "tag": "🇨🇾 塞浦路斯 (Cyprus) 03",
       "server": "5.253.30.99",
       "server_port": 40443,
       "uuid": "511c1563-2cb6-4064-abc6-a59ee49818a8",
@@ -64,7 +56,7 @@
         "server_name": "deepl.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "qq"
+          "fingerprint": "chrome"
         },
         "reality": {
           "enabled": true,
@@ -75,8 +67,8 @@
     },
     {
       "type": "vless",
-      "tag": "🇨🇾 塞浦路斯 (Cyprus) 05",
-      "server": "hydra.yokkastars.com",
+      "tag": "🇨🇾 塞浦路斯 (Cyprus) 04",
+      "server": "5.253.28.240",
       "server_port": 2443,
       "uuid": "5e679ccd-1586-4d5f-b87b-48251046cad8",
       "tls": {
@@ -96,6 +88,14 @@
         "type": "grpc",
         "service_name": "rex-eb0bf76b710ce763"
       }
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "🇨🇾 塞浦路斯 (Cyprus) 05",
+      "server": "45.149.114.171",
+      "server_port": 777,
+      "method": "chacha20-ietf-poly1305",
+      "password": "Jeoq8ujfkqZKKvACQhoqBQ1PA3uq4242"
     },
     {
       "type": "selector",

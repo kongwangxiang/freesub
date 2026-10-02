@@ -5,6 +5,18 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇮🇱 以色列 (Israel) 01
+  server: 34.165.56.30
+  port: 443
+  udp: true
+  type: vless
+  uuid: 0c40bce9-8710-4820-8f22-0742b61df999
+  tls: true
+  reality-opts:
+    public-key: AeQDUAVCESyA1hFkw6lENmgWAY3sBH9CFPpPAddPwVc
+    short-id: fffff8acddadcac3
+  servername: www.cloudflare.com
+  client-fingerprint: firefox
+- name: 🇮🇱 以色列 (Israel) 02
   server: 185.95.231.233
   port: 443
   udp: true
@@ -17,7 +29,7 @@ proxies:
     short-id: a1b2c3d4
   servername: store.steampowered.com
   client-fingerprint: chrome
-- name: 🇮🇱 以色列 (Israel) 02
+- name: 🇮🇱 以色列 (Israel) 03
   server: 185.95.231.156
   port: 443
   udp: true
@@ -29,18 +41,6 @@ proxies:
     public-key: 8eXftARun6KH38UZhuqIfPR1VF2DLS9RMBZEnF5k6To
     short-id: a3a578ab
   servername: www.apple.com
-  client-fingerprint: chrome
-- name: 🇮🇱 以色列 (Israel) 03
-  server: 34.165.56.30
-  port: 443
-  udp: true
-  type: vless
-  uuid: 0c40bce9-8710-4820-8f22-0742b61df999
-  tls: true
-  reality-opts:
-    public-key: AeQDUAVCESyA1hFkw6lENmgWAY3sBH9CFPpPAddPwVc
-    short-id: fffff8acddadcac3
-  servername: www.cloudflare.com
   client-fingerprint: firefox
 proxy-groups:
 - name: PROXIES

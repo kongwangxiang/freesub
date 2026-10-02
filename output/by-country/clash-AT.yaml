@@ -16,7 +16,7 @@ proxies:
     public-key: 10rVZPoOUP1TlQviIAsQ_jAROX0fRQxH0C92nq_zGQc
     short-id: 43dcff53849b81e6
   servername: at.quattro-tech.ru
-  client-fingerprint: chrome
+  client-fingerprint: random
 - name: 🇦🇹 奥地利 (Austria) 02
   server: 82.110.60.9
   port: 19999
