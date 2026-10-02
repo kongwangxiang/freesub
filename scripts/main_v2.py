@@ -27,6 +27,7 @@ import json
 import time
 import uuid
 import glob
+import hashlib
 import base64
 import shutil
 import socket
@@ -91,15 +92,43 @@ SOURCE_URLS = [
     "https://raw.githubusercontent.com/chaishpish/free_server_v2ray/main/@TFMTProto",
 ]
 
-OUTPUT_DIR = "output"
+WORKDIR = os.path.dirname(os.path.abspath(__file__))          # scripts/
+BASEDIR = os.path.dirname(WORKDIR)                              # repo root
+OUTPUT_DIR = os.path.join(BASEDIR, "output")
 COUNTRY_DIR = os.path.join(OUTPUT_DIR, "by-country")
 RESIDENTIAL_COUNTRY_DIR = os.path.join(OUTPUT_DIR, "residential-by-country")
 
 SINGBOX_VERSION = "v1.14.0"
-WORKDIR = os.path.dirname(os.path.abspath(__file__))          # scripts/
-BASEDIR = os.path.dirname(WORKDIR)                              # repo root
 RUNTIME_DIR = os.path.join(BASEDIR, "runtime")                  # kernels & db
 SINGBOX_BIN = os.path.join(RUNTIME_DIR, "sing-box")
+
+# ★ 内核完整性固定摘要 —— 与 SINGBOX_VERSION 强耦合: 改版本必须同步换这两个字典,
+#   否则 setup_environment() 会硬失败 (宁可流水线挂掉, 也不执行来路不明的二进制)。
+#   release 按平台分别构建, 摘要互不相同, 故键 = 资产名里的平台标记 (linux / windows)。
+#   来源 A: GitHub Releases API 每个 release asset 的 `digest` 字段 (GitHub 在上传时计算)
+#           https://api.github.com/repos/SagerNet/sing-box/releases/tags/v1.14.0
+#           — 该 release 不发布 SHA256SUMS/校验清单文件, asset digest 是唯一的官方摘要。
+#   来源 B: 本地独立重新下载压缩包、重算 sha256 —— 两个来源逐位一致 (见交付报告)。
+#   压缩包摘要: 在 download_file() 内、解包之前校验下载到的字节。
+SINGBOX_ARCHIVE_SHA256 = {
+    # sing-box-1.14.0-linux-amd64.tar.gz  (31,639,897 bytes)
+    "linux":   "2375de6999f4f56ab46b4fc5ddf26a6aba1d3e61a0f4e7ddec2f4690457d5f63",
+    # sing-box-1.14.0-windows-amd64.zip   (32,809,391 bytes)
+    "windows": "3ffb56267da14e287be48bd10cf7e6505260125bad940b75101fbb4d5d58e5d6",
+}
+# 解包出来的内核二进制自身的摘要 —— 每次运行都要重新校验。
+#   CI 的 workflow 用静态 key 缓存 runtime/, 压缩包解包后即被 os.remove 删除,
+#   缓存命中时磁盘上只剩这个二进制: 只校验压缩包会让"真正被执行的文件"完全绕过校验。
+#   来源: 从上面那个已被双源印证的压缩包里解出后本地计算。
+SINGBOX_BIN_SHA256 = {
+    # sing-box-1.14.0-linux-amd64/sing-box     (81,191,141 bytes)
+    "linux":   "57b3da14e264b6e05e8f46aee027c02d7dd7f1594d19aa39e2f4d2b9459bbd04",
+    # sing-box-1.14.0-windows-amd64/sing-box.exe (81,819,136 bytes)
+    "windows": "aad0ede010eafa7b277e520464f3a66fde820103d737eff739f40f3cc9451dcc",
+}
+
+# GeoLite2 哨兵 IP: Country 与 ASN 两库都必须能查到 8.8.8.8 (Google 公共 DNS, 长期稳定归属)
+MMDB_SENTINEL_IP = "8.8.8.8"
 
 # --- 测活阈值 (毫秒/秒) ---
 # ★ 分层超时: 首击宽 (12s 容慢节点), 重试窄 (4s 快速放弃死节点)
@@ -127,12 +156,27 @@ SPEED_TEST_URLS = [               # 测速端点多路 (实测部分节点商屏
 TRACE_URL = "https://www.cloudflare.com/cdn-cgi/trace"      # warp=on 检测套壳节点
 MAX_WORKERS_TEST    = 96            # 同时 sing-box 实测节点数 (Azure 2C7G: 48→96; sing-box <30MB/实例, I/O 等待为主, 靠线程数换吞吐)
 MAX_WORKERS_FETCH   = 8
-MAX_WORKERS_CLASSIFY = 32
+MAX_WORKERS_CLASSIFY = 32      # prefetch_rdns 的并发 PTR 查询数 (全文件唯一使用点)
+# 实测: 底层 PTR 操作在 32 附近进入平台期, 再加并发没有收益。取 output/singbox.json 里
+# 300 个真实出口 IP, 中位耗时: 并发 1/8/16/32/64/128/256 = 21.6/3.7/2.6/2.1/2.2/1.8/2.1 s
+# —— 32 相对串行 10.2x, 而 64→128→256 全部落在测量噪声内 (256 反而慢于 128)。模拟解析器
+# 卡死 (每查询阻塞满 2s, 对齐 get_rdns 的 join 上限) 时 32 已到 272ms, 128 也只有 249ms。
+# ★ 该曲线由 node 的 dns.reverse 代理测得 (同为 getnameinfo 反查路径), 不是在 CPython
+#   线程池上测的 —— 测 Python 基准时解释器已不可用。复核请在有 python3 的机器上直接跑
+#   prefetch_rdns, 别把这组数当成 Python 侧的定论。
+MAX_PORT = 65535          # 端口上界: 实测 sing-box 越界直接 FATAL (70000:70000 → strconv.ParseUint out of range)
 
 # ip-api.com 免费批量: 15 req/min, 每 req ≤100 IP (仅 HTTP)
 IP_API_BATCH_URL = "http://ip-api.com/batch?fields=status,countryCode,isp,org,as,asname,reverse,mobile,proxy,hosting,query"
 IP_API_BATCH_SIZE = 100
 IP_API_BATCH_RPS_INTERVAL = 4.2     # 60/15s ≈ 每 4.2s 一批
+# ★ ip-api 覆盖率下限 (0~1): 本轮请求的出口 IP 里拿到 status==success 记录的比例低于它 →
+#   在线否决信号 (hosting/proxy/mobile) 视为不可信, 打醒目警告, 且缺记录的节点不得判家宽/移动。
+#   取舍: ip-api 是免费限流三方源, 大面积 per-record fail 不该让整轮跑挂 (MaxMind 离线兜底仍在,
+#   出口国/ASN 照常出), 故只降级+告警不硬失败; 但静默降级曾把真机房 IP 判成 residential 发到家宽区。
+#   0.5: 过半出口 IP 没有在线否决能力时, 余下信号(ASN 名单/名称/rDNS)不足以单独支撑家宽声明;
+#   定得更高(如 0.9)又会让免费源正常抖动频繁触发降级。
+IP_API_MIN_COVERAGE = 0.5
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 
@@ -473,9 +517,20 @@ def parse_host_port(hostinfo: str):
 # 环境准备 (sing-box / GeoLite)
 # ══════════════════════════════════════════════════════════════════
 
-def download_file(url: str, dest: str, timeout: int = 300, retries: int = 3):
+def _sha256_file(path: str) -> str:
+    """分块算 sha256: 80MB 级内核也不能整块读进内存"""
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def download_file(url: str, dest: str, timeout: int = 300, retries: int = 3, sha256: str = None):
     """下载文件到本地; 分块流式 + 原子替换 + 重试 + 镜像切换
-    (GitHub 直连失败自动尝试 jsdelivr 镜像 — 本地大陆网络/CI 偶发限流都更稳)"""
+    (GitHub 直连失败自动尝试 jsdelivr 镜像 — 本地大陆网络/CI 偶发限流都更稳)
+    sha256 非空时: 解包/使用之前先校验临时文件; 不符则删临时文件并按失败重试 (换镜像),
+    全部尝试失败则抛错, 坏文件绝不落到 dest。"""
     if os.path.exists(dest) and os.path.getsize(dest) > 1024:
         return
     # 镜像: github.com/OWNER/REPO/... → cdn.jsdelivr.net/gh/OWNER/REPO@...
@@ -499,6 +554,15 @@ def download_file(url: str, dest: str, timeout: int = 300, retries: int = 3):
                                 f.write(chunk)
                 if os.path.getsize(tmp) < 1024:
                     raise RuntimeError(f"下载不完整: {os.path.getsize(tmp)} bytes")
+                if sha256:
+                    actual = _sha256_file(tmp)
+                    if actual.lower() != sha256.lower():
+                        print(f"[!] sha256 校验失败 (拒绝安装): 期望 {sha256} 实得 {actual}")
+                        try:
+                            os.remove(tmp)
+                        except OSError:
+                            pass
+                        raise RuntimeError(f"sha256 校验失败: 期望 {sha256}, 实得 {actual}")
                 os.replace(tmp, dest)
                 return
             except Exception as e:
@@ -518,19 +582,64 @@ def download_file(url: str, dest: str, timeout: int = 300, retries: int = 3):
     raise RuntimeError(f"下载最终失败 ({mirrors[0]}): {last_err}")
 
 
+def verify_mmdb(path: str, label: str) -> str:
+    """GeoLite2 结构校验: 固定摘要不可行 (见 SINGBOX_ARCHIVE_SHA256 上方同类说明) ——
+    P3TERX/GeoLite.mmdb 的 download 分支是滚动 force-push 的产物, 且全仓库没有任何
+    SHA256SUMS/校验清单文件, 固定摘要会在下次上游重建时直接打断流水线。
+    改为要求"能被 maxminddb 打开 + 哨兵 IP 命中记录", 能挡住截断/半截/HTML 错误页/
+    镜像损坏的下载; 挡不住的是上游 origin 或 jsdelivr 缓存本身被攻破后放出的合法 mmdb。
+    返回实测 sha256 供日志比对。"""
+    digest = _sha256_file(path)
+    reader = None
+    try:
+        reader = maxminddb.open_database(path)
+        rec = reader.get(MMDB_SENTINEL_IP)
+    except Exception as e:
+        raise RuntimeError(f"{label} 结构校验失败 ({os.path.basename(path)}, sha256={digest}): {e}")
+    finally:
+        if reader is not None:
+            reader.close()
+    if not rec:
+        raise RuntimeError(f"{label} 结构校验失败 ({os.path.basename(path)}, sha256={digest}): "
+                           f"哨兵 IP {MMDB_SENTINEL_IP} 查不到记录")
+    print(f"[+] {label} 结构校验通过: {os.path.getsize(path)//1024}KB sha256={digest} "
+          f"(哨兵 {MMDB_SENTINEL_IP} 命中)")
+    return digest
+
+
 def setup_environment():
     print("[*] 准备 sing-box 内核与 GeoLite2 离线数据库 ...")
     os.makedirs(RUNTIME_DIR, exist_ok=True)
 
     # --- sing-box ---
+    system = "windows" if os.name == "nt" else "linux"
     exe = SINGBOX_BIN + (".exe" if os.name == "nt" else "")
-    if not os.path.exists(exe) or os.path.getsize(exe) < 1024:
-        system = "windows" if os.name == "nt" else "linux"
+    archive_sha = SINGBOX_ARCHIVE_SHA256.get(system)
+    exe_sha = SINGBOX_BIN_SHA256.get(system)
+    if not archive_sha or not exe_sha:
+        raise RuntimeError(f"平台 {system!r} 缺少 {SINGBOX_VERSION} 的固定 sha256 — "
+                           f"拒绝下载并执行未经校验的 sing-box 内核")
+    # 截断判据 (>1024 字节) 保留, 但它只挡得住传输截断: 缓存里的二进制每次都要重算摘要,
+    # 否则被投毒的 runtime/ 缓存能一路带着正确的大小混进 subprocess 执行。
+    cached_ok = os.path.exists(exe) and os.path.getsize(exe) >= 1024
+    if cached_ok:
+        actual = _sha256_file(exe)
+        if actual == exe_sha:
+            print(f"[+] sing-box 内核缓存命中且摘要一致: {actual}")
+        else:
+            print(f"[!] 缓存内核摘要不符, 删除后重新下载: 期望 {exe_sha} 实得 {actual}")
+            cached_ok = False
+    if not cached_ok:
+        if os.path.exists(exe):
+            try:
+                os.remove(exe)
+            except OSError:
+                pass
         ext = "zip" if system == "windows" else "tar.gz"
         url = (f"https://github.com/SagerNet/sing-box/releases/download/"
                f"{SINGBOX_VERSION}/sing-box-{SINGBOX_VERSION.lstrip('v')}-{system}-amd64.{ext}")
         archive = os.path.join(RUNTIME_DIR, f"sing-box.{ext}")
-        download_file(url, archive)
+        download_file(url, archive, sha256=archive_sha)
         if system == "windows":
             with zipfile.ZipFile(archive) as z:
                 for name in z.namelist():
@@ -544,6 +653,16 @@ def setup_environment():
                         f = t.extractfile(m)
                         with open(exe, "wb") as dst:
                             shutil.copyfileobj(f, dst)
+        # 新下载的产物摘要不符 = 硬失败: 不 chmod、不执行, 并删掉坏文件让下次重下
+        actual = _sha256_file(exe)
+        if actual != exe_sha:
+            try:
+                os.remove(exe)
+            except OSError:
+                pass
+            raise RuntimeError(f"解包后 sing-box 内核 sha256 校验失败 (平台 {system}): "
+                               f"期望 {exe_sha} 实得 {actual}")
+        print(f"[+] sing-box 内核 sha256 校验通过: {actual}")
         os.chmod(exe, 0o755)
         try:
             os.remove(archive)
@@ -563,6 +682,8 @@ def setup_environment():
     asn_db = os.path.join(RUNTIME_DIR, "ASN.mmdb")
     download_file("https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb", country_db)
     download_file("https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb", asn_db)
+    verify_mmdb(country_db, "GeoLite2-Country")
+    verify_mmdb(asn_db, "GeoLite2-ASN")
     print(f"[+] GeoLite 数据库就绪: Country={os.path.getsize(country_db)//1024}KB, ASN={os.path.getsize(asn_db)//1024}KB")
 
 
@@ -809,6 +930,58 @@ def _clean_fp(fp) -> str:
                         "360", "qq", "random", "randomized") else ""
 
 
+def _valid_port(tok: str) -> bool:
+    """端口值是否落在 1..65535 (实测 sing-box: 越界端口进 server_ports → 启动即 FATAL,
+    且一个越界元素会毒死整条跳跃列表, 所以 mport/ports 两个入口共用此界, 越界元素逐个丢弃)。
+    isdecimal+isascii 而非 isdigit: isdigit() 对 '²' 之类也 True 而 int() 会抛。"""
+    return tok.isdecimal() and tok.isascii() and 0 < int(tok) <= MAX_PORT
+
+
+def _export_port(node: dict):
+    """clash / v2ray 两条导出链共用的端口取值: 优先 server_port, 越界或畸形则回落
+    server_ports 首跳起始端口; 两者都不可用返回 None (clash→None, v2ray→"")。
+    界必须与 mport/ports 两个入口共用 _valid_port: 实测越界端口进配置启动即 FATAL,
+    导出端是最后一道闸, 放过 0/70000 等于把 FATAL 推迟到客户端。
+    旧实现两条链各抄一遍且判据相反 (clash 走真值 node.get("server_port"), v2ray 走存在性
+    "server_port" in node): server_port=0 时 v2ray 照发 0、clash 却落到下一分支, 同一节点
+    两个客户端端口不一致; 且 server_ports[0] 直接 int(...) 遇 "abc" 抛 ValueError、遇
+    下标异常抛 IndexError, 一条畸形数据打断整批导出。故先转 str 再判 _valid_port
+    (界不变, 只补"畸形不抛"), 并让 server_port 越界时回落到首跳而非直接放弃 ——
+    与 parse_hysteria2 逐个丢弃越界元素的同向策略一致。"""
+    single = node.get("server_port")
+    if single is not None:
+        tok = str(single).strip()
+        if _valid_port(tok):
+            return int(tok)
+    ranges = node.get("server_ports")
+    if ranges:
+        # 畸形元素 (非下标序列 / 首元素不可切分) 视为无端口而非崩溃: 导出端一崩就是整批订阅丢光
+        try:
+            start = str(ranges[0]).split(":")[0].strip()
+        except (TypeError, ValueError, IndexError, KeyError):
+            return None
+        if _valid_port(start):
+            return int(start)
+    return None
+
+
+def _export_hops(node: dict) -> list:
+    """导出端 (clash ports / v2ray mport) 共用的跳跃区间过滤: 只保留两端都过 _valid_port
+    的 start:end, 逐个丢弃畸形与越界元素 (同 _valid_port 的实测依据: 越界端口进配置启动即
+    FATAL, 且一个越界元素会毒死整条跳跃列表)。
+    clash 与 v2ray 两条链必须拿到同一份区间 —— 否则同一节点 clash 得到 '2087-2097',
+    v2rayN 却拿到 '2087-2097,70000-70001,abc-def', 两个客户端对同一节点行为不一致。
+    全部元素作废时返回空列表, 由调用方决定不设该键: 宁可不发跳跃列表 (客户端回落
+    单端口), 也不发 '443-443' 这类垃圾串。"""
+    hops = []
+    for p in node.get("server_ports") or []:
+        a, _, b = str(p).partition(":")
+        a, b = a.strip(), b.strip()
+        if _valid_port(a) and _valid_port(b):
+            hops.append(f"{a}-{b}")
+    return hops
+
+
 def parse_hysteria2(uri: str):
     """hy2:// / hysteria2:// auth@host:port?sni=..&obfs=salamander&obfs-password=..&insecure=1
     注: auth 可能含 : / 等特殊字符 (如 https:// 前缀的密码) — 以最后一个 @ 为锚点分割"""
@@ -843,7 +1016,9 @@ def parse_hysteria2(uri: str):
     mport = params.get("mport") or params.get("ports")
     if mport:
         # 实测验证: server_ports 只接受 "start:end" 区间; 裸单端口 "443" 会 FATAL
-        # 单端口保留在 server_port, 区间放 server_ports (两者可共存, 实测 check 通过)
+        # 单端口保留在 server_port, 区间放 server_ports; 共存实测 check 通过, 下面 pop 只是防御
+        # 端口越界 (0 / >65535) 同样 FATAL, 故逐个丢弃越界元素; 一个不剩则不设 server_ports,
+        # 与 mport=abc / mport= 一样回落 server_port (单元素坏不牵连整条跳跃列表)
         singles, ranges = [], []
         for part in str(mport).split(","):
             part = part.strip()
@@ -851,12 +1026,13 @@ def parse_hysteria2(uri: str):
                 continue
             if "-" in part:
                 a, _, b = part.partition("-")
-                if a.strip().isdigit() and b.strip().isdigit():
-                    if a.strip() == b.strip():
-                        singles.append(a.strip())
+                a, b = a.strip(), b.strip()
+                if _valid_port(a) and _valid_port(b):
+                    if a == b:
+                        singles.append(a)
                     else:
-                        ranges.append(f"{a.strip()}:{b.strip()}")
-            elif part.isdigit():
+                        ranges.append(f"{a}:{b}")
+            elif _valid_port(part):
                 singles.append(part)
         if ranges or singles:
             # 全部转为 "start:end" 区间格式 (实测: 裸单端口 FATAL)
@@ -866,7 +1042,8 @@ def parse_hysteria2(uri: str):
 
 
 def _parse_port_range(spec: str):
-    """'2087-2097,443' → sing-box server_ports 格式 ['2087:2097', '443:443'] (实测: 裸单端口 FATAL, 必须区间)"""
+    """'2087-2097,443' → sing-box server_ports 格式 ['2087:2097', '443:443'] (实测: 裸单端口 FATAL, 必须区间;
+    越界端口逐个丢弃, 与 parse_hysteria2 的 mport 同界 (_valid_port))"""
     result = []
     for part in str(spec).split(","):
         part = part.strip()
@@ -874,21 +1051,31 @@ def _parse_port_range(spec: str):
             continue
         if "-" in part:
             a, _, b = part.partition("-")
-            if a.strip().isdigit() and b.strip().isdigit():
-                result.append(f"{a.strip()}:{b.strip()}")
-        elif part.isdigit():
+            a, b = a.strip(), b.strip()
+            if _valid_port(a) and _valid_port(b):
+                result.append(f"{a}:{b}")
+        elif _valid_port(part):
             result.append(f"{part}:{part}")
     return result
 
 
 def parse_tuic(uri: str):
-    """tuic://uuid:password@host:port?congestion_control=bbr&alpn=h3&sni=..&udp_relay_mode=native#name"""
-    m = re.match(r"^tuic://([^@#/?]+)@(\[[^\]]+\]|[^:@/?]+):(\d+)(?:[/?]([^#]*))?$", uri.split("#")[0])
+    """tuic://uuid:password@host:port?congestion_control=bbr&alpn=h3&sni=..&udp_relay_mode=native#name
+    注: 与 parse_hysteria2 同构 —— 以最后一个 @ 分割 (密码内可能含 @ / ?),
+    否则 outbound_to_v2ray_link 用 quote() 导出的链接 (quote 默认 safe="/", 斜杠不转义)
+    会被自己的 [^@#/?]+ 拒收, 密码含 "/" 时导出→再解析直接断链 (实测 roundtrip None)。
+    密码可省略: 实测 sing-box 1.14 的 tuic outbound 对 password 是"不透明字符串",
+    空串/缺省/null 均通过 check (uuid 反而必须是合法 UUID, 见实测 invalid uuid)。"""
+    body = uri[7:].split("#", 1)[0]
+    # 以最后一个 @ 分割 (密码内可能含 @); host 部分不含 @
+    at = body.rfind("@")
+    if at <= 0:
+        return None
+    userinfo, rest = body[:at], body[at+1:]
+    m = re.match(r"^(\[[^\]]+\]|[^:/?#]+):(\d+)(?:[/?]([^#]*))?$", rest)
     if not m:
         return None
-    userinfo, host, port, query = m.groups()
-    if ":" not in userinfo:
-        return None
+    host, port, query = m.groups()
     uuid_, _, password = userinfo.partition(":")
     params = _query_dict(query or "")
     outbound = {
@@ -911,11 +1098,23 @@ def parse_tuic(uri: str):
 
 
 def parse_anytls(uri: str):
-    """anytls://password@host:port?sni=..&insecure=1#name"""
-    m = re.match(r"^anytls://([^@#/?]+)@(\[[^\]]+\]|[^:@/?]+):(\d+)(?:[/?]([^#]*))?$", uri.split("#")[0])
+    """anytls://password@host:port?sni=..&insecure=1#name
+    注: 与 parse_hysteria2 / parse_tuic 同构 —— 以最后一个 @ 为锚点分割密码 (密码内可能含
+    @ / :), host 部分不含 @。实测旧正则的凭据类 [^@#/?]+ 同时排除了 @ 与 /, 于是这类
+    节点被整条丢掉 (实测 parse_node_uri 结果 None): anytls://pa@ss@h.com:443、
+    anytls://pa/ss@h.com:443; 而 sing-box 对 anytls 的 password 是"不透明字符串",
+    这类密码本应接受 (与 parse_tuic 的实测结论同源)。含 : 的密码旧实现本就通过
+    (anytls://pa:ss@h.com:443 → password="pa:ss"), rfind 锚点后行为不变。"""
+    body = uri[9:].split("#", 1)[0]
+    # 以最后一个 @ 分割 (密码内可能含 @); host 部分不含 @
+    at = body.rfind("@")
+    if at <= 0:
+        return None
+    password, rest = body[:at], body[at+1:]
+    m = re.match(r"^(\[[^\]]+\]|[^:/?#]+):(\d+)(?:[/?]([^#]*))?$", rest)
     if not m:
         return None
-    password, host, port, query = m.groups()
+    host, port, query = m.groups()
     params = _query_dict(query or "")
     outbound = {
         "type": "anytls",
@@ -935,21 +1134,38 @@ def parse_anytls(uri: str):
 
 
 def parse_ssh(uri: str):
-    """ssh://user:pass@host:port#name (少见于免费池, 顺手支持)"""
-    m = re.match(r"^ssh://([^@#/?]+)@(\[[^\]]+\]|[^:@/?]+):(\d+)?", uri.split("#")[0])
+    """ssh://user:pass@host:port#name (少见于免费池, 顺手支持)
+    注: 与 parse_hysteria2 / parse_tuic 同构 —— 以最后一个 @ 为锚点分割 userinfo
+    (密码内可能含 @ / :)。实测旧正则的 userinfo 类 [^@#/?]+ 排除了 @ 与 /, 于是
+    ssh://user:p@ss@h.com:22 与 ssh://user:p/ss@h.com:22 实测结果均为 None (整条节点
+    被丢), 而 sing-box 对 ssh 的 password 是"不透明字符串"。
+    端口改为真正可选: 旧正则 ":(\\d+)?" 的冒号是必需的, 故 int(port or 22) 的 22 兜底
+    是死代码 —— ssh://user:pass@h.com (无端口) 实测 None, 22 永远走不到。
+    以 $ 收口: 旧正则无尾锚, ssh://user:pass@h.com:22junk 被静默截断成端口 22 (实测),
+    脏端口宁可拒。空端口 ("h.com:") 视同无端口 → 22, 与旧实现解析结果一致。
+    尾随查询串 (?...) 放行但忽略: 旧实现无尾锚, ssh://pass@h.com:22?sni=x.com 是接受的
+    (实测, 查询参数被静默丢弃 —— ssh 出站本就没有 TLS/SNI 可透传)。$ 锚定若一并拒掉
+    查询串就是净损失 (节点由可用变丢弃), 故显式放行, 保持与旧实现一致。"""
+    body = uri[6:].split("#", 1)[0]
+    # 以最后一个 @ 分割 (密码内可能含 @); host 部分不含 @
+    at = body.rfind("@")
+    if at <= 0:
+        return None
+    userinfo, rest = body[:at], body[at+1:]
+    m = re.match(r"^(\[[^\]]+\]|[^:/?#]+)(?::(\d*))?(?:\?[^#]*)?$", rest)
     if not m:
         return None
-    userinfo, host, port = m.groups()
+    host, port = m.groups()
+    user, _, password = userinfo.partition(":")
     outbound = {
         "type": "ssh",
         "tag": "node",
         "server": host,
         "server_port": int(port or 22),
-        "user": urllib.parse.unquote(userinfo.split(":")[0]),
+        "user": urllib.parse.unquote(user),
     }
     if ":" in userinfo:
-        outbound["user"] = urllib.parse.unquote(userinfo.split(":")[0])
-        outbound["password"] = urllib.parse.unquote(userinfo.split(":", 1)[1])
+        outbound["password"] = urllib.parse.unquote(password)
     return outbound
 
 
@@ -1202,7 +1418,7 @@ def parse_node_uri(uri: str):
                 ports = out.get("server_ports") or []
                 first = ports[0].split(":")[0] if ports else "0"
                 port = int(first)
-            if port <= 0:
+            if not (0 < port <= MAX_PORT):  # 预检端口必须落在 1..65535 (越界 sing-box 直接 FATAL); 同 idiom 见 clash_proxy_to_outbound
                 return None
             return out, out["server"], int(port), proto
     return None
@@ -1297,31 +1513,106 @@ def fetch_raw_nodes() -> list:
 # ═══════════════════════════════════════════N═══════════════════════
 
 # DoH 域名解析 (Cloudflare): 防 DNS 污染 (本地大陆网络); Actions 上顺带跳过其国内 DNS 限制
+#
+# 三份互相独立的模块级状态 (刻意不塞进一个带魔法值的 dict):
+#   _DNS_CACHE      正缓存  host → ip                    (DoH 与系统 DNS 兜底的成功结果同权共用)
+#   _DNS_NEG_CACHE  负缓存  host → 单调时钟到期时刻        (只活 DNS_NEGATIVE_TTL 秒)
+#   _DNS_LOCKS      锁登记表 host → 该 host 专属锁         (同 host 单飞, 不同 host 互不阻塞)
+# 内存: 三者都以主机名为键、随进程存活。进程是一次性 CI 运行 (~25 分钟即退出), 无界增长
+# 可接受 —— 主机名基数上限就是本轮订阅里的节点服务器数 (量级 10^3), 故刻意不加淘汰策略
+# (未要求, 提前引入只增复杂度)。
 _DNS_CACHE = {}
+_DNS_NEG_CACHE = {}
+_DNS_LOCKS = {}
+# _DNS_LOCKS 的守卫锁: 只护"查/建 per-host 锁"这一瞬间, 临界区里不做任何 I/O,
+# 因此绝不会把不同 host 的解析串行化 (那等于把本次要消除的排队又装回来)。
+_DNS_LOCKS_GUARD = threading.Lock()
+
+# ★ 负缓存 TTL (秒) —— 刻意取短, 这是本文件里唯一一处"时间"型配置常量 (同 TCP_PRECHECK_TIMEOUT
+#   一样贴着使用它的函数放, 而非塞进上面的阈值块):
+#   正缓存的一条 A 记录在一轮 CI 内基本不会变, 故全程有效; 负结果却常常是**暂时**的 ——
+#   上游解析器抖动、DoH 侧限流/5s 超时、系统 DNS 瞬时不可用, 这些都会随后自愈。
+#   按"整轮时长"缓存会把一次瞬时抖动放大成"整轮所有同 hostname 节点全判死"。
+#   取 60s 的取舍: ① 足够让一轮测活里同一个死 hostname 的上百个节点只付一次 DoH+兜底代价;
+#   ② 又短到任何瞬时故障最多让该 host 空窗 1 分钟, 期间的后来节点仍会走 DoH 并自行恢复。
+#   量级参照: DoH 成功 ~374ms、失败后兜底 ~150ms (实测), 故 60s 已是单个节点测活周期
+#   (12s 首击 + 4s 重试) 的数倍, 不会把一次抖动拉成半轮空窗。
+DNS_NEGATIVE_TTL = 60.0
+
+
+def _dns_host_lock(host: str) -> threading.Lock:
+    """取该 host 专属的解析锁; 首次见到该 host 时在守卫内原子创建。
+
+    不能裸写 _DNS_LOCKS.setdefault(host, threading.Lock()): setdefault 的
+    "查-建-写" 三步之间没有互斥, 两个线程会各建一把不同的锁, 随后各持一把进入
+    临界区 —— 单飞恰好在最需要它的场景下失效。这里是双检 + 守卫锁。
+    """
+    lock = _DNS_LOCKS.get(host)
+    if lock is None:
+        with _DNS_LOCKS_GUARD:
+            lock = _DNS_LOCKS.get(host)          # 双检: 或取到别的线程刚建好的那一把
+            if lock is None:
+                lock = threading.Lock()
+                _DNS_LOCKS[host] = lock
+    return lock
+
+
+def _dns_negative_hit(host: str) -> bool:
+    """负缓存命中且未过期 → True; 已过期则顺手摘掉该条目并放行重试。"""
+    expires_at = _DNS_NEG_CACHE.get(host)
+    if expires_at is None:
+        return False
+    if time.monotonic() < expires_at:
+        return True
+    _DNS_NEG_CACHE.pop(host, None)     # 过期即弃: 下一次调用重新解析, 故障可自愈
+    return False
+
 
 def resolve_host(host: str) -> str:
-    """DoH 解析 (带本地缓存); 失败退回系统 DNS"""
+    """DoH 解析 (带本地缓存 + 同 host 单飞); 失败退回系统 DNS"""
     if not host or is_ip_literal(host):
         return host or ""
-    if host in _DNS_CACHE:
-        return _DNS_CACHE[host]
-    # 1) DoH (Cloudflare 1.1.1.1, 走 DIRECT_SESSION 可过墙)
-    try:
-        r = DIRECT_SESSION.get(
-            f"https://cloudflare-dns.com/dns-query?name={urllib.parse.quote(host)}&type=A",
-            headers={"Accept": "application/dns-json"}, timeout=5)
-        if r.status_code == 200:
-            answers = r.json().get("Answer") or []
-            for a in answers:
-                if a.get("type") == 1 and a.get("data"):
-                    _DNS_CACHE[host] = a["data"]
-                    return a["data"]
-    except Exception:
-        pass
-    # 2) 系统 DNS 兜底
-    try:
-        return socket.getaddrinfo(host, None, socket.AF_INET, socket.SOCK_STREAM)[0][4][0]
-    except Exception:
+    hit = _DNS_CACHE.get(host)
+    if hit is not None:
+        return hit
+    if _dns_negative_hit(host):
+        return ""
+    # 同一 host 的并发解析只放一个线程进 DoH: 免费节点池里大量节点共用同一个
+    # CloudFront/CDN hostname, 无单飞时一窝蜂打满 cloudflare-dns.com (96 线程 = 96 次
+    # 重复请求), 既白烧墙钟, 重复流量还够把 CI 出口 IP 打到限流 —— 一旦限流, 整轮会
+    # 被静默推回系统 DNS 兜底。锁是 per-host 的: 不同 host 各走各的, 不构成全局串行。
+    with _dns_host_lock(host):
+        # 双检: 等锁这段时间里别的线程可能已经填好缓存 (或刚失败并写进负缓存)
+        hit = _DNS_CACHE.get(host)
+        if hit is not None:
+            return hit
+        if _dns_negative_hit(host):
+            return ""
+        # 1) DoH (Cloudflare 1.1.1.1, 走 DIRECT_SESSION 可过墙)
+        try:
+            r = DIRECT_SESSION.get(
+                f"https://cloudflare-dns.com/dns-query?name={urllib.parse.quote(host)}&type=A",
+                headers={"Accept": "application/dns-json"}, timeout=5)
+            if r.status_code == 200:
+                answers = r.json().get("Answer") or []
+                for a in answers:
+                    if a.get("type") == 1 and a.get("data"):
+                        _DNS_CACHE[host] = a["data"]
+                        return a["data"]
+        except Exception:
+            pass
+        # 2) 系统 DNS 兜底
+        try:
+            ip = socket.getaddrinfo(host, None, socket.AF_INET, socket.SOCK_STREAM)[0][4][0]
+        except Exception:
+            ip = ""
+        if ip:
+            # 兜底成功同样是"解析成功", 进正缓存: 否则 DoH 超时 (5s) 的 host 每来一个
+            # 节点就要重付一次这 5 秒, 尽管答案早就知道了
+            _DNS_CACHE[host] = ip
+            return ip
+        # 两条路都失败 → 负缓存 (短 TTL): 本来就解析不了的 host 不再每节点重付一遍
+        _DNS_NEG_CACHE[host] = time.monotonic() + DNS_NEGATIVE_TTL
         return ""
 
 
@@ -1437,6 +1728,7 @@ _SOURCE_STATS = {}
 _VETO_STATS = {
     "scamalytics": {"ok": 0, "total": 0, "success_rate": None},
     "ipapi.is": {"ok": 0, "total": 0, "success_rate": None},
+    "ip-api.com": {"ok": 0, "total": 0, "success_rate": None},
 }
 _SPEED_ENDPOINT_BROKEN = False   # P2-l 测速端点全局故障信号: True → 跳过断流剔除 (保留节点)
 
@@ -1488,32 +1780,48 @@ def write_e2e_report(stages: dict):
         print(f"[!] e2e 测试报告落盘失败: {e}")
 
 
+def is_tls_intercepted(tls_verify_failed: bool) -> bool:
+    """MITM 判定规则 (纯函数, 可单测): 仅 TLS 证书校验失败才判定为拦截。
+
+    为什么 HTTP 状态码与响应体一律不作证据:
+      旧实现把 `r.status_code in (301, 302, 403, 407, 502, 503) or len(r.content) > 0`
+      当作拦截信号, 但 `len(r.content) > 0` 对几乎任何非 204 响应都成立 —— 源站正常返回
+      403/404/500/302/407 的健康节点因此被整批误判为 TLS 劫持, 并被 mitm_risk 的消费方
+      无条件剔除出节点池。真实证据只有一种: 证书链校验失败 (requests SSLError),
+      即 README 所述 "TLS 证书校验非 MITM"。网络层失败 (超时/连接重置) 也不是证据。
+    """
+    return bool(tls_verify_failed)
+
+
 def test_single_node(item, keep_alive_check=True, chain_relay=None):
     """返回 dict 或 None; 含: 活性/延迟/出口IP/国家/ASN/ISP/速度/MITM"""
     raw, outbound, server, port, proto = item
-    socks_port = _alloc_socks_port()
-    task_id = uuid.uuid4().hex[:10]
-    cfg_path = os.path.join(RUNTIME_DIR, f"sb_{task_id}.json")
-
-    # ★ 链式前置 (chain relay): 显式参数传入已验证存活节点作前置 (chain_retest 用)
-    #   兼容回退: 无参数时仍读旧 CHAIN_RELAY_OUT 环境变量
-    chain_out = chain_relay
-    if chain_out is None:
-        chain_json = os.environ.get("CHAIN_RELAY_OUT", "").strip()
-        if chain_json:
-            try:
-                chain_out = json.loads(chain_json)
-            except Exception:
-                chain_out = None
-    config = build_test_config(outbound, socks_port, chain_relay=chain_out)
-    with open(cfg_path, "w", encoding="utf-8") as f:
-        json.dump(config, f)
 
     exe = SINGBOX_BIN + (".exe" if os.name == "nt" else "")
 
+    socks_port = None
+    cfg_path = None
     proc = None
     result = None
     try:
+        socks_port = _alloc_socks_port()
+        task_id = uuid.uuid4().hex[:10]
+        cfg_path = os.path.join(RUNTIME_DIR, f"sb_{task_id}.json")
+
+        # ★ 链式前置 (chain relay): 显式参数传入已验证存活节点作前置 (chain_retest 用)
+        #   兼容回退: 无参数时仍读旧 CHAIN_RELAY_OUT 环境变量
+        chain_out = chain_relay
+        if chain_out is None:
+            chain_json = os.environ.get("CHAIN_RELAY_OUT", "").strip()
+            if chain_json:
+                try:
+                    chain_out = json.loads(chain_json)
+                except Exception:
+                    chain_out = None
+        config = build_test_config(outbound, socks_port, chain_relay=chain_out)
+        with open(cfg_path, "w", encoding="utf-8") as f:
+            json.dump(config, f)
+
         proc = subprocess.Popen(
             [exe, "run", "-c", cfg_path],
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
@@ -1632,20 +1940,17 @@ def test_single_node(item, keep_alive_check=True, chain_relay=None):
 
         def _step_mitm():
             # 独立复检一次带 verify=True 的请求: SSLError = TLS 拦截
-            mitm_risk = False
+            tls_verify_failed = False
             try:
-                r = PROBE_SESSION.get("https://www.gstatic.com/generate_204", proxies=proxies,
-                                      timeout=PROBE_RETRY_TIMEOUT, verify=True)
-                if r.status_code in (204, 200):
-                    mitm_risk = False
-                else:
-                    mitm_risk = r.status_code in (301, 302, 403, 407, 502, 503) or len(r.content) > 0
+                # 该请求只为触发证书链校验; 判定只取决于 TLS 结果, 状态码与响应体不参与
+                PROBE_SESSION.get("https://www.gstatic.com/generate_204", proxies=proxies,
+                                  timeout=PROBE_RETRY_TIMEOUT, verify=True)
             except requests.exceptions.SSLError:
                 # 证书链验证失败 = TLS 拦截 (MITM) 或劣质自签劫持
-                mitm_risk = True
+                tls_verify_failed = True
             except Exception:
                 pass  # 网络层失败不算 MITM (活性探测已通过)
-            return mitm_risk
+            return is_tls_intercepted(tls_verify_failed)
 
         def _step_warp():
             # cloudflare trace: warp=on = 套壳 WARP 节点 (非真实出口, 降权标记) — 4s 窄超时
@@ -1726,18 +2031,20 @@ def test_single_node(item, keep_alive_check=True, chain_relay=None):
         _bump_counter(_INTERNAL_ERRORS, type(e).__name__)
         return None
     finally:
-        _release_socks_port(socks_port)
+        if socks_port is not None:
+            _release_socks_port(socks_port)
         if proc and proc.poll() is None:
             proc.kill()
             try:
                 proc.wait(timeout=3)
             except Exception:
                 pass
-        try:
-            if os.path.exists(cfg_path):
-                os.remove(cfg_path)
-        except OSError:
-            pass
+        if cfg_path:
+            try:
+                if os.path.exists(cfg_path):
+                    os.remove(cfg_path)
+            except OSError:
+                pass
 
 
 def run_liveness_test(candidates: list) -> list:
@@ -1756,7 +2063,11 @@ def run_liveness_test(candidates: list) -> list:
         futs = {ex.submit(_work, it): it for it in candidates}
         for fut in as_completed(futs):
             done_count[0] += 1
-            r = fut.result()
+            try:
+                r = fut.result()
+            except Exception as e:
+                _bump_counter(_INTERNAL_ERRORS, type(e).__name__)
+                r = None
             if r:
                 results.append(r)
             if done_count[0] % 40 == 0:
@@ -1806,16 +2117,19 @@ def chain_retest(test_results: list) -> list:
             print(f"[!] 链式复测: ip-api 批量失败 ({e}), 跳过链式复测")
             return test_results
 
+    # 过滤条件只此一处定义, 供下面的 rDNS 预热与分类循环共用 (免得两处各自演进后
+    # 预热集与实际分类集对不上 —— 漏掉的 IP 会被当成"已知无 PTR"而丢掉 rDNS 信号)。
+    classify_pool = [r for r in test_results
+                     if r.get("alive") and not (r.get("is_stalled") and not _SPEED_ENDPOINT_BROKEN)]
+    rdns_map = prefetch_rdns([r["exit_ip"] for r in classify_pool])
+
     res_candidates = {}
-    for r in test_results:
-        if not r.get("alive"):
-            continue
-        if r.get("is_stalled") and not _SPEED_ENDPOINT_BROKEN:
-            continue
+    for r in classify_pool:
         rec = ip_api_info.get(r.get("exit_ip"), {})
         t, c = classify_network_type(r["exit_ip"], r.get("exit_country_online"),
                                      r.get("exit_asn_online"),
-                                     r.get("exit_asn_org_online"), rec or None)
+                                     r.get("exit_asn_org_online"), rec or None,
+                                     rdns_map.get(r["exit_ip"], ""))
         if t in ("residential", "mobile") and c >= 60:
             res_candidates[(r["server"].lower(), r["port"], r["proto"])] = r
 
@@ -1914,50 +2228,109 @@ def _save_ip_api_disk_cache(cache: dict):
         print(f"[!] ip-api 缓存落盘失败: {e}")
 
 
+def _ip_api_rec_ok(rec) -> bool:
+    """ip-api batch 记录能否当情报用: 必须 status == "success"。
+    文档 (ip-api.com/docs/api:batch): status ∈ success|fail; fail 时带 message
+    (private range / reserved range / invalid query) 且不含 hosting/proxy/mobile。
+    此类记录曾被无条件 info[q] = rec 并写进 24h 磁盘缓存, 于是"查不到"被当成情报复用了
+    整整一天, 对应 M5 的"降级不可见"。fail-closed: 非 success 一律拒收。"""
+    return isinstance(rec, dict) and rec.get("status") == "success"
+
+
+def _ip_api_coverage_report(requested: list, info: dict, rejected: int):
+    """覆盖率记账: 打印 请求/已解析/覆盖率, 低于 IP_API_MIN_COVERAGE 打醒目警告,
+    并写 _VETO_STATS["ip-api.com"] (由 write_e2e_report 落到 e2e_test_report.json)。"""
+    total = len(requested)
+    resolved = len(info)
+    cov = (resolved / total) if total else 0.0
+    print(f"[*] ip-api 覆盖率: 请求 {total} | 已解析 {resolved} | 覆盖率 {cov * 100:.1f}%"
+          + (f" | 本轮拒收 {rejected} 条" if rejected else ""))
+    _VETO_STATS["ip-api.com"] = {"ok": resolved, "total": total, "success_rate": round(cov, 3)}
+    if total and cov < IP_API_MIN_COVERAGE:
+        print(f"[!] 警告: ip-api 覆盖率 {cov * 100:.1f}% < {IP_API_MIN_COVERAGE * 100:.0f}%, "
+              f"缺记录的出口 IP 无 hosting/proxy/mobile 在线否决信号 → 这些节点不得判为家宽/移动")
+
+
 def ip_api_batch_lookup(ip_list: list) -> dict:
     """ip-api.com batch (免费 HTTP, ≤100/req, 15 req/min → 1500 IP/min)
-    跨轮持久化: runtime/ip_api_cache.json, 24h TTL (runtime/ 经 actions/cache 跨 CI 保留，同 IP 每日只查一次)"""
+    跨轮持久化: runtime/ip_api_cache.json, 24h TTL (runtime/ 经 actions/cache 跨 CI 保留，同 IP 每日只查一次)
+    只返回 status==success 的记录; 覆盖率不足时显式告警 (不得静默降级)。"""
     now = time.time()
+    requested = list(dict.fromkeys(ip_list))
     disk = _load_ip_api_disk_cache()
     info = {}
-    for ip in dict.fromkeys(ip_list):
+    stale_cached = 0
+    for ip in requested:
         ent = disk.get(ip)
-        if ent and now - ent.get("ts", 0) < IP_API_CACHE_TTL and isinstance(ent.get("rec"), dict):
+        if not ent or now - ent.get("ts", 0) >= IP_API_CACHE_TTL:
+            continue
+        # 读回即校验: 该文件可能已被历史版本写入 status!=success 的失败残留
+        if _ip_api_rec_ok(ent.get("rec")):
             info[ip] = ent["rec"]
-    missing = [ip for ip in dict.fromkeys(ip_list) if ip not in info]
-    if missing:
-        print(f"[*] ip-api 缓存命中 {len(info)}/{len(set(ip_list))}, 需查询 {len(missing)}")
-    else:
+        else:
+            stale_cached += 1
+    if stale_cached:
+        print(f"[!] ip-api 磁盘缓存中 {stale_cached} 条记录未过校验 (status != success, "
+              f"疑为历史失败残留), 已拒收 → 改走在线查询")
+    missing = [ip for ip in requested if ip not in info]
+    rejected = 0
+    failed_batches = 0
+    if not missing:
         print(f"[*] ip-api 全部缓存命中 ({len(info)} IP), 跳过在线查询")
+        _ip_api_coverage_report(requested, info, rejected)
         return info
+    print(f"[*] ip-api 缓存命中 {len(info)}/{len(requested)}, 需查询 {len(missing)}")
     session = requests.Session()
     session.trust_env = True
     total_batches = (len(missing) + IP_API_BATCH_SIZE - 1) // IP_API_BATCH_SIZE
     for bi, i in enumerate(range(0, len(missing), IP_API_BATCH_SIZE), 1):
         chunk = missing[i:i + IP_API_BATCH_SIZE]
         payload = [{"query": ip} for ip in chunk]
+        last_err = ""
         for attempt in range(3):
             try:
                 r = session.post(IP_API_BATCH_URL, json=payload, timeout=20)
                 if r.status_code == 200:
-                    for rec in r.json():
-                        q = rec.get("query")
-                        if q:
+                    body = r.json()
+                    if not isinstance(body, list):
+                        last_err = f"HTTP 200 但响应非列表 ({type(body).__name__})"
+                        failed_batches += 1
+                        print(f"[!] ip-api 批 {bi}/{total_batches} {last_err}, 本批 {len(chunk)} IP 无情报")
+                        break
+                    for rec in body:
+                        q = rec.get("query") if isinstance(rec, dict) else None
+                        if q and _ip_api_rec_ok(rec):
                             info[q] = rec
+                        else:
+                            rejected += 1
                     break
                 elif r.status_code == 429:
+                    last_err = "HTTP 429 限流"
                     time.sleep(4 + attempt * 3)
                 else:
+                    last_err = f"HTTP {r.status_code}"
                     time.sleep(2)
-            except Exception:
+            except Exception as e:
+                last_err = f"{type(e).__name__}: {str(e)[:60]}"
                 time.sleep(2)
+        else:
+            failed_batches += 1
+            print(f"[!] ip-api 批 {bi}/{total_batches} 重试 3 次仍失败 ({last_err}), "
+                  f"本批 {len(chunk)} IP 无情报")
+        if failed_batches and bi == total_batches:
+            print(f"[!] ip-api 整批失败 {failed_batches}/{total_batches} 批 (失败/限流/异常), "
+                  f"未返回记录的 IP 一律无在线否决信号")
         if total_batches >= 3 and (bi % 5 == 0 or bi == total_batches):
             print(f"[*] ip-api 进度: 批 {bi}/{total_batches} ({len(info)} IP 已查)")
         if bi < total_batches:
             time.sleep(IP_API_BATCH_RPS_INTERVAL)
+    if rejected:
+        print(f"[!] ip-api 本轮拒收 {rejected} 条 status != success 的记录 (per-record fail), 不入库不缓存")
     for ip, rec in info.items():
-        disk[ip] = {"ts": now, "rec": rec}
+        if _ip_api_rec_ok(rec):
+            disk[ip] = {"ts": now, "rec": rec}
     _save_ip_api_disk_cache(disk)
+    _ip_api_coverage_report(requested, info, rejected)
     return info
 
 
@@ -1995,11 +2368,54 @@ def get_rdns(ip: str) -> str:
     return out[0] if out else ""
 
 
-def classify_network_type(ip: str, country: str, asn, org: str, ip_api_rec: dict = None) -> tuple:
+def prefetch_rdns(ips) -> dict:
+    """并发预热 rDNS → {ip: rdns 或 ""} (给分类阶段的串行循环用)
+
+    背景: classify_network_type 第 5 步的 rDNS 兜底反查原本由循环逐个触发,
+    而 get_rdns 每次都要起一个线程并 join(timeout=2.0) —— 解析器正常时
+    ~57ms/个, 900 个出口 IP 串行 ≈ 52s; 解析器卡住时每个吃满 2s
+    → ≈30 分钟。改到这里并发预取, 分类时只查表。
+    契约 (调用方依赖):
+      - 覆盖每个被请求的 IP —— 无 PTR 记 "" (空串是"已知无结果"的哨兵,
+        传给 classify_network_type(rdns="") 会跳过内部反查, 不会退回串行 I/O);
+      - 输入去重; 空列表返回 {}; 任何单点失败只降级成 "", 绝不抛异常中断整批。
+    """
+    uniq, seen = [], set()
+    for ip in (ips or ()):
+        if ip and ip not in seen:
+            seen.add(ip)
+            uniq.append(ip)
+    # 预置空串: 线程池本身就起不来时也保证"覆盖每个 IP"这条契约成立 (退化成没有
+    # rDNS 信号, 而不是抛异常把整轮跑挂)。
+    out = {ip: "" for ip in uniq}
+    if not uniq:
+        return out
+
+    def _one(ip):
+        try:
+            return ip, (get_rdns(ip) or "")
+        except Exception:
+            return ip, ""
+
+    try:
+        with ThreadPoolExecutor(MAX_WORKERS_CLASSIFY) as ex:
+            for ip, name in ex.map(_one, uniq):
+                out[ip] = name
+    except Exception as e:
+        print(f"[!] rDNS 并发预热异常 ({e}), 缺失项按无 PTR 处理")
+    return out
+
+
+def classify_network_type(ip: str, country: str, asn, org: str, ip_api_rec: dict = None,
+                          rdns: str = None) -> tuple:
     """
     返回 (net_type, confidence):
       net_type ∈ {datacenter, residential, mobile, cdn, unknown}
     优先级: ip-api.com hosting/mobile 字段 > CDN 网段 > ASN 白/黑名单 > 名称关键词
+    rdns: 第 5 步 rDNS 兜底的结果, 两个哨兵值语义不同, 别混:
+      None (默认) → 内部自己 get_rdns() (老调用方的行为, 五参调用不受影响);
+      ""           → 已知无结果, 直接用空串, 不再反查 (供 prefetch_rdns 预热后查表;
+                     若把 "" 当成"没查到"再查一次, 串行开销只是被挪了位置, 没消掉)。
     """
     ip_str = str(ip)
     try:
@@ -2066,7 +2482,8 @@ def classify_network_type(ip: str, country: str, asn, org: str, ip_api_rec: dict
                 return "residential", 70
 
     # 5) rDNS 兜底
-    rdns = get_rdns(ip_str)
+    if rdns is None:
+        rdns = get_rdns(ip_str)
     if rdns:
         for kw in IDC_NAME_PATTERNS:
             if kw in rdns:
@@ -2086,12 +2503,10 @@ def outbound_to_clash(node: dict, name: str) -> dict:
     """sing-box outbound → Clash (Meta/mihomo) proxy dict"""
     t = node.get("type")
     server = node["server"]
-    # 端口跳跃节点 (hy2 mport): 无 server_port 时取 server_ports 首区间起始端口 (同 v2ray 链路 fallback)
-    if node.get("server_port"):
-        port = node["server_port"]
-    elif node.get("server_ports"):
-        port = int(str(node["server_ports"][0]).split(":")[0])
-    else:
+    # 端口取值走 _export_port (与 v2ray 链路同一个界与同一套回落, server_port=0 等畸形输入
+    # 两个客户端不再分歧); 无可用端口即丢弃该节点, 不产出 port=0 / port=70000 的垃圾 proxy
+    port = _export_port(node)
+    if port is None:
         return None
     proxy = {"name": name, "server": server, "port": port, "udp": True}
 
@@ -2184,7 +2599,12 @@ def outbound_to_clash(node: dict, name: str) -> dict:
             proxy["obfs"] = node["obfs"].get("type")
             proxy["obfs-password"] = node["obfs"].get("password", "")
         if node.get("server_ports"):
-            proxy["ports"] = ",".join(p.replace(":", "-") for p in node["server_ports"])
+            # 与 mport/clash ports 两个入口同界, 且与 v2ray 链共用 _export_hops:
+            # 逐个丢弃两端越界或不可切的元素, 一个不剩就整个不设 ports ——
+            # 宁可不发跳跃列表 (客户端回落单端口), 也不发 "443-443" 这类垃圾串
+            hops = _export_hops(node)
+            if hops:
+                proxy["ports"] = ",".join(hops)
     elif t == "tuic":
         proxy["type"] = "tuic"
         proxy["uuid"] = node["uuid"]
@@ -2210,12 +2630,10 @@ def outbound_to_clash(node: dict, name: str) -> dict:
 def outbound_to_v2ray_link(node: dict, name: str) -> str:
     """sing-box outbound → v2rayN 兼容 URI"""
     t = node.get("type")
-    # 端口跳跃节点 (hy2 mport): 无 server_port 时取 server_ports 首区间起始端口
-    if "server_port" in node:
-        port = node["server_port"]
-    elif node.get("server_ports"):
-        port = int(str(node["server_ports"][0]).split(":")[0])
-    else:
+    # 与 clash 链路共用 _export_port: 同一节点两条导出链必须落同一个端口 (旧实现此处按存在性
+    # 取 server_port 而 clash 按真值取, server_port=0 时两者分歧); 无可用端口即返回空串
+    port = _export_port(node)
+    if port is None:
         return ""
     server = node["server"]
     host = f"[{server}]" if ":" in server and not server.startswith("[") else server
@@ -2346,8 +2764,9 @@ def outbound_to_v2ray_link(node: dict, name: str) -> str:
         if node.get("obfs"):
             q["obfs"] = node["obfs"].get("type", "salamander")
             q["obfs-password"] = node["obfs"].get("password", "")
-        if node.get("server_ports"):
-            q["mport"] = ",".join(p.replace(":", "-") for p in node["server_ports"])
+        hops = _export_hops(node)
+        if hops:
+            q["mport"] = ",".join(hops)
         query = urllib.parse.urlencode(q)
         return f"hysteria2://{urllib.parse.quote(node['password'])}@{host}:{port}?{query}#{urllib.parse.quote(name)}"
     if t == "tuic":
@@ -2442,6 +2861,10 @@ def classify_and_export(test_results: list):
     except Exception as e:
         print(f"[!] MaxMind 数据库打开失败: {e}")
 
+    # 第 5 步的 rDNS 兜底原本在下面这个串行循环里逐个触发 (每调用 join 一个 2s 超时
+    # 线程) → 先并发预热, 循环内只查表。all_exit_ips 正是本循环会去分类的出口 IP 全集。
+    rdns_map = prefetch_rdns(all_exit_ips)
+
     nodes = []
     for r in test_results:
         exit_ip = r["exit_ip"]
@@ -2473,7 +2896,7 @@ def classify_and_export(test_results: list):
 
         rec = ip_api_info.get(exit_ip, {})
         net_type, confidence = classify_network_type(
-            exit_ip, country, asn, org, rec or None)
+            exit_ip, country, asn, org, rec or None, rdns_map.get(exit_ip, ""))
 
         # 无真实出口 IP 的节点: 国家未知, 不入家宽区
         if not exit_ip:
@@ -2606,15 +3029,27 @@ def classify_and_export(test_results: list):
             chain_failed_raws.add(r.get("raw"))
     residential = []
     res_seen_ip = set()
+    no_ipapi_rec = 0
     for n in unique_nodes:
         if n["net_type"] in ("residential", "mobile") and n["confidence"] >= 60:
             if n.get("raw") in chain_failed_raws:
                 n["net_type"] = "datacenter"
                 n["confidence"] = 70
                 continue
+            # ★ M5 安全封顶 (发布策略, 不是 IP 属性): 缺 ip-api 正记录的节点没有 hosting/proxy/mobile
+            #   三路在线否决信号, 真机房 IP 会被 ASN 名单/名称关键词放过而误判 residential →
+            #   降 unknown 留普通区 (保留收录), 只是不得进家宽/移动。
+            if not (n["exit_ip"] and ip_api_info.get(n["exit_ip"])):
+                n["net_type"] = "unknown"
+                n["confidence"] = 30
+                no_ipapi_rec += 1
+                continue
             if n["exit_ip"] and n["exit_ip"] not in res_seen_ip:
                 res_seen_ip.add(n["exit_ip"])
                 residential.append(n)
+    if no_ipapi_rec:
+        print(f"[*] 缺 ip-api 正记录的家宽候选 {no_ipapi_rec} 个 → 无 hosting/proxy/mobile 否决信号, "
+              f"降为 unknown 留普通区, 不进家宽/移动 (降级不淘汰)")
     # fraud 分极高 (≥90) 的节点整体剔除 (任何区都不要)
     before_total = len(unique_nodes)
     unique_nodes = [n for n in unique_nodes if not (0 <= n.get("fraud_score", -1) >= 90)]
@@ -2622,11 +3057,28 @@ def classify_and_export(test_results: list):
     if len(unique_nodes) < before_total:
         print(f"[*] 极高危节点 (fraud≥90) 剔除: {before_total - len(unique_nodes)} 个")
 
-    non_residential = [n for n in unique_nodes if n not in residential]
+    # 观测: 家宽候选的查询规模 vs 最终入选规模 (纯日志, 不参与任何判定)。
+    # 留这行是因为两个源都按出口 IP 去重后才查, 而候选规模会随免费池波动 —— 将来
+    # 候选量涨到接近 ipapi.is 的 1000 次/天上限时, 从 CI 日志就能直接看出趋势。
+    # ★ 刻意不为省配额跳过查询: fraud≥90 那一步是对所有节点生效的全局剔除, 一旦
+    #   因为"这个 IP 反正进不了家宽"而不查, 这些节点就失去 fraud≥90 的保护而留在
+    #   普通区 —— 那是安全性倒退, 不是优化。真要省, 得先有等价的替代判据。
+    if scam_candidates or verify_candidates:
+        _adm_ips = {n["exit_ip"] for n in residential if n.get("exit_ip")}
+        print(f"[*] 家宽候选规模: Scamalytics 查 {len(scam_candidates)} 个出口 IP / "
+              f"ipapi.is 查 {len(verify_candidates)} 个 / 最终入选家宽 {len(residential)} 个节点"
+              f"({len(_adm_ips)} 个去重出口 IP)")
+
+    # residential 与 unique_nodes 装的是同一批 dict 对象 (上面 append 时 append 的就是
+    # 遍历中的那个 n), 所以成员判据是身份而不是值相等: list in 走的是 == 深度比较,
+    # 既把 O(n·|res|) 的比较开销挂在排序键上 (O(n log n) 次), 又会把"值相同但不是同一
+    # 对象"的节点误认成家宽成员。
+    residential_ids = {id(n) for n in residential}
+    non_residential = [n for n in unique_nodes if id(n) not in residential_ids]
     print(f"[*] 家宽/移动网络节点: {len(residential)} | 普通(机房/CDN): {len(non_residential)}")
 
     # 排序: 家宽在前, 延迟升序
-    unique_nodes.sort(key=lambda x: (0 if x in residential else 1, x["latency_ms"]))
+    unique_nodes.sort(key=lambda x: (0 if id(x) in residential_ids else 1, x["latency_ms"]))
     residential.sort(key=lambda x: x["latency_ms"])
     non_residential.sort(key=lambda x: x["latency_ms"])
     # ★ 链式复测双跳失败的家宽 → 降级普通区 (v2rayN 链式场景不可靠)
@@ -2936,6 +3388,27 @@ export default {{
     print(f"[+] README.md 更新完毕: 总节点 {total_count}, 家宽 {res_count}")
 
 
+def cred_fingerprint(outbound: dict) -> str:
+    """节点身份指纹 (测前去重/回填的 key 组成部分)。
+
+    判定规则: 两条 URI 只要解析出的 sing-box outbound 逐字节相同, 就是同一个节点,
+    可共用一次测活结果; 任何字段 (凭据 / sni / pbk / sid / flow / transport /
+    ws.path / Host / serviceName / alpn / obfs / server_ports ...) 有差异, 都是
+    不同的节点, 必须各自实测 —— 旧实现只取凭据, 会把同 server:port 同 uuid 但传输层
+    不同的节点判为同一个, 结果未实测的那条会继承别人的 alive/exit_ip/latency/mitm_risk
+    被当作已验证发布。
+
+    `tag` 恒为常量 "node", 不携带身份, 序列化前剔除; `type` 保留在 outbound 内,
+    跨协议不可能撞键。列表顺序 (alpn / server_ports / headers) 有语义, 刻意不排序。
+    """
+    try:
+        canon = {k: v for k, v in outbound.items() if k != "tag"}
+        return json.dumps(canon, sort_keys=True, ensure_ascii=False, default=str)
+    except Exception:
+        # 指纹失败 → 不合并 (宁慢不错): 随机值保证与任何其他节点的键都不相同
+        return uuid.uuid4().hex
+
+
 # ═══════════════════════════════════════════N═══════════════════════
 # 主流程
 # ═══════════════════════════════════════════N═══════════════════════
@@ -2966,36 +3439,15 @@ def main():
     stages = {"fetched_uris": len(raw_nodes), "parse_failed": parse_fail,
               "parsed_ok": len(candidates)}
 
-    # 2.5 ★ 测前强去重 (凭据指纹去重: 同 凭据+目标+协议 只测一次, 结果回填全部重复节点)
-    #     key = (server, port, proto, 凭据指纹): 凭据不同 → 服务端校验结果可能不同, 不可合并
-    #     凭据指纹: uuid/password 各协议的核心身份字段 (vless uuid / vmess id+alterId /
-    #               trojan password / ss 2022密钥 / hy2 auth / tuic uuid+passwd / anytls password)
+    # 2.5 ★ 测前强去重 (整 outbound 规范化指纹去重: 解析结果逐字节相同 → 只测一次, 结果回填全部重复节点)
+    #     key = (server, port, proto, cred_fingerprint(outbound)): server/port/proto 不同 → 服务端不同, 不可合并
+    #     cred_fingerprint 序列化整个 outbound (除 tag): 凭据相同但 sni/pbk/sid/flow/transport/
+    #     ws.path/Host/serviceName/alpn/obfs/端口跳跃 任一不同 → 不同节点, 必须各自实测
     #     完全相同 = 同一节点被多源重复收录 (免费池常态, 30+ 份不同名字) → 只测一次
-    def cred_fingerprint(outbound: dict, proto: str) -> str:
-        try:
-            if proto == "vless":
-                return f"{outbound.get('uuid','')}"
-            if proto == "vmess":
-                return f"{outbound.get('uuid','') or outbound.get('user_id','')}"
-            if proto == "trojan":
-                return f"{outbound.get('password','')}"
-            if proto == "shadowsocks":
-                return f"{outbound.get('method','')}|{outbound.get('password','')}"
-            if proto == "hysteria2":
-                return f"{outbound.get('password','') or ''}|{outbound.get('server_ports','')}"
-            if proto == "tuic":
-                return f"{outbound.get('uuid','')}|{outbound.get('password','')}"
-            if proto == "anytls":
-                return f"{outbound.get('password','')}"
-            return json.dumps({k: v for k, v in outbound.items()
-                              if k in ("uuid", "password", "user_id", "method")}, sort_keys=True)
-        except Exception:
-            return ""  # 指纹失败 → 不合并 (宁慢不错)
-
     seen_keys, deduped, dup_count = {}, [], 0
     for item in candidates:
         uri, outbound, server, port, proto = item
-        key = (server.lower() if server else "", port, proto, cred_fingerprint(outbound, proto))
+        key = (server.lower() if server else "", port, proto, cred_fingerprint(outbound))
         if key in seen_keys:
             seen_keys[key].append(uri)  # 记录重复 URI, 测活后回填
             dup_count += 1
@@ -3075,7 +3527,7 @@ def main():
     try:
         repo_name = os.environ.get("GITHUB_REPOSITORY", "").strip()
         if repo_name and "/" in repo_name:
-            files = glob.glob(os.path.join(BASEDIR, "output", "**", "*.*"), recursive=True)
+            files = glob.glob(os.path.join(OUTPUT_DIR, "**", "*.*"), recursive=True)
             counts = {"ok": 0, "fail": 0}
             clock = threading.Lock()
 
