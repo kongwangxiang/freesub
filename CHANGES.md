@@ -27,9 +27,9 @@
 1. **测活引擎升级**：sing-box v1.14.0（官方最新版，全协议）。每个节点起独立 sing-box 进程 + 临时 SOCKS 入站，先 `sing-box check` 预校验配置，再走完整代理隧道探测 3 个 generate_204，**彻底消灭假通畅**。
 2. **分层超时**：首次探测 12s（照顾慢启动节点），重试探测 4s（死节点快速淘汰）—— 既不误杀慢节点，又不让死节点烧时间。
 3. **真实出口 IP**：通过节点隧道内访问 IP 识别服务获取**出口 IP**（而非入口服务器 IP），国家归类基于你实际落地的地方。出口查不到（云内网/中转隧道）时回退查入口 IP，消灭"其他地区"。
-4. **断流检测**：Cloudflare 5MB 限时下载，吞吐 < 70KB/s 判定断流淘汰。
+4. **断流检测**：Cloudflare 2.5MB 限时下载（`SPEED_TEST_BYTES = 2_500_000`），吞吐 < 70KB/s 判定断流淘汰。
 5. **MITM 检测**：TLS 证书校验，SSLError = 证书劫持节点，高危直接丢弃。
-6. **六信号家宽识别**：ip-api 批量接口（hosting/mobile 字段）+ CDN/云厂商 IP 段库 + 主流云厂商 ASN 列表 + 运营商关键词 + 反向 DNS + Scamalytics 欺诈分（≥70 拒收，25-70 打 ⚠R 标），信号互斥裁决 + 置信度。
+6. **六信号家宽识别**：ip-api 批量接口（hosting/mobile 字段）+ CDN/云厂商 IP 段库 + 主流云厂商 ASN 列表 + 运营商关键词 + 反向 DNS + Scamalytics 欺诈分（**≥75 家宽候选降级为机房**、**≥90 直接从全部输出剔除**；风险标 `⚠R` 仅 ≥75，40-75 区间打 `R{n}` 后缀），信号互斥裁决 + 置信度。
 7. **测前去重**：凭据指纹（同 server+port+协议+uuid/password）只测一次，结果回填同源重复节点 —— 本轮实测 **4968 → 2927（砍 42%）**，同凭据+同目标服务端行为必然一致。
 8. **导出保真**：导出后**再解析回来逐字段比对**（roundtrip），任何字段丢失都在 CI 内拦截。本轮实测 24/24 样本零丢失（旧导出链路 145/262 有损，55% 的节点带病出库）。
 
@@ -38,7 +38,7 @@
 | # | 问题 | 根因 | 修复 |
 |---|---|---|---|
 | 1 | CI 崩溃 `ValueError: I/O operation on closed file` | `download_file` 无 stream 直接消费 `response.raw` | 流式下载 + 1MB 分块 + `.part` 原子替换 + 3 重试 + jsdelivr 镜像兜底 |
-| 2 | CI 超时风险，单次 40+ 分钟 | 5723 个节点全量测，死节点 6.5s×3 烧时间 | 测前去重 + 分层超时 + 并发 24→48 |
+| 2 | CI 超时风险，单次 40+ 分钟 | 4968 个节点全量测，死节点 6.5s×3 烧时间 | 测前去重 + 分层超时 + 并发 24→96（`MAX_WORKERS_TEST = 96`） |
 | 3 | v2rayN 解析韩国家宽节点失败 | ss 导出 `rstrip("=")` 砍掉 base64 padding → 无 padding 的畸形 base64 | **保留 padding**，标准 SIP002 |
 | 4 | trojan-ws 节点 100% 不可用 | 导出丢 ws 的 path/host/ed 参数 | trojan 导出按传输层逐项补全 |
 | 5 | vless 复杂传输节点不可用 | 导出丢 ed/alpn/fp/h2-host/httpupgrade-host | vless 导出全参数补全 + `type=http/h2` 双写法兼容 |
@@ -46,22 +46,22 @@
 | 7 | hy2 密码含 `://` 的节点整条丢弃 | 解析正则 `[^@#/?]+@` 在 `/` 处断开 | 改用 `rfind("@")` 切分 |
 | 8 | README 缺"私有化部署"章节 | 迁移 main.py → main_v2.py 时遗漏 | 已完整迁移（Cloudflare Worker 方案 + owner/repo 自动注入） |
 | 9 | "其他地区"很多 | 出口 IP 为云内网地址时 mmdb 也查不到 | 出口查不到 → 回退入口 IP 兜底 |
-| 10 | hy2 端口跳跃节点导出崩溃 | 无 `server_port` 只有 `server_ports` | 取 `server_ports` 首区间起始端口 |
+| 10 | hy2 端口跳跃节点导出崩溃 | 无 `server_port` 只有 `server_ports`，且裸单端口会让 sing-box FATAL | `server_ports` 只收 `start:end` 区间：越界元素**逐个丢弃**，裸单端口改写成 `s:s` 区间，全部元素作废才回落 `server_port`（单元素坏不牵连整条跳跃列表） |
 
 ## 四、性能提升（本轮 CI 实测）
 
 | 指标 | 旧版 | 新版 | 提升 |
 |---|---|---|---|
 | 单次 CI 总耗时 | 40+ 分钟（且不完整） | **451 秒（7.5 分钟）** | **↓ ~80%** |
-| 实测节点数 | 5723（全量重复测） | 2927（去重后） | **↓ 42%** |
-| 测活并发 | 24 | 48 | ×2 |
+| 实测节点数 | 4968（全量重复测） | 2927（去重后） | **↓ 42%** |
+| 测活并发 | 24 | 96（`MAX_WORKERS_TEST`，Azure 2C7G 48→96） | ×4 |
 | 死节点耗时 | 6.5s × 3 | 首次 12s / 重试 4s（分层） | 断流 188 个全部被拦截 |
 
 ## 五、准确率提升
 
 | 维度 | 旧版 | 新版 |
 |---|---|---|
-| 协议覆盖 | 4 协议（hy2/tuic/anytls = 0%） | **8 协议 100%**（vless/vmess/trojan/ss/hy2/tuic/anytls + 全传输层） |
+| 协议覆盖 | 4 协议（hy2/tuic/anytls = 0%） | **8 协议 100%**（vless/vmess/trojan/ss/hy2/tuic/anytls/ssh + 全传输层） |
 | 导出保真度 | 145/262 有损（55% 带病出库） | **24/24 零丢失（0%）** |
 | 慢节点误杀 | 固定 6.5s 单次探测，慢启动节点被杀 | 首探 12s + 多 URL 交叉验证，误杀≈0 |
 | 断流节点 | 全部入库 | 70KB/s 阈值拦截（本轮淘汰 188 个） |
@@ -87,8 +87,31 @@
 
 | # | 问题现象 | 根因（实测取证） | 修复 |
 |---|---|---|---|
-| 11 | 美国家宽 #2 实为荷兰 Zenlayer 机房（ping 荷兰阿姆斯特丹，ip.sb 显示美国） | ip-api 对该 IP 判 `proxy=true, hosting=false`（收购 legacy DSL 段的云边网络），rDNS 带 `dsl...speakeasy.net` 被关键词误判家宽；**旧代码没检查 proxy 标志** | ① ip-api `proxy=true` → 硬否决家宽（conf 88）② AS62610 Zenlayer 等 12 个云边 ASN 入黑名单 ③ **ipapi.is 免费交叉源二次否决**（其判 AS62610 = Bunny Communications/Zenlayer，公司名含云商词即否决）—— 单测 4/4：假家宽被否决、真家宽（SK Broadband AS9318）不误杀 |
+| 11 | 美国家宽 #2 实为荷兰 Zenlayer 机房（ping 荷兰阿姆斯特丹，ip.sb 显示美国） | ip-api 对该 IP 判 `proxy=true, hosting=false`（收购 legacy DSL 段的云边网络），rDNS 带 `dsl...speakeasy.net` 被关键词误判家宽；**旧代码没检查 proxy 标志** | ① ip-api `proxy=true` → 硬否决家宽（conf 88）② AS62610 Zenlayer 等 61 个云边 ASN 入黑名单 ③ **ipapi.is 免费交叉源二次否决**（其判 AS62610 = Bunny Communications/Zenlayer，公司名含云商词即否决）—— 单测 4/4：假家宽被否决、真家宽（SK Broadband AS9318）不误杀 |
 | 12 | 家宽台湾 CDN 订阅只更新出 2 个，RAW 却有 4 个 | jsdelivr 边缘节点缓存滞后（CDN 缓存的是几小时前的旧文件），**不是订阅内容 bug** | CI 每次跑完调用 `purge.jsdelivr.net` **主动刷新全部订阅文件的 CDN 缓存**（实测 TW.txt purge 后 CDN 立即 2→4 与 RAW 一致） |
 | 13 | 家宽总量偏少（8 个） | ① 旧版 4 协议引擎时代 hy2/tuic 家宽全灭 ② 严判据（Scamalytics ≥75 降级 + fraud ≥90 剔除 + ipapi.is 否决）宁缺毋滥，免费池里真家宽本来就稀缺 | 属**预期行为**：真家宽在免费节点池是稀缺资源；本次修复误判（#11）后，假家宽不再挤占真家宽名额 |
 
 > 关键结论：**免费节点池里"家宽"大多数是伪装的**（机房收购家宽 IP 段、rDNS 带.dsl/.pppoe 关键词、ip-api proxy 标志）。本版用四道闸门过滤：ip-api hosting/proxy 字段 → ASN 黑白名单 → ipapi.is 交叉源 → Scamalytics 欺诈分。
+
+## 八、后续修复 (第二批)
+
+| # | 问题现象 | 根因（实测取证） | 修复 |
+|---|---|---|---|
+| 14 | 凭据指纹把**不同**节点判成同一个 → 少测，且结果回填到错的节点上 | `cred_fingerprint` 只哈希 outbound 的部分字段，host/path/alpn 等参数不参与指纹 | 规范化**整个** outbound（排除 `tag`）后再哈希；异常时回落 `uuid.uuid4().hex` —— 宁可漏合也绝不误合 |
+| 15 | push 失败被静默吞掉：产物没更新，CI 仍显示成功 | 浅克隆下非快进 push 直接失败，且无重试与失败判定 | `fetch-depth: 0` + 显式 **3 次**重试循环 + `pushed` 标志，三次皆失败则 `exit 1` |
+| 16 | 空/缩水产物也能提交，订阅被清空无人发现 | CI 只跑脚本、不验产出；原 `MIN_NODES_RATIO=40` 的分母是**伪造的基线证据**，阈值形同虚设 | 提交前校验产出：`MIN_NODES_ABSOLUTE=150`、`MIN_NODES_RATIO=20`（自 40 下调，因 40 是拿伪造基线校准出来的）；基线用 `git show HEAD:output/v2ray.txt` 读取真实值；另校验各国分文件与 clash.yaml/singbox.json 体量一致 |
+| 17 | 非 MITM 的连接异常被当成证书劫持，可用节点被误杀 | `is_tls_intercepted` 名为谓词，内部却在猜原因、把其他异常也算进去 | 改为纯谓词（只映射 `tls_verify_failed`），MITM **仅**由 `SSLError` 判定 |
+| 18 | 单节点测试 setup 一失败就整体崩；jsDelivr purge 打到别的输出根目录 | `test_single_node` 的 setup 在 `try` 外且无 None 保护，`fut.result()` 直接抛；`OUTPUT_DIR` 未锚定 `BASEDIR`，工作目录一变 purge 就指错 | setup 移入 `try` + None 保护 + 硬化 `fut.result()`；`OUTPUT_DIR` 锚定 `BASEDIR`，purge 与导出同一根目录 |
+| 19 | rDNS 串行查询，最坏 900×2s = 30 分钟 | `MAX_WORKERS_CLASSIFY` 定义了却从未被使用；`rdns` 的 `None`（查过无结果）与 `""`（没查过）语义混同；家宽分桶按内容而非身份 | 新增 `prefetch_rdns()` 启用 `MAX_WORKERS_CLASSIFY` 预取；`None` 与 `""` 哨兵语义区分；家宽分桶改按 `id()`。最坏 30 分钟 → **实测 ~1.01 分钟**。并发数 **32 即平台期拐点**：300 个真实出口 IP 实测并发 1/8/16/32/64/128/256 = 21.6/3.7/2.6/**2.1**/2.2/1.8/2.1 s，32 以后全部落在噪声内（256 反而慢于 128），故维持 32 不调 |
+| 20 | ip-api 失败记录被当成功缓存，无有效记录的节点仍被当**家宽**发布 | 只看返回体有没有字段，不看 `status`；失败结果照进缓存 | 要求 `status == "success"` 才收；失败记录**不缓存**；新增覆盖统计 `_VETO_STATS["ip-api.com"]`；无 ip-api 正面记录的节点不得发布为家宽 |
+| 21 | sing-box 压缩包/二进制被篡改或中途损坏后照用，缓存不自愈 | 下载只校验 HTTP 成功，不校验内容 | `download_file(sha256=...)`；sing-box 压缩包**与**解压后二进制**双份** SHA-256 固定；缓存损坏自动重下自愈；GeoLite2 用结构哨兵校验（**故意不 pin**，因其会持续更新） |
+| 22 | 密码含 `@` 的 TUIC 节点被切错，且导出后再解析不回来 | authority 按**首个** `@` 切分，密码里的 `@` 被当分隔符；导出→解析 roundtrip 对含 `@`、`/` 的密码不闭合 | 改为按**最后一个** `@` 切分 authority；并修掉含 `@`/`/` 密码的导出→解析 roundtrip bug |
+| 23 | 一个越界端口让整条端口跳跃列表作废 | 没有端口上界校验，越界值直接透传给 sing-box（实测越界即 FATAL） | `MAX_PORT = 65535` + `_valid_port()`；`mport`/Clash `ports` 越界元素**逐个丢弃**，不再牵连整条跳跃列表 |
+| 24 | 96 线程解析同一 host 就是 96 次重复 DoH；坏 host 每个节点各失败一次 | `resolve_host` 无 per-host 去重；系统 DNS 回落结果不进缓存，也没有负缓存 | per-host 单飞（受保护的 per-host 锁表 + 双重检查加锁）；系统 DNS 回落结果写入正缓存；新增负缓存 `DNS_NEGATIVE_TTL = 60`。实测：96 线程同 host 收敛为 **1 次** DoH；坏 host **1 次**请求而非每节点 1 次 |
+| 25 | 三段测试对分类逻辑一塌糊涂也照过；缺 sing-box 二进制时测试静默跳过 | stage-3 测试桩写死 `get_rdns`，且留了恒假逃逸口、不校验置信度分档；缺 sing-box 二进制直接跳过 | stage-3 改为打桩 `get_rdns`、去掉恒假逃逸、断言置信度分档；缺 sing-box 二进制**默认失败**，需显式 `SKIP_SINGBOX_CHECK` 才跳过；CI 跑测试前先 `setup_environment()` |
+| 26 | 同一节点导出成两种端口；一条畸形数据打断整批导出 | 两个导出链各抄一遍端口取值且**判据相反**：clash 走真值 `node.get("server_port")`、v2ray 走存在性 `"server_port" in node` —— 实测 `server_port=0` 时 v2ray 照发 `:0` 而 clash 落到下一分支；且 `int(str(server_ports[0]).split(":"))` 遇 `"abc"` 抛 `ValueError`、遇字典抛 `KeyError`；clash 的 `ports` 已过滤而 v2ray 的 `mport` 未过滤（实测同节点 clash 得 `2087-2097`、v2rayN 得 `2087-2097,70000-70001,abc-def`） | 抽出 `_export_port()` 供两条链共用（复用 `_valid_port` 同一界，越界回落首跳，畸形不抛）+ `_export_hops()` 供 `ports`/`mport` 共用同一份过滤，**结构上杜绝两链漂移**。验证：909 个真实节点重跑，端口不一致 **0**、越界端口 **0** |
+| 27 | 密码含 `@` 或 `/` 的 anytls / ssh 节点被**整条丢弃** | 凭据正则 `[^@#/?]+` 同时排除了 `@` 与 `/` —— 实测 `anytls://pa@ss@h.com:443`、`anytls://pa/ss@h.com:443`、`ssh://user:p@ss@h.com:22`、`ssh://user:p/ss@h.com:22` 解析结果均为 `None`；`ssh` 的 `":(\d+)?"` 冒号是必需的，故 `int(port or 22)` 的 22 兜底是**死代码**（`ssh://user:pass@h.com` 实测 `None`）；无尾锚致 `:22junk` 被静默截断成 22。与 #22 同根因（首个 `@` vs 最后一个 `@`） | 改为按**最后一个** `@` 锚定（沿用 `parse_hysteria2` / `parse_tuic` 既有写法），端口真正可选使 22 兜底可达，以 `$` 收口拒脏端口；尾随查询串放行但忽略（旧实现本就接受，ssh 出站无 TLS/SNI 可透传，拒掉等于节点由可用变丢弃）。验证：1344 输入前后对照，未归类真回归 **0** |
+| 28 | 观察不到家宽候选的查询规模，将来无法判断是否逼近配额上限 | 候选按出口 IP 去重后才查，两个源的查询量随免费池波动，但日志里看不到"查了多少 / 入选多少" | 加一行观测日志（**不改任何判定**）。★ 刻意**不**为省配额跳过查询：`fraud≥90` 是对所有节点生效的全局剔除，一旦因"这个 IP 反正进不了家宽"而不查，这些节点就失去该保护而留在普通区 —— 是安全性倒退而非优化 |
+
+> 最新实测（DNS 单飞）：同一 host 96 线程并发解析实测收敛为 **1 次** DoH 请求；坏 host 从"每节点各失败一次"降为 **1 次**请求；负缓存 `DNS_NEGATIVE_TTL = 60` 秒到期即重试，瞬时故障能自愈 —— DoH 失败不再随节点数线性放大。
+
