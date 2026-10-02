@@ -5,48 +5,30 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
-  server: bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com
+  server: 311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com
   port: 443
   udp: true
   type: hysteria2
-  password: 6ddb6a68-d5f5-ca30-3943-cf0c9876d50c
-  sni: bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com
+  password: aed1cc24-351d-11ef-ba52-f23c9164ca5d
+  sni: 311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com
   skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  server: 42.200.173.5
+  server: 9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com
   port: 443
   udp: true
-  type: vless
-  uuid: b98d4c6e-6770-4a31-8256-a4750cdea0e7
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: 0i_xAxYgSNx5NMpK2lOaWGS-CvAiD_LneYPO0MF0owo
-    short-id: 1a
-  servername: s3.ap-east-1.amazonaws.com
-  client-fingerprint: random
-- name: 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
-  server: zfd-hkv2.kunlun01dns.com
-  port: 16115
+  type: hysteria2
+  password: 5f091cbe-fb34-11ea-9777-f23c9164ca5d
+  sni: 9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com
+  skip-cert-verify: true
+- name: 🇭🇰 中国香港 (Hong Kong) 03 (家宽)
+  server: ac7548f3ebe045b39a90288ff1e97528.pnuqcnp.cn
+  port: 443
   udp: true
-  type: vmess
-  uuid: 0802ac03-7973-39ef-a019-ba02de6c01e1
-  alterId: 0
-  cipher: auto
-- name: 🇭🇰 中国香港 (Hong Kong) 04 (家宽)
-  server: az-1.linkaa.xyz
-  port: 53617
-  udp: true
-  type: vmess
-  uuid: 6E571484-4166-4699-8F58-B34A1823691F
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /game/resources
-    headers:
-      Host: az-1.linkaa.xyz
-- name: 🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)
+  type: anytls
+  password: 9sK2mP8xQ7vL3nZ6
+  sni: ac7548f3ebe045b39a90288ff1e97528.lwdnxf.cn
+  skip-cert-verify: true
+- name: 🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)
   server: dog-hk.kunlun01dns.com
   port: 21022
   udp: true
@@ -54,6 +36,17 @@ proxies:
   uuid: 9464ca40-dd75-3742-a628-d931a9f413b2
   alterId: 0
   cipher: auto
+- name: 🇭🇰 中国香港 (Hong Kong) 05 (家宽)
+  server: 218.250.216.236
+  port: 443
+  udp: true
+  type: vless
+  uuid: 6d56436c-150d-11f0-b0c8-f23c913c8d2b
+  tls: true
+  reality-opts:
+    public-key: c9DdggKaJGSH7FN3JgGbi9ZvsUqOGGpIr7BhzTWeTCo
+  servername: download.windowsupdate.com
+  client-fingerprint: firefox
 proxy-groups:
 - name: PROXIES
   type: select
@@ -61,9 +54,9 @@ proxy-groups:
   - AUTO
   - 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
   - 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 04 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 03 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 05 (家宽)
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -71,8 +64,8 @@ proxy-groups:
   proxies:
   - 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
   - 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 04 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 03 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 05 (家宽)
 rules:
 - MATCH,PROXIES

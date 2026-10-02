@@ -5,7 +5,7 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇪 瑞典 (Sweden) 01
-  server: 5.157.10.148
+  server: surstreming.vvzzkontaktezzvv.garden
   port: 443
   udp: true
   type: vless
@@ -16,21 +16,9 @@ proxies:
     public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
     short-id: fb442438e2223836
   servername: surstreming.vvzzkontaktezzvv.garden
-  client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 02
-  server: 143.246.196.207
-  port: 443
-  udp: true
-  type: vless
-  uuid: ac0c2945-b758-11f1-8181-54db13ea7d40
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
-  servername: www.blocket.se
   client-fingerprint: random
-- name: 🇸🇪 瑞典 (Sweden) 03
-  server: 143.246.194.132
+- name: 🇸🇪 瑞典 (Sweden) 02
+  server: 143.246.194.213
   port: 443
   udp: true
   type: vless
@@ -40,33 +28,8 @@ proxies:
   reality-opts:
     public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
   servername: www.ikea.com
-  client-fingerprint: safari
-- name: 🇸🇪 瑞典 (Sweden) 04
-  server: 31.77.158.132
-  port: 443
-  udp: true
-  type: vless
-  uuid: af2bf319-ba88-4fec-8317-2b6a8cee96d1
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: COMosLQzz8GJ3ATEBK__SBjKsiL5VVS1MWkWUFpQTVk
-  servername: hittaikea.prizraknode.shop
-  client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 05
-  server: node5.boomvpn.ru
-  port: 443
-  udp: true
-  type: vless
-  uuid: 30dab345-4de9-4b70-ad9f-8ebd5c66686f
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: GRxGFwibgoUjG9OL5Dl1OLyK56yw8WaG5BdFP8ifVgQ
-    short-id: 26f7082dd0e36ca1
-  servername: cdn.jsdelivr.net
   client-fingerprint: chrome
-- name: 🇸🇪 瑞典 (Sweden) 06
+- name: 🇸🇪 瑞典 (Sweden) 03
   server: 34.51.231.250
   port: 443
   udp: true
@@ -77,31 +40,8 @@ proxies:
     public-key: fV003yDr_sb_Wkgz6MxnIUJMgD15osWhzU-HZ5fLPFg
     short-id: 79ff7d51e3c56323
   servername: www.cloudflare.com
-  client-fingerprint: chrome
-- name: 🇸🇪 瑞典 (Sweden) 07
-  server: 185.91.53.251
-  port: 8443
-  udp: true
-  type: trojan
-  password: ymk9eBP4Ams3-ncYCV4kDAezUzBfkR8x
-  sni: sw-one.quickgo.cc
-  skip-cert-verify: false
-- name: 🇸🇪 瑞典 (Sweden) 08
-  server: 176.108.246.110
-  port: 9830
-  udp: true
-  type: vless
-  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
-  tls: true
-  reality-opts:
-    public-key: bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU
-    short-id: aa
-  servername: dl.google.com
-  client-fingerprint: qq
-  network: grpc
-  grpc-opts:
-    grpc-service-name: grpc-tunnel
-- name: 🇸🇪 瑞典 (Sweden) 09
+  client-fingerprint: firefox
+- name: 🇸🇪 瑞典 (Sweden) 04
   server: 62.60.159.81
   port: 2053
   udp: true
@@ -112,7 +52,7 @@ proxies:
     public-key: ygmJxS-Mc7g0buNSUTVGhazT-FoBjyYtLLfUYIQxFTw
     short-id: d0ea1847066af5a6
   servername: www.samsung.com
-  client-fingerprint: firefox
+  client-fingerprint: chrome
   network: grpc
   grpc-opts:
     grpc-service-name: grpce5bb9e71
@@ -125,11 +65,6 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 02
   - 🇸🇪 瑞典 (Sweden) 03
   - 🇸🇪 瑞典 (Sweden) 04
-  - 🇸🇪 瑞典 (Sweden) 05
-  - 🇸🇪 瑞典 (Sweden) 06
-  - 🇸🇪 瑞典 (Sweden) 07
-  - 🇸🇪 瑞典 (Sweden) 08
-  - 🇸🇪 瑞典 (Sweden) 09
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -139,10 +74,5 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 02
   - 🇸🇪 瑞典 (Sweden) 03
   - 🇸🇪 瑞典 (Sweden) 04
-  - 🇸🇪 瑞典 (Sweden) 05
-  - 🇸🇪 瑞典 (Sweden) 06
-  - 🇸🇪 瑞典 (Sweden) 07
-  - 🇸🇪 瑞典 (Sweden) 08
-  - 🇸🇪 瑞典 (Sweden) 09
 rules:
 - MATCH,PROXIES

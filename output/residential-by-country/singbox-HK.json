@@ -6,66 +6,66 @@
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-      "server": "bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com",
+      "server": "311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com",
       "server_port": 443,
-      "password": "6ddb6a68-d5f5-ca30-3943-cf0c9876d50c",
+      "password": "aed1cc24-351d-11ef-ba52-f23c9164ca5d",
       "tls": {
         "enabled": true,
-        "server_name": "bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com",
+        "server_name": "311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com",
         "insecure": true
       }
     },
     {
-      "type": "vless",
+      "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-      "server": "42.200.173.5",
+      "server": "9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com",
       "server_port": 443,
-      "uuid": "b98d4c6e-6770-4a31-8256-a4750cdea0e7",
-      "flow": "xtls-rprx-vision",
+      "password": "5f091cbe-fb34-11ea-9777-f23c9164ca5d",
       "tls": {
         "enabled": true,
-        "server_name": "s3.ap-east-1.amazonaws.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "random"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "0i_xAxYgSNx5NMpK2lOaWGS-CvAiD_LneYPO0MF0owo",
-          "short_id": "1a"
-        }
+        "server_name": "9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com",
+        "insecure": true
+      }
+    },
+    {
+      "type": "anytls",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
+      "server": "ac7548f3ebe045b39a90288ff1e97528.pnuqcnp.cn",
+      "server_port": 443,
+      "password": "9sK2mP8xQ7vL3nZ6",
+      "tls": {
+        "enabled": true,
+        "server_name": "ac7548f3ebe045b39a90288ff1e97528.lwdnxf.cn",
+        "insecure": true
       }
     },
     {
       "type": "vmess",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)",
-      "server": "zfd-hkv2.kunlun01dns.com",
-      "server_port": 16115,
-      "uuid": "0802ac03-7973-39ef-a019-ba02de6c01e1",
-      "security": "auto"
-    },
-    {
-      "type": "vmess",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 04 (家宽)",
-      "server": "az-1.linkaa.xyz",
-      "server_port": 53617,
-      "uuid": "6E571484-4166-4699-8F58-B34A1823691F",
-      "security": "auto",
-      "transport": {
-        "type": "ws",
-        "path": "/game/resources",
-        "headers": {
-          "Host": "az-1.linkaa.xyz"
-        }
-      }
-    },
-    {
-      "type": "vmess",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)",
       "server": "dog-hk.kunlun01dns.com",
       "server_port": 21022,
       "uuid": "9464ca40-dd75-3742-a628-d931a9f413b2",
       "security": "auto"
+    },
+    {
+      "type": "vless",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 05 (家宽)",
+      "server": "218.250.216.236",
+      "server_port": 443,
+      "uuid": "6d56436c-150d-11f0-b0c8-f23c913c8d2b",
+      "tls": {
+        "enabled": true,
+        "server_name": "download.windowsupdate.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "c9DdggKaJGSH7FN3JgGbi9ZvsUqOGGpIr7BhzTWeTCo",
+          "short_id": ""
+        }
+      }
     },
     {
       "type": "selector",
@@ -74,9 +74,9 @@
         "auto",
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
         "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 04 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 05 (家宽)"
       ]
     },
     {
@@ -85,9 +85,9 @@
       "outbounds": [
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
         "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 04 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 05 (移动家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)",
+        "🇭🇰 中国香港 (Hong Kong) 05 (家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

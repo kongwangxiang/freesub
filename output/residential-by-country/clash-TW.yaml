@@ -5,29 +5,21 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇹🇼 中国台湾 (Taiwan) 01 (家宽)
-  server: hinet1.2yly.com
-  port: 24215
+  server: tw63-kb.cybergalaxy.me
+  port: 443
   udp: true
-  type: vless
-  uuid: 19d5a678-8396-4e3b-93da-ece618d0e83a
-  tls: true
-  reality-opts:
-    public-key: mdWKUPMVTtTbDqK10BPb89OcqBC2-Lx-4NOYtqc1GWE
-  servername: addons.mozilla.org
-  client-fingerprint: qq
+  type: anytls
+  password: 3fc0f254-54c3-4cf3-896b-5999a2b4c757
+  sni: tw63-kb.cybergalaxy.me
+  skip-cert-verify: true
 - name: 🇹🇼 中国台湾 (Taiwan) 02 (家宽)
-  server: hi.northcluster.info
-  port: 52300
+  server: ac7548f3ebe045b39a90288ff1e97526.pnuqcnp.cn
+  port: 443
   udp: true
-  type: vmess
-  uuid: 6E571484-4166-4699-8F58-B34A1823691F
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /video
-    headers:
-      Host: hi.northcluster.info
+  type: anytls
+  password: 9sK2mP8xQ7vL3nZ6
+  sni: ac7548f3ebe045b39a90288ff1e97526.lwdnxf.cn
+  skip-cert-verify: true
 proxy-groups:
 - name: PROXIES
   type: select

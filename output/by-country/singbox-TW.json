@@ -11,13 +11,33 @@
       "password": "H7mP2xY9kJ4nQ8wR5tF6vB3z",
       "tls": {
         "enabled": true,
-        "server_name": "127.0.0.1",
+        "server_name": "160.187.100.109",
+        "insecure": true
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "🇹🇼 中国台湾 (Taiwan) 02",
+      "server": "165.154.195.38",
+      "server_port": 35034,
+      "uuid": "959a8caf-4cea-43d0-a548-3628e7ddfafc",
+      "security": "auto"
+    },
+    {
+      "type": "anytls",
+      "tag": "🇹🇼 中国台湾 (Taiwan) 03",
+      "server": "tw04.cybergalaxy.me",
+      "server_port": 443,
+      "password": "3fc0f254-54c3-4cf3-896b-5999a2b4c757",
+      "tls": {
+        "enabled": true,
+        "server_name": "tw04.cybergalaxy.me",
         "insecure": true
       }
     },
     {
       "type": "vless",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 02",
+      "tag": "🇹🇼 中国台湾 (Taiwan) 04",
       "server": "60.248.219.78",
       "server_port": 443,
       "uuid": "c1c04450-bf71-4049-ad0c-9cf6d94d9f1f",
@@ -35,12 +55,34 @@
       }
     },
     {
+      "type": "vless",
+      "tag": "🇹🇼 中国台湾 (Taiwan) 05",
+      "server": "45.207.158.76",
+      "server_port": 9443,
+      "uuid": "3969ccbc-7bb3-4def-a9b4-26e2c84b66f8",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.amazon.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "0hIFPaEn4RdFib8_eP8HYxMywR5izEwM3JA2W1Zo8U4",
+          "short_id": "b390142456517acc"
+        }
+      }
+    },
+    {
       "type": "vmess",
-      "tag": "🇹🇼 中国台湾 (Taiwan) 03",
-      "server": "165.154.195.38",
-      "server_port": 35034,
-      "uuid": "959a8caf-4cea-43d0-a548-3628e7ddfafc",
-      "security": "auto"
+      "tag": "🇹🇼 中国台湾 (Taiwan) 06",
+      "server": "sbgfgov.vip23.wogacnmnagfwgov.com",
+      "server_port": 11223,
+      "uuid": "605956ee-544d-308e-8b90-51e67c6ea8da",
+      "security": "auto",
+      "alter_id": 2
     },
     {
       "type": "selector",
@@ -49,7 +91,10 @@
         "auto",
         "🇹🇼 中国台湾 (Taiwan) 01",
         "🇹🇼 中国台湾 (Taiwan) 02",
-        "🇹🇼 中国台湾 (Taiwan) 03"
+        "🇹🇼 中国台湾 (Taiwan) 03",
+        "🇹🇼 中国台湾 (Taiwan) 04",
+        "🇹🇼 中国台湾 (Taiwan) 05",
+        "🇹🇼 中国台湾 (Taiwan) 06"
       ]
     },
     {
@@ -58,7 +103,10 @@
       "outbounds": [
         "🇹🇼 中国台湾 (Taiwan) 01",
         "🇹🇼 中国台湾 (Taiwan) 02",
-        "🇹🇼 中国台湾 (Taiwan) 03"
+        "🇹🇼 中国台湾 (Taiwan) 03",
+        "🇹🇼 中国台湾 (Taiwan) 04",
+        "🇹🇼 中国台湾 (Taiwan) 05",
+        "🇹🇼 中国台湾 (Taiwan) 06"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

@@ -4,9 +4,40 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇺🇸 美国 (United States) 01 (移动家宽)
-  server: 104.18.34.14
-  port: 2052
+- name: 🇯🇵 日本 (Japan) 01 (家宽)
+  server: 192.241.229.131
+  port: 74
+  udp: true
+  type: vless
+  uuid: 8fd85405-c28b-42ce-87a8-646cbe38ced4
+  tls: true
+  servername: bapj1qapjk4.0sds0li1bwcz0i76it0gjxv1.workers.dev
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: bapj1qapjk4.0sds0li1bwcz0i76it0gjxv1.workers.dev
+- name: 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
+  server: 311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com
+  port: 443
+  udp: true
+  type: hysteria2
+  password: aed1cc24-351d-11ef-ba52-f23c9164ca5d
+  sni: 311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com
+  skip-cert-verify: true
+- name: 🇹🇼 中国台湾 (Taiwan) 03 (家宽)
+  server: tw63-kb.cybergalaxy.me
+  port: 443
+  udp: true
+  type: anytls
+  password: 3fc0f254-54c3-4cf3-896b-5999a2b4c757
+  sni: tw63-kb.cybergalaxy.me
+  skip-cert-verify: true
+- name: 🇺🇸 美国 (United States) 04 (家宽)
+  server: 162.159.0.169
+  port: 8080
   udp: true
   type: vless
   uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
@@ -15,33 +46,33 @@ proxies:
     path: /?ed=2560security=tls
     headers:
       Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  server: bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com
+- name: 🇹🇼 中国台湾 (Taiwan) 05 (家宽)
+  server: ac7548f3ebe045b39a90288ff1e97526.pnuqcnp.cn
+  port: 443
+  udp: true
+  type: anytls
+  password: 9sK2mP8xQ7vL3nZ6
+  sni: ac7548f3ebe045b39a90288ff1e97526.lwdnxf.cn
+  skip-cert-verify: true
+- name: 🇺🇸 美国 (United States) 06 (家宽)
+  server: 155.117.19.17
   port: 443
   udp: true
   type: hysteria2
-  password: 6ddb6a68-d5f5-ca30-3943-cf0c9876d50c
-  sni: bff4b219-tmkao0-tnnrly-g43g.hk3.hyhuawei.com
+  password: 5fa748137b6d822308eea4611f474ad5
+  sni: www.bing.com
   skip-cert-verify: true
-- name: 🇹🇷 土耳其 (Turkey) 03 (移动家宽)
-  server: 145.239.30.17
-  port: 2053
-  udp: true
-  type: vless
-  uuid: 9ef61079-6f7d-4911-9608-943da85d8e6f
-- name: 🇳🇱 荷兰 (Netherlands) 04 (移动家宽)
-  server: 31.77.114.212
+  obfs: salamander
+  obfs-password: a39ca173b57ac7021b08bf3e3de9f1f6
+- name: 🇭🇰 中国香港 (Hong Kong) 07 (家宽)
+  server: 9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com
   port: 443
   udp: true
-  type: vless
-  uuid: af2bf319-ba88-4fec-8317-2b6a8cee96d1
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: Zli2oz4Y11pvkrGK71XDcbp1OWIPzK2FYhUXQvl1yiI
-  servername: aken.nightfall.best
-  client-fingerprint: firefox
-- name: 🇸🇬 新加坡 (Singapore) 05 (家宽)
+  type: hysteria2
+  password: 5f091cbe-fb34-11ea-9777-f23c9164ca5d
+  sni: 9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com
+  skip-cert-verify: true
+- name: 🇸🇬 新加坡 (Singapore) 08 (家宽)
   server: s3.huhiuh.space
   port: 18642
   udp: true
@@ -49,76 +80,15 @@ proxies:
   password: user317_windows:c70565e9-a99f-40ef-b96c-469a3949eed2
   sni: www.bing.com
   skip-cert-verify: true
-- name: 🇭🇰 中国香港 (Hong Kong) 06 (家宽)
-  server: 42.200.173.5
+- name: 🇭🇰 中国香港 (Hong Kong) 09 (家宽)
+  server: ac7548f3ebe045b39a90288ff1e97528.pnuqcnp.cn
   port: 443
   udp: true
-  type: vless
-  uuid: b98d4c6e-6770-4a31-8256-a4750cdea0e7
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: 0i_xAxYgSNx5NMpK2lOaWGS-CvAiD_LneYPO0MF0owo
-    short-id: 1a
-  servername: s3.ap-east-1.amazonaws.com
-  client-fingerprint: random
-- name: 🇺🇸 美国 (United States) 07 (家宽)
-  server: 162.159.38.127
-  port: 2052
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /?ed=2560security=tlssecurity=tls
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇭🇰 中国香港 (Hong Kong) 08 (移动家宽)
-  server: zfd-hkv2.kunlun01dns.com
-  port: 16115
-  udp: true
-  type: vmess
-  uuid: 0802ac03-7973-39ef-a019-ba02de6c01e1
-  alterId: 0
-  cipher: auto
-- name: 🇹🇼 中国台湾 (Taiwan) 09 (家宽)
-  server: hinet1.2yly.com
-  port: 24215
-  udp: true
-  type: vless
-  uuid: 19d5a678-8396-4e3b-93da-ece618d0e83a
-  tls: true
-  reality-opts:
-    public-key: mdWKUPMVTtTbDqK10BPb89OcqBC2-Lx-4NOYtqc1GWE
-  servername: addons.mozilla.org
-  client-fingerprint: qq
-- name: 🇭🇰 中国香港 (Hong Kong) 10 (家宽)
-  server: az-1.linkaa.xyz
-  port: 53617
-  udp: true
-  type: vmess
-  uuid: 6E571484-4166-4699-8F58-B34A1823691F
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /game/resources
-    headers:
-      Host: az-1.linkaa.xyz
-- name: 🇹🇼 中国台湾 (Taiwan) 11 (家宽)
-  server: hi.northcluster.info
-  port: 52300
-  udp: true
-  type: vmess
-  uuid: 6E571484-4166-4699-8F58-B34A1823691F
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /video
-    headers:
-      Host: hi.northcluster.info
-- name: 🇭🇰 中国香港 (Hong Kong) 12 (移动家宽)
+  type: anytls
+  password: 9sK2mP8xQ7vL3nZ6
+  sni: ac7548f3ebe045b39a90288ff1e97528.lwdnxf.cn
+  skip-cert-verify: true
+- name: 🇭🇰 中国香港 (Hong Kong) 10 (移动家宽)
   server: dog-hk.kunlun01dns.com
   port: 21022
   udp: true
@@ -126,52 +96,48 @@ proxies:
   uuid: 9464ca40-dd75-3742-a628-d931a9f413b2
   alterId: 0
   cipher: auto
-- name: 🇺🇸 美国 (United States) 13 (家宽)
-  server: 104.18.46.46
-  port: 2095
+- name: 🇭🇰 中国香港 (Hong Kong) 11 (家宽)
+  server: 218.250.216.236
+  port: 443
   udp: true
   type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /?ed=2560security=tls
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+  uuid: 6d56436c-150d-11f0-b0c8-f23c913c8d2b
+  tls: true
+  reality-opts:
+    public-key: c9DdggKaJGSH7FN3JgGbi9ZvsUqOGGpIr7BhzTWeTCo
+  servername: download.windowsupdate.com
+  client-fingerprint: firefox
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇺🇸 美国 (United States) 01 (移动家宽)
+  - 🇯🇵 日本 (Japan) 01 (家宽)
   - 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  - 🇹🇷 土耳其 (Turkey) 03 (移动家宽)
-  - 🇳🇱 荷兰 (Netherlands) 04 (移动家宽)
-  - 🇸🇬 新加坡 (Singapore) 05 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 06 (家宽)
-  - 🇺🇸 美国 (United States) 07 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 08 (移动家宽)
-  - 🇹🇼 中国台湾 (Taiwan) 09 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 10 (家宽)
-  - 🇹🇼 中国台湾 (Taiwan) 11 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 12 (移动家宽)
-  - 🇺🇸 美国 (United States) 13 (家宽)
+  - 🇹🇼 中国台湾 (Taiwan) 03 (家宽)
+  - 🇺🇸 美国 (United States) 04 (家宽)
+  - 🇹🇼 中国台湾 (Taiwan) 05 (家宽)
+  - 🇺🇸 美国 (United States) 06 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 07 (家宽)
+  - 🇸🇬 新加坡 (Singapore) 08 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 09 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 10 (移动家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 11 (家宽)
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇺🇸 美国 (United States) 01 (移动家宽)
+  - 🇯🇵 日本 (Japan) 01 (家宽)
   - 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  - 🇹🇷 土耳其 (Turkey) 03 (移动家宽)
-  - 🇳🇱 荷兰 (Netherlands) 04 (移动家宽)
-  - 🇸🇬 新加坡 (Singapore) 05 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 06 (家宽)
-  - 🇺🇸 美国 (United States) 07 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 08 (移动家宽)
-  - 🇹🇼 中国台湾 (Taiwan) 09 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 10 (家宽)
-  - 🇹🇼 中国台湾 (Taiwan) 11 (家宽)
-  - 🇭🇰 中国香港 (Hong Kong) 12 (移动家宽)
-  - 🇺🇸 美国 (United States) 13 (家宽)
+  - 🇹🇼 中国台湾 (Taiwan) 03 (家宽)
+  - 🇺🇸 美国 (United States) 04 (家宽)
+  - 🇹🇼 中国台湾 (Taiwan) 05 (家宽)
+  - 🇺🇸 美国 (United States) 06 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 07 (家宽)
+  - 🇸🇬 新加坡 (Singapore) 08 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 09 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 10 (移动家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 11 (家宽)
 rules:
 - MATCH,PROXIES

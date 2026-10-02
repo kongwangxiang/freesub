@@ -34,6 +34,39 @@
     {
       "type": "vless",
       "tag": "🇹🇷 土耳其 (Turkey) 03",
+      "server": "83.217.9.140",
+      "server_port": 43000,
+      "uuid": "85163fd9-6f73-4eea-b1df-3b327dacbabf",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "83.217.9.140",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "ptE_QnAka3pXNEf8BYKpA9CHdgj4U4xXTixjYWOji0U",
+          "short_id": "68d2eb23"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "🇹🇷 土耳其 (Turkey) 04",
+      "server": "206.1.99.160",
+      "server_port": 443,
+      "uuid": "Nitro_Skybot@",
+      "security": "auto",
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇹🇷 土耳其 (Turkey) 05",
       "server": "151.241.226.201",
       "server_port": 2053,
       "uuid": "0eed6293-8cf1-4e77-ac10-9c3d50d0b2f8",
@@ -53,7 +86,7 @@
     },
     {
       "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 04",
+      "tag": "🇹🇷 土耳其 (Turkey) 06",
       "server": "78.135.73.47",
       "server_port": 443,
       "uuid": "25e16692-d097-4e69-9e2d-8415609c1968",
@@ -63,57 +96,13 @@
         "server_name": "www.datadoghq.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "firefox"
         },
         "reality": {
           "enabled": true,
           "public_key": "sZAJkAu23wp1WKY-qeaeiwR38izP5OyfhumoE9xhbB8",
           "short_id": "f46cd3ea3d1eb72d"
         }
-      }
-    },
-    {
-      "type": "hysteria2",
-      "tag": "🇹🇷 土耳其 (Turkey) 05",
-      "server": "me17.msjia8844.site",
-      "server_port": 7443,
-      "password": "M8LP9DztTr3znqCkmf-r08CQLBLLFK1r",
-      "tls": {
-        "enabled": true,
-        "server_name": "me17.msjia8844.site",
-        "insecure": false
-      },
-      "obfs": {
-        "type": "salamander",
-        "password": "u3Soh9_Ui0UmcuY6vk0ug8Lq"
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇹🇷 土耳其 (Turkey) 06",
-      "server": "87.120.106.214",
-      "server_port": 443,
-      "uuid": "c729c83f-b1ca-4d36-90be-66a1e250b37b",
-      "tls": {
-        "enabled": true,
-        "server_name": "djpb2hzoaa71.dx4x.com",
-        "insecure": false
-      }
-    },
-    {
-      "type": "trojan",
-      "tag": "🇹🇷 土耳其 (Turkey) 07",
-      "server": "nimm.mpd.cc.cd",
-      "server_port": 2053,
-      "password": "e309e031-991e-4656-9934-44d10deb8fd8",
-      "tls": {
-        "enabled": true,
-        "server_name": "nimm.mpd.cc.cd",
-        "insecure": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/0962"
       }
     },
     {
@@ -126,8 +115,7 @@
         "🇹🇷 土耳其 (Turkey) 03",
         "🇹🇷 土耳其 (Turkey) 04",
         "🇹🇷 土耳其 (Turkey) 05",
-        "🇹🇷 土耳其 (Turkey) 06",
-        "🇹🇷 土耳其 (Turkey) 07"
+        "🇹🇷 土耳其 (Turkey) 06"
       ]
     },
     {
@@ -139,8 +127,7 @@
         "🇹🇷 土耳其 (Turkey) 03",
         "🇹🇷 土耳其 (Turkey) 04",
         "🇹🇷 土耳其 (Turkey) 05",
-        "🇹🇷 土耳其 (Turkey) 06",
-        "🇹🇷 土耳其 (Turkey) 07"
+        "🇹🇷 土耳其 (Turkey) 06"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

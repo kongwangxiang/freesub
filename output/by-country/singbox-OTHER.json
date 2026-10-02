@@ -4,21 +4,16 @@
   },
   "outbounds": [
     {
-      "type": "trojan",
+      "type": "vless",
       "tag": "🌐 其他地区 (Other) 01",
-      "server": "104.21.33.59",
-      "server_port": 443,
-      "password": "018b8e7b-7813-4dcb-84a5-3c98f1521e00",
-      "tls": {
-        "enabled": true,
-        "server_name": "id1.nathaya.web.id",
-        "insecure": false
-      },
+      "server": "vqrlof-pwa5a7-onfjlv.zedbazi061.workers.dev",
+      "server_port": 2086,
+      "uuid": "73796e63-0000-4000-8000-000000000007",
       "transport": {
         "type": "ws",
-        "path": "/trojan",
+        "path": "/sync",
         "headers": {
-          "Host": "id1.nathaya.web.id"
+          "Host": "vqrlof-pwa5a7-onfjlv.zedbazi061.workers.dev"
         }
       }
     },
