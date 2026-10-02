@@ -6,14 +6,117 @@
     {
       "type": "vless",
       "tag": "🌐 其他地区 (Other) 01",
-      "server": "undef.network",
-      "server_port": 2052,
-      "uuid": "aa5d861a-7799-41a7-bdf4-7a6414cf98fd",
+      "server": "ccs2g.pai50288.uk",
+      "server_port": 443,
+      "uuid": "8be461cb-a0df-47cf-bc0d-4d9e6a22fa74",
+      "tls": {
+        "enabled": true,
+        "server_name": "ccs2g.pai50288.uk",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
       "transport": {
         "type": "ws",
-        "path": "/@BlueKnight_net--@BlueKnight_net",
+        "path": "/pai50288",
         "headers": {
-          "Host": "uwu.blueknightnet.qzz.io"
+          "Host": "ccs2g.pai50288.uk"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "🌐 其他地区 (Other) 02",
+      "server": "104.18.37.127",
+      "server_port": 443,
+      "password": "humanity",
+      "tls": {
+        "enabled": true,
+        "server_name": "wWw.Volumeroot.cOm.",
+        "insecure": false,
+        "alpn": [
+          "http/1.1"
+        ],
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/assignment",
+        "headers": {
+          "Host": "www.volumerOot.coM."
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "🌐 其他地区 (Other) 03",
+      "server": "104.18.37.127",
+      "server_port": 443,
+      "password": "humanity",
+      "tls": {
+        "enabled": true,
+        "server_name": "wWw.Volumeroot.cOm.",
+        "insecure": false,
+        "alpn": [
+          "http/1.1"
+        ],
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/assignment",
+        "headers": {
+          "Host": "www.volumerOot.coM."
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "🌐 其他地区 (Other) 04",
+      "server": "104.17.121.43",
+      "server_port": 443,
+      "password": "humanity",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.calmlunch.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/assignment",
+        "headers": {
+          "Host": "www.calmlunch.com"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🌐 其他地区 (Other) 05",
+      "server": "104.21.3.219",
+      "server_port": 443,
+      "uuid": "8be461cb-a0df-47cf-bc0d-4d9e6a22fa74",
+      "tls": {
+        "enabled": true,
+        "server_name": "ccs2g.pai50288.uk",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/pai50288",
+        "headers": {
+          "Host": "ccs2g.pai50288.uk"
         }
       }
     },
@@ -22,14 +125,22 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🌐 其他地区 (Other) 01"
+        "🌐 其他地区 (Other) 01",
+        "🌐 其他地区 (Other) 02",
+        "🌐 其他地区 (Other) 03",
+        "🌐 其他地区 (Other) 04",
+        "🌐 其他地区 (Other) 05"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🌐 其他地区 (Other) 01"
+        "🌐 其他地区 (Other) 01",
+        "🌐 其他地区 (Other) 02",
+        "🌐 其他地区 (Other) 03",
+        "🌐 其他地区 (Other) 04",
+        "🌐 其他地区 (Other) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

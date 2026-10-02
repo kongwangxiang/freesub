@@ -5,42 +5,6 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇪 瑞典 (Sweden) 01
-  server: 143.246.194.132
-  port: 443
-  udp: true
-  type: vless
-  uuid: dc9e93bc-b53a-11f1-91d3-52540030ba36
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
-  servername: www.ikea.com
-  client-fingerprint: safari
-- name: 🇸🇪 瑞典 (Sweden) 02
-  server: 34.51.231.250
-  port: 443
-  udp: true
-  type: vless
-  uuid: e4be912f-68e8-4d51-80a4-1342b646f8e0
-  tls: true
-  reality-opts:
-    public-key: fV003yDr_sb_Wkgz6MxnIUJMgD15osWhzU-HZ5fLPFg
-    short-id: 79ff7d51e3c56323
-  servername: www.cloudflare.com
-  client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 03
-  server: 31.77.158.132
-  port: 443
-  udp: true
-  type: vless
-  uuid: af2bf319-ba88-4fec-8317-2b6a8cee96d1
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: COMosLQzz8GJ3ATEBK__SBjKsiL5VVS1MWkWUFpQTVk
-  servername: hittaikea.prizraknode.shop
-  client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 04
   server: 143.246.196.207
   port: 443
   udp: true
@@ -52,7 +16,18 @@ proxies:
     public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
   servername: www.blocket.se
   client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 05
+- name: 🇸🇪 瑞典 (Sweden) 02
+  server: se.monkora.org
+  port: 443
+  udp: true
+  type: vless
+  uuid: 454431fc-71e2-42b1-b375-5b55dd06666a
+  tls: true
+  reality-opts:
+    public-key: aUdvs6o4PHN6jmdkIKBA2rHsN_7l8W2SaDfNgzn-BwU
+  servername: example.org
+  client-fingerprint: firefox
+- name: 🇸🇪 瑞典 (Sweden) 03
   server: surstreming.vvzzkontaktezzvv.garden
   port: 443
   udp: true
@@ -64,8 +39,20 @@ proxies:
     public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
     short-id: fb442438e2223836
   servername: surstreming.vvzzkontaktezzvv.garden
+  client-fingerprint: edge
+- name: 🇸🇪 瑞典 (Sweden) 04
+  server: 34.51.231.250
+  port: 443
+  udp: true
+  type: vless
+  uuid: e4be912f-68e8-4d51-80a4-1342b646f8e0
+  tls: true
+  reality-opts:
+    public-key: fV003yDr_sb_Wkgz6MxnIUJMgD15osWhzU-HZ5fLPFg
+    short-id: 79ff7d51e3c56323
+  servername: www.cloudflare.com
   client-fingerprint: chrome
-- name: 🇸🇪 瑞典 (Sweden) 06
+- name: 🇸🇪 瑞典 (Sweden) 05
   server: 62.60.159.81
   port: 2053
   udp: true
@@ -80,6 +67,20 @@ proxies:
   network: grpc
   grpc-opts:
     grpc-service-name: grpce5bb9e71
+- name: 🇸🇪 瑞典 (Sweden) 06
+  server: 176.109.104.103
+  port: 9881
+  udp: true
+  type: vless
+  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
+  tls: true
+  reality-opts:
+    public-key: Dfgu8Ey0M8Hz4gXGZAwQ3H9jLt2HByVsjAOTWiuKDB0
+  servername: dl.google.com
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: grpc-tunnel
 proxy-groups:
 - name: PROXIES
   type: select

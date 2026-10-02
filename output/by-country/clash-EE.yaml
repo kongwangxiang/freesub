@@ -6,6 +6,23 @@ log-level: info
 proxies:
 - name: 🇪🇪 爱沙尼亚 (Estonia) 01
   server: 94.183.170.135
+  port: 443
+  udp: true
+  type: vless
+  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
+  network: ws
+  ws-opts:
+    path: /
+- name: 🇪🇪 爱沙尼亚 (Estonia) 02
+  server: 109.206.241.10
+  port: 449
+  udp: true
+  type: trojan
+  password: oiiaB38ywjEHCWRs_O_a_1113_Il_KeyyyHop_Bes1
+  sni: 109.206.241.10
+  skip-cert-verify: true
+- name: 🇪🇪 爱沙尼亚 (Estonia) 03
+  server: 94.183.170.135
   port: 8443
   udp: true
   type: vless
@@ -13,8 +30,9 @@ proxies:
   tls: true
   servername: estproxy4.lockdwn.com
   skip-cert-verify: false
-- name: 🇪🇪 爱沙尼亚 (Estonia) 02
-  server: 212.87.190.36
+  client-fingerprint: edge
+- name: 🇪🇪 爱沙尼亚 (Estonia) 04
+  server: ee174.mech-pro.online
   port: 443
   udp: true
   type: vless
@@ -25,39 +43,8 @@ proxies:
     public-key: jbiddtGRgeBvlkjbuA3aU-WPjKgEX87tOVh1mFfvOUI
     short-id: 16e0f049
   servername: ee174.mech-pro.online
-  client-fingerprint: firefox
-- name: 🇪🇪 爱沙尼亚 (Estonia) 03
-  server: 109.206.241.10
-  port: 449
-  udp: true
-  type: trojan
-  password: oiiaB38ywjEHCWRs_O_a_1113_Il_KeyyyHop_Bes1
-  sni: russiapower.accesscam.org
-  skip-cert-verify: true
-- name: 🇪🇪 爱沙尼亚 (Estonia) 04
-  server: 94.183.170.135
-  port: 443
-  udp: true
-  type: vless
-  uuid: 06c4e938-2954-478f-a870-ca1b163e30e9
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: estproxy4.lockdwn.com
+  client-fingerprint: qq
 - name: 🇪🇪 爱沙尼亚 (Estonia) 05
-  server: ee.h1cloud.net
-  port: 25895
-  udp: true
-  type: vless
-  uuid: f90b7d43-69e2-4b46-a672-8029bc6796a2
-  tls: true
-  reality-opts:
-    public-key: jOVKSP-bS9OkILJ8Epz8hadh6qhavCrOiJYeF0NCn0k
-    short-id: a73f0410d728c823
-  servername: www.samsung.com
-  client-fingerprint: random
-- name: 🇪🇪 爱沙尼亚 (Estonia) 06
   server: 93.89.220.37
   port: 443
   udp: true
@@ -69,7 +56,7 @@ proxies:
     public-key: lwKaUQ81wJUJRsqAPsfTPj5V_f9N50UYEwzRI_nuq2g
     short-id: e88cb983f3c97528
   servername: ibm.com
-  client-fingerprint: edge
+  client-fingerprint: random
 proxy-groups:
 - name: PROXIES
   type: select
@@ -80,7 +67,6 @@ proxy-groups:
   - 🇪🇪 爱沙尼亚 (Estonia) 03
   - 🇪🇪 爱沙尼亚 (Estonia) 04
   - 🇪🇪 爱沙尼亚 (Estonia) 05
-  - 🇪🇪 爱沙尼亚 (Estonia) 06
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -91,6 +77,5 @@ proxy-groups:
   - 🇪🇪 爱沙尼亚 (Estonia) 03
   - 🇪🇪 爱沙尼亚 (Estonia) 04
   - 🇪🇪 爱沙尼亚 (Estonia) 05
-  - 🇪🇪 爱沙尼亚 (Estonia) 06
 rules:
 - MATCH,PROXIES

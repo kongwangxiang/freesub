@@ -15,7 +15,7 @@
         "server_name": "online.1c.ru",
         "utls": {
           "enabled": true,
-          "fingerprint": "safari"
+          "fingerprint": "random"
         },
         "reality": {
           "enabled": true,
@@ -25,18 +25,67 @@
       }
     },
     {
+      "type": "vless",
+      "tag": "🇱🇹 立陶宛 (Lithuania) 02",
+      "server": "litva1.ali-bard.online",
+      "server_port": 443,
+      "uuid": "4643976f-85fa-40cf-9e58-ea28b50f253b",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "litva1.ali-bard.online",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇱🇹 立陶宛 (Lithuania) 03",
+      "server": "84.32.151.226",
+      "server_port": 443,
+      "uuid": "3e35758a-911b-4e30-bc1a-8985323df6f7",
+      "tls": {
+        "enabled": true,
+        "server_name": "workspace.cloudnativecontrol.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "C6nh6hqFTbtizgSH8vGmw2XUxsQAbAW3jPylpgGvfl4",
+          "short_id": "4a7d3e9f2b8c6a1d"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "moktana.net.v1.StreamService"
+      }
+    },
+    {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇱🇹 立陶宛 (Lithuania) 01"
+        "🇱🇹 立陶宛 (Lithuania) 01",
+        "🇱🇹 立陶宛 (Lithuania) 02",
+        "🇱🇹 立陶宛 (Lithuania) 03"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇱🇹 立陶宛 (Lithuania) 01"
+        "🇱🇹 立陶宛 (Lithuania) 01",
+        "🇱🇹 立陶宛 (Lithuania) 02",
+        "🇱🇹 立陶宛 (Lithuania) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

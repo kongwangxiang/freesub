@@ -20,6 +20,26 @@
     {
       "type": "vless",
       "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 02",
+      "server": "free.sahanwickramasinghe.me",
+      "server_port": 8443,
+      "uuid": "c73ffa6e-a102-4984-9176-3e6242c1925e",
+      "tls": {
+        "enabled": true,
+        "server_name": "zoom.us",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 03",
       "server": "trackydev.site",
       "server_port": 443,
       "uuid": "92d67828-4c56-4795-af5a-f387651380dc",
@@ -29,12 +49,11 @@
         "insecure": false,
         "utls": {
           "enabled": true,
-          "fingerprint": "random"
+          "fingerprint": "chrome"
         }
       },
       "transport": {
         "type": "ws",
-        "path": "/",
         "headers": {
           "Host": "trackydev.site"
         }
@@ -46,7 +65,8 @@
       "outbounds": [
         "auto",
         "🇱🇰 斯里兰卡 (Sri Lanka) 01",
-        "🇱🇰 斯里兰卡 (Sri Lanka) 02"
+        "🇱🇰 斯里兰卡 (Sri Lanka) 02",
+        "🇱🇰 斯里兰卡 (Sri Lanka) 03"
       ]
     },
     {
@@ -54,7 +74,8 @@
       "tag": "auto",
       "outbounds": [
         "🇱🇰 斯里兰卡 (Sri Lanka) 01",
-        "🇱🇰 斯里兰卡 (Sri Lanka) 02"
+        "🇱🇰 斯里兰卡 (Sri Lanka) 02",
+        "🇱🇰 斯里兰卡 (Sri Lanka) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

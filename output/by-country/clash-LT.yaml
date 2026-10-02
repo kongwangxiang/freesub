@@ -16,18 +16,49 @@ proxies:
     public-key: sVhkyiMXvpofflCdSszxQmsqOXV1kg1Ldxq1a9mOPjs
     short-id: 6a
   servername: online.1c.ru
-  client-fingerprint: safari
+  client-fingerprint: random
+- name: 🇱🇹 立陶宛 (Lithuania) 02
+  server: litva1.ali-bard.online
+  port: 443
+  udp: true
+  type: vless
+  uuid: 4643976f-85fa-40cf-9e58-ea28b50f253b
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I
+  servername: litva1.ali-bard.online
+  client-fingerprint: firefox
+- name: 🇱🇹 立陶宛 (Lithuania) 03
+  server: 84.32.151.226
+  port: 443
+  udp: true
+  type: vless
+  uuid: 3e35758a-911b-4e30-bc1a-8985323df6f7
+  tls: true
+  reality-opts:
+    public-key: C6nh6hqFTbtizgSH8vGmw2XUxsQAbAW3jPylpgGvfl4
+    short-id: 4a7d3e9f2b8c6a1d
+  servername: workspace.cloudnativecontrol.com
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: moktana.net.v1.StreamService
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
   - 🇱🇹 立陶宛 (Lithuania) 01
+  - 🇱🇹 立陶宛 (Lithuania) 02
+  - 🇱🇹 立陶宛 (Lithuania) 03
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
   - 🇱🇹 立陶宛 (Lithuania) 01
+  - 🇱🇹 立陶宛 (Lithuania) 02
+  - 🇱🇹 立陶宛 (Lithuania) 03
 rules:
 - MATCH,PROXIES
