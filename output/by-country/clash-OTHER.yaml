@@ -5,16 +5,16 @@ mode: rule
 log-level: info
 proxies:
 - name: 🌐 其他地区 (Other) 01
-  server: vqrlof-pwa5a7-onfjlv.zedbazi061.workers.dev
-  port: 2086
+  server: undef.network
+  port: 2052
   udp: true
   type: vless
-  uuid: 73796e63-0000-4000-8000-000000000007
+  uuid: aa5d861a-7799-41a7-bdf4-7a6414cf98fd
   network: ws
   ws-opts:
-    path: /sync
+    path: /@BlueKnight_net--@BlueKnight_net
     headers:
-      Host: vqrlof-pwa5a7-onfjlv.zedbazi061.workers.dev
+      Host: uwu.blueknightnet.qzz.io
 proxy-groups:
 - name: PROXIES
   type: select

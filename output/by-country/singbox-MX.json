@@ -4,8 +4,16 @@
   },
   "outbounds": [
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇲🇽 墨西哥 (Mexico) 01",
+      "server": "64.177.90.30",
+      "server_port": 8388,
+      "method": "aes-256-gcm",
+      "password": "BWyPPTusFKhGgzKh"
+    },
+    {
+      "type": "vless",
+      "tag": "🇲🇽 墨西哥 (Mexico) 02",
       "server": "34.51.23.2",
       "server_port": 443,
       "uuid": "79bc7b01-6e4e-4365-a120-fefac8182bd9",
@@ -24,18 +32,34 @@
       }
     },
     {
+      "type": "vless",
+      "tag": "🇲🇽 墨西哥 (Mexico) 03",
+      "server": "moblemangol.ir",
+      "server_port": 2082,
+      "uuid": "6a219111-9ee4-4a7a-b9df-af0a33918cb2",
+      "transport": {
+        "type": "httpupgrade",
+        "path": "/",
+        "host": "usiii.zendegizibast.ir"
+      }
+    },
+    {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇲🇽 墨西哥 (Mexico) 01"
+        "🇲🇽 墨西哥 (Mexico) 01",
+        "🇲🇽 墨西哥 (Mexico) 02",
+        "🇲🇽 墨西哥 (Mexico) 03"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇲🇽 墨西哥 (Mexico) 01"
+        "🇲🇽 墨西哥 (Mexico) 01",
+        "🇲🇽 墨西哥 (Mexico) 02",
+        "🇲🇽 墨西哥 (Mexico) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

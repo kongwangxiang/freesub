@@ -4,24 +4,23 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇵🇹 葡萄牙 (Portugal) 01
-  server: 185.231.233.91
-  port: 17167
+- name: 🇹🇷 土耳其 (Turkey) 01 (移动家宽)
+  server: 145.239.30.17
+  port: 2053
   udp: true
-  type: ss
-  cipher: aes-128-gcm
-  password: ca438054771821250089399a2f33275e
+  type: vless
+  uuid: 9ef61079-6f7d-4911-9608-943da85d8e6f
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇵🇹 葡萄牙 (Portugal) 01
+  - 🇹🇷 土耳其 (Turkey) 01 (移动家宽)
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇵🇹 葡萄牙 (Portugal) 01
+  - 🇹🇷 土耳其 (Turkey) 01 (移动家宽)
 rules:
 - MATCH,PROXIES

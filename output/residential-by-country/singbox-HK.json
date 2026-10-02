@@ -6,51 +6,31 @@
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-      "server": "311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com",
+      "server": "10839548-tmm5c0-ttyyk7-1h0r9.nw4.hyhuawei.com",
       "server_port": 443,
-      "password": "aed1cc24-351d-11ef-ba52-f23c9164ca5d",
+      "password": "9bfd0dde-957e-11ec-a8bf-f23c91cfbbc9",
       "tls": {
         "enabled": true,
-        "server_name": "311648fa-tm3mo0-0-1rfon.hk3.hyhuawei.com",
+        "server_name": "10839548-tmm5c0-ttyyk7-1h0r9.nw4.hyhuawei.com",
         "insecure": true
       }
     },
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-      "server": "9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com",
+      "server": "879c2f71-tmm5c0-ttyyk7-1h0r9.hk3.hyhuawei.com",
       "server_port": 443,
-      "password": "5f091cbe-fb34-11ea-9777-f23c9164ca5d",
+      "password": "9bfd0dde-957e-11ec-a8bf-f23c91cfbbc9",
       "tls": {
         "enabled": true,
-        "server_name": "9a07c316-tmkao0-u1vxv2-v3c2.nw4.hyhuawei.com",
+        "server_name": "879c2f71-tmm5c0-ttyyk7-1h0r9.hk3.hyhuawei.com",
         "insecure": true
       }
-    },
-    {
-      "type": "anytls",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
-      "server": "ac7548f3ebe045b39a90288ff1e97528.pnuqcnp.cn",
-      "server_port": 443,
-      "password": "9sK2mP8xQ7vL3nZ6",
-      "tls": {
-        "enabled": true,
-        "server_name": "ac7548f3ebe045b39a90288ff1e97528.lwdnxf.cn",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vmess",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)",
-      "server": "dog-hk.kunlun01dns.com",
-      "server_port": 21022,
-      "uuid": "9464ca40-dd75-3742-a628-d931a9f413b2",
-      "security": "auto"
     },
     {
       "type": "vless",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 05 (家宽)",
-      "server": "218.250.216.236",
+      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
+      "server": "a736eb68-tmb1c0-tpkh0c-1r7od.hk2.hyhuawei.com",
       "server_port": 443,
       "uuid": "6d56436c-150d-11f0-b0c8-f23c913c8d2b",
       "tls": {
@@ -58,7 +38,7 @@
         "server_name": "download.windowsupdate.com",
         "utls": {
           "enabled": true,
-          "fingerprint": "firefox"
+          "fingerprint": "random"
         },
         "reality": {
           "enabled": true,
@@ -74,9 +54,7 @@
         "auto",
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
         "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 05 (家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)"
       ]
     },
     {
@@ -85,9 +63,7 @@
       "outbounds": [
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
         "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 04 (移动家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 05 (家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

@@ -5,20 +5,7 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇪 瑞典 (Sweden) 01
-  server: surstreming.vvzzkontaktezzvv.garden
-  port: 443
-  udp: true
-  type: vless
-  uuid: 4bdeee92-97e8-414d-bef6-ec1d5e2ab73b
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
-    short-id: fb442438e2223836
-  servername: surstreming.vvzzkontaktezzvv.garden
-  client-fingerprint: random
-- name: 🇸🇪 瑞典 (Sweden) 02
-  server: 143.246.194.213
+  server: 143.246.194.132
   port: 443
   udp: true
   type: vless
@@ -28,8 +15,8 @@ proxies:
   reality-opts:
     public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
   servername: www.ikea.com
-  client-fingerprint: chrome
-- name: 🇸🇪 瑞典 (Sweden) 03
+  client-fingerprint: safari
+- name: 🇸🇪 瑞典 (Sweden) 02
   server: 34.51.231.250
   port: 443
   udp: true
@@ -41,7 +28,44 @@ proxies:
     short-id: 79ff7d51e3c56323
   servername: www.cloudflare.com
   client-fingerprint: firefox
+- name: 🇸🇪 瑞典 (Sweden) 03
+  server: 31.77.158.132
+  port: 443
+  udp: true
+  type: vless
+  uuid: af2bf319-ba88-4fec-8317-2b6a8cee96d1
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: COMosLQzz8GJ3ATEBK__SBjKsiL5VVS1MWkWUFpQTVk
+  servername: hittaikea.prizraknode.shop
+  client-fingerprint: firefox
 - name: 🇸🇪 瑞典 (Sweden) 04
+  server: 143.246.196.207
+  port: 443
+  udp: true
+  type: vless
+  uuid: ac0c2945-b758-11f1-8181-54db13ea7d40
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
+  servername: www.blocket.se
+  client-fingerprint: firefox
+- name: 🇸🇪 瑞典 (Sweden) 05
+  server: surstreming.vvzzkontaktezzvv.garden
+  port: 443
+  udp: true
+  type: vless
+  uuid: 4bdeee92-97e8-414d-bef6-ec1d5e2ab73b
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
+    short-id: fb442438e2223836
+  servername: surstreming.vvzzkontaktezzvv.garden
+  client-fingerprint: chrome
+- name: 🇸🇪 瑞典 (Sweden) 06
   server: 62.60.159.81
   port: 2053
   udp: true
@@ -52,7 +76,7 @@ proxies:
     public-key: ygmJxS-Mc7g0buNSUTVGhazT-FoBjyYtLLfUYIQxFTw
     short-id: d0ea1847066af5a6
   servername: www.samsung.com
-  client-fingerprint: chrome
+  client-fingerprint: safari
   network: grpc
   grpc-opts:
     grpc-service-name: grpce5bb9e71
@@ -65,6 +89,8 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 02
   - 🇸🇪 瑞典 (Sweden) 03
   - 🇸🇪 瑞典 (Sweden) 04
+  - 🇸🇪 瑞典 (Sweden) 05
+  - 🇸🇪 瑞典 (Sweden) 06
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -74,5 +100,7 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 02
   - 🇸🇪 瑞典 (Sweden) 03
   - 🇸🇪 瑞典 (Sweden) 04
+  - 🇸🇪 瑞典 (Sweden) 05
+  - 🇸🇪 瑞典 (Sweden) 06
 rules:
 - MATCH,PROXIES
