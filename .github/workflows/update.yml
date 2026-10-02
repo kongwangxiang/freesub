@@ -15,10 +15,22 @@ jobs:
     concurrency:
       group: freesub-update
       cancel-in-progress: false
+    env:
+      # 绝对下限: 低于此数量视为灾难性产出, 一律不发布。
+      # 实测健康总量 909; 150 留足余量又能兜住塌方, 且在基线缺失/缩小时兜底。
+      MIN_NODES_ABSOLUTE: '150'
+      # 相对下限: 低于上次已发布数量的 20% 视为上游大面积失效 (首次运行无可比基线时忽略本项)。
+      # 取 20% 而非更高: 本项目节点池历史波动极大 (CHANGES.md 记录 5723 → 2927 → 现 909,
+      # 跨版本降幅达 69%)。闸门拦下发布比发布一棵小树更糟 —— 小树只是变差, 拦下则线上订阅
+      # 冻结在旧树、节点持续腐坏。20% 只拦明确的塌方, 不拦正常新陈代谢。
+      MIN_NODES_RATIO: '20'
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          # 需要完整历史: 下方的 git fetch + git rebase origin/main 在浅克隆下不可靠
+          fetch-depth: 0
 
       - name: Prepare runtime dir (actions/cache 要求路径存在)
         run: mkdir -p runtime
@@ -40,6 +52,17 @@ jobs:
         run: |
           pip install -r scripts/requirements.txt
 
+      - name: Prepare sing-box runtime (供阶段2 配置校验)
+        run: |
+          # runtime/ 被 .gitignore 忽略, 只会由 main_v2.setup_environment() 填充, 而调用它的
+          # "Run Real-Prober and Classifier" 排在 "Run parser tests" 之后。冷缓存时
+          # (actions/cache 的 runtime-* key 只有首次成功运行后才被写入) 测试步骤拿不到内核,
+          # test_parsers.py 阶段2 只能豁免 —— 于是"对 sing-box 什么都没验证"却报全绿。
+          # 这里在测试之前复用项目自己的引导函数: 版本 pin 归 main_v2.py 所有, 不在此复制
+          # 下载逻辑。命中缓存时内核已存在, 只剩一次 version 校验, 近乎零开销。
+          # 顺序刻意保持"测试在 prober 之前": prober 退出 2 会掐掉后续步骤, 测试就再也跑不到。
+          python -c "import sys, os; sys.path.insert(0, os.path.join(os.getcwd(), 'scripts')); import main_v2; main_v2.setup_environment()"
+
       - name: Run parser tests
         run: |
           python scripts/test_parsers.py
@@ -50,6 +73,84 @@ jobs:
         env:
           # 便于 ip-api 等识别限速; GitHub runner 出口为美国 Azure
           PYTHONUNBUFFERED: '1'
+
+      - name: Verify output health (发布前产出健康度闸门)
+        run: |
+          # ── 发布前产出健康度闸门 ─────────────────────────────────────────────
+          # 为什么需要: main_v2.py 每次就地覆写 output/ 并同步改写 README 计数与 ?v= 缓存串。
+          # 它只防守"零节点"(退出 2, 提交步骤因 if: success() 跳过), 但"降级运行"退出码为 0:
+          # 上游订阅源部分失效时, 909 节点的好树会被 40 节点的坏树静默替换, 订阅方毫无察觉。
+          # 另外 export_all 先 shutil.rmtree(COUNTRY_DIR) 再重写, 中途崩溃会留下半份 by-country/
+          # 且不留任何信号。这里在"测活"与"提交发布"之间加一道硬闸门: 任一条不满足就 exit 1,
+          # 后续 Commit and Push Results 的默认 if: success() 会跳过提交, 线上继续用上一份好树。
+          #
+          # set +e: GitHub 默认 shell 为 bash -e {0}, 而 `grep -c .` 在 0 匹配时返回 1,
+          # 在 errexit 下会静默中断、连实测数字都打不出来。关闭 errexit 只为做到
+          # "先测量、后判定"; 成败完全由下面五条规则的显式 exit 1 决定, 不存在吞错放行。
+          set +e
+
+          # (a) 本次产出节点数 (权威口径: v2ray.txt 是全部链接 base64 后按行拼接, 一行一个节点)
+          current=$(base64 -d output/v2ray.txt | grep -c .)
+
+          # (b) 基线必须取自 git 对象而非工作区: 工作区已被覆写, 只有 HEAD 里还留着上次发布的数量。
+          #     首次运行 / 取不到时按 0 处理, 相对下限随之跳过。
+          baseline=$(git show HEAD:output/v2ray.txt 2>/dev/null | base64 -d | grep -c . || true)
+
+          # (c) 跨文件恒等式: 分国家文件之和必须等于总产出。
+          #     unique_nodes == residential + non_residential, 两个集合不相交且完整覆盖;
+          #     build_group 的跳过条件 (outbound 为空 / ssh / 链接生成失败) 与节点无关,
+          #     force_res 只改节点名不影响是否产链接, 故每个节点在总表与其所属国家文件中同进同出。
+          #     nullglob: 目录缺失或为空时得到空列表而非字面量 glob, 合计 0 != current 即判定导出中断。
+          shopt -s nullglob
+          country_files=(output/by-country/*.txt output/residential-by-country/*.txt)
+          country_sum=0
+          for f in "${country_files[@]}"; do
+            n=$(base64 -d "$f" | grep -c .)
+            country_sum=$(( country_sum + n ))
+          done
+
+          # (d) 另外两种发布格式的存在性与最小体积 (真实 clash.yaml ~302KB, singbox.json ~445KB)
+          clash_size=0
+          if [ -f output/clash.yaml ]; then clash_size=$(wc -c < output/clash.yaml); fi
+          singbox_size=0
+          if [ -f output/singbox.json ]; then singbox_size=$(wc -c < output/singbox.json); fi
+
+          if [ "$baseline" -gt 0 ]; then
+            pct_x10=$(( current * 1000 / baseline ))
+            pct="$(( pct_x10 / 10 )).$(( pct_x10 % 10 ))%"
+          else
+            pct="n/a(无基线)"
+          fi
+
+          # 先落实测数字: 闸门被触发时日志里依然能看到真实值
+          echo "[gate] current=$current baseline=$baseline pct=$pct per_country_sum=$country_sum files=${#country_files[@]} clash_bytes=$clash_size singbox_bytes=$singbox_size"
+
+          # ── 判定 (顺序即严重度) ──
+          if [ "$current" -eq 0 ]; then
+            echo "::error::产出为空 output/v2ray.txt 无法解码或无节点 current=0 baseline=$baseline — 本次不发布 线上保留上一份订阅"
+            exit 1
+          fi
+          if [ "$current" -lt "$MIN_NODES_ABSOLUTE" ]; then
+            echo "::error::产出节点数 $current 低于绝对下限 $MIN_NODES_ABSOLUTE baseline=$baseline — 上游疑似大面积失效 本次不发布"
+            exit 1
+          fi
+          if [ "$baseline" -gt 0 ] && [ "$(( current * 100 ))" -lt "$(( baseline * MIN_NODES_RATIO ))" ]; then
+            echo "::error::产出节点数 $current 仅为上次已发布 $baseline 的 $pct 低于相对下限 ${MIN_NODES_RATIO}% — 上游大面积失效 本次不发布"
+            exit 1
+          fi
+          if [ "$country_sum" -ne "$current" ]; then
+            echo "::error::分国家文件合计 $country_sum 与总产出 $current 不一致 — 导出中断或 by-country/ 不完整 本次不发布"
+            exit 1
+          fi
+          for f in output/clash.yaml output/singbox.json; do
+            if [ "$f" = output/clash.yaml ]; then size=$clash_size; else size=$singbox_size; fi
+            if [ "$size" -lt 1024 ]; then
+              echo "::error::$f 缺失或过小 size=$size 字节 (下限 1024) — 疑似截断写入 本次不发布"
+              exit 1
+            fi
+          done
+
+          echo "::notice::产出健康 current=$current baseline=$baseline pct=$pct 分国家合计=$country_sum — 放行提交"
 
       - name: Upload test artifacts (调试用, 7天保留)
         uses: actions/upload-artifact@v4
@@ -70,12 +171,22 @@ jobs:
             echo "没有节点变动与内容更新。"
           else
             git commit -m "Auto Update: $(date -u '+%Y-%m-%d %H:%M:%S') UTC"
-            git pull --rebase origin main || true
-            n=0
-            until git push || [ "$n" -ge 2 ]; do
-              n=$((n+1))
-              echo "push failed, retry $n/2"
-              git pull --rebase origin main || true
+            git fetch origin main
+            git rebase origin/main
+            pushed=0
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                pushed=1
+                echo "::notice::push ok on attempt $attempt"
+                break
+              fi
+              echo "::warning::push attempt $attempt/3 failed; rebasing onto origin/main and retrying"
               sleep 5
+              git fetch origin main
+              git rebase origin/main
             done
+            if [ "$pushed" -ne 1 ]; then
+              echo "::error::git push failed after 3 attempts — 本次订阅结果未发布到 main,线上订阅仍为旧版本"
+              exit 1
+            fi
           fi
