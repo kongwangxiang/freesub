@@ -5,27 +5,27 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
-  server: 66133e3a-tmm5c0-tmg311-141tv.hk3.hyhuawei.com
+  server: 633b0024-tmm5c0-ttx5yr-1j0y6.hk3.hyhuawei.com
   port: 443
   udp: true
   type: hysteria2
-  password: bd77bfe8-e0f3-11ec-bd7c-f23c913c8d2b
-  sni: 66133e3a-tmm5c0-tmg311-141tv.hk3.hyhuawei.com
+  password: 1cce7df2-251c-11ee-9409-f23c9164ca5d
+  sni: 633b0024-tmm5c0-ttx5yr-1j0y6.hk3.hyhuawei.com
   skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  server: 971746e8-tmm5c0-trpvht-1ey07.nw4.hyhuawei.com
+  server: 6d889de6-tly2o0-tn28ki-mv7m.nw4.hyhuawei.com
   port: 443
   udp: true
   type: hysteria2
-  password: 203d1d64-3313-11ed-bb74-f23c9164ca5d
-  sni: 971746e8-tmm5c0-trpvht-1ey07.nw4.hyhuawei.com
+  password: 94d40708-8273-11ea-8fc9-f23c913c8d2b
+  sni: 6d889de6-tly2o0-tn28ki-mv7m.nw4.hyhuawei.com
   skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
-  server: dog-hk.kunlun01dns.com
-  port: 21041
+  server: zfd-hkv2.kunlun01dns.com
+  port: 16112
   udp: true
   type: vmess
-  uuid: 9464ca40-dd75-3742-a628-d931a9f413b2
+  uuid: 0802ac03-7973-39ef-a019-ba02de6c01e1
   alterId: 0
   cipher: auto
 proxy-groups:

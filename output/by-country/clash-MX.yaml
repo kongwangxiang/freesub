@@ -5,17 +5,17 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇲🇽 墨西哥 (Mexico) 01
-  server: 185.47.254.251
-  port: 443
+  server: 45.134.9.133
+  port: 8443
   udp: true
   type: vless
-  uuid: 878fb7f7-fc65-465e-a352-17c7216c6f3d
-  flow: xtls-rprx-vision
+  uuid: a6d20e79-d326-42c1-bc20-f4cecc6dc42d
   tls: true
-  reality-opts:
-    public-key: 6-_ZidygR8PRt4gtHlGCAW-PPmjEIm7Wn7MZqJU1z1Q
-  servername: gateway.icloud.com
-  client-fingerprint: chrome
+  servername: ul-mexico1.09vpn.com
+  skip-cert-verify: true
+  network: ws
+  ws-opts:
+    path: /vless/
 proxy-groups:
 - name: PROXIES
   type: select

@@ -6,27 +6,6 @@
     {
       "type": "vless",
       "tag": "🇱🇹 立陶宛 (Lithuania) 01",
-      "server": "62.77.158.1",
-      "server_port": 443,
-      "uuid": "2eceaf2b-a775-5a9c-9990-dad2b3660fb6",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "online.1c.ru",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "sVhkyiMXvpofflCdSszxQmsqOXV1kg1Ldxq1a9mOPjs",
-          "short_id": "6a"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇱🇹 立陶宛 (Lithuania) 02",
       "server": "84.32.151.226",
       "server_port": 443,
       "uuid": "3e35758a-911b-4e30-bc1a-8985323df6f7",
@@ -46,6 +25,27 @@
       "transport": {
         "type": "grpc",
         "service_name": "moktana.net.v1.StreamService"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇱🇹 立陶宛 (Lithuania) 02",
+      "server": "62.77.158.1",
+      "server_port": 443,
+      "uuid": "2eceaf2b-a775-5a9c-9990-dad2b3660fb6",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "online.1c.ru",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "sVhkyiMXvpofflCdSszxQmsqOXV1kg1Ldxq1a9mOPjs",
+          "short_id": "6a"
+        }
       }
     },
     {

@@ -37,23 +37,28 @@
       }
     },
     {
-      "type": "vless",
+      "type": "trojan",
       "tag": "🇨🇿 捷克 (Czech) 03",
-      "server": "2.26.80.235",
+      "server": "199.232.78.160",
       "server_port": 443,
-      "uuid": "cb0ccf90-0e8f-4621-b042-4e35c797de2b",
-      "flow": "xtls-rprx-vision",
+      "password": "mitivpn",
       "tls": {
         "enabled": true,
-        "server_name": "dl.google.com",
+        "server_name": "ssl.fastly.com",
+        "insecure": false,
+        "alpn": [
+          "http/1.1"
+        ],
         "utls": {
           "enabled": true,
-          "fingerprint": "safari"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "_gjcl5q-hkJIFmKYSY9DbBcSiBHK3YUAKOfZzZqnkT8",
-          "short_id": "c17f1d8951b3bf90"
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/D-e1i@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN",
+        "headers": {
+          "Host": "mitivpn---deb--s---mitivpn-2.global.ssl.fastly.net"
         }
       }
     },

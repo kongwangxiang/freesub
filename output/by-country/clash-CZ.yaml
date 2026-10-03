@@ -26,18 +26,18 @@ proxies:
   servername: cz1.animeteka.info
   client-fingerprint: random
 - name: 🇨🇿 捷克 (Czech) 03
-  server: 2.26.80.235
+  server: 199.232.78.160
   port: 443
   udp: true
-  type: vless
-  uuid: cb0ccf90-0e8f-4621-b042-4e35c797de2b
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: _gjcl5q-hkJIFmKYSY9DbBcSiBHK3YUAKOfZzZqnkT8
-    short-id: c17f1d8951b3bf90
-  servername: dl.google.com
-  client-fingerprint: safari
+  type: trojan
+  password: mitivpn
+  sni: ssl.fastly.com
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/D-e1i@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN/---@MiTiVPN---@MiTiVPN
+    headers:
+      Host: mitivpn---deb--s---mitivpn-2.global.ssl.fastly.net
 proxy-groups:
 - name: PROXIES
   type: select

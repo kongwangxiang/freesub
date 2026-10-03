@@ -6,30 +6,20 @@
     {
       "type": "vless",
       "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 01",
-      "server": "free.sahanwickramasinghe.me",
+      "server": "support.zoom.us",
       "server_port": 80,
       "uuid": "684f9a2e-4f96-497f-bfd9-ff1e34637952",
-      "transport": {
-        "type": "ws"
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 02",
-      "server": "cdn.zoom.us",
-      "server_port": 80,
-      "uuid": "1eaed465-d720-400b-9f9f-439600a2d093",
       "transport": {
         "type": "ws",
         "path": "/",
         "headers": {
-          "Host": "cloud.ghostdev.lk"
+          "Host": "free.sahanwickramasinghe.me"
         }
       }
     },
     {
       "type": "vless",
-      "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 03",
+      "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 02",
       "server": "free.sahanwickramasinghe.me",
       "server_port": 8443,
       "uuid": "c73ffa6e-a102-4984-9176-3e6242c1925e",
@@ -45,6 +35,16 @@
       "transport": {
         "type": "ws",
         "path": "/"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇱🇰 斯里兰卡 (Sri Lanka) 03",
+      "server": "cloud.ghostdev.lk",
+      "server_port": 80,
+      "uuid": "1eaed465-d720-400b-9f9f-439600a2d093",
+      "transport": {
+        "type": "ws"
       }
     },
     {

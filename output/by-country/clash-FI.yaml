@@ -5,18 +5,13 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇫🇮 芬兰 (Finland) 01
-  server: 65.108.3.59
+  server: 144.31.232.216
   port: 443
   udp: true
-  type: vless
-  uuid: 8df2e661-6f46-471b-9133-7fc13a0daa35
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: jDoORbrtDrvAlFSo19CJbc99C4ev8SAo1MwczSUt9no
-    short-id: 90ec9bba2019
-  servername: web.eitaa.com
-  client-fingerprint: firefox
+  type: hysteria2
+  password: 06e88dd6-e264-4981-8c26-d7ab17348ab2
+  sni: fi01.clgate.network
+  skip-cert-verify: false
 - name: 🇫🇮 芬兰 (Finland) 02
   server: 95.216.27.15
   port: 2053
@@ -30,31 +25,19 @@ proxies:
   servername: www.google.com
   client-fingerprint: firefox
 - name: 🇫🇮 芬兰 (Finland) 03
-  server: 77.42.28.120
-  port: 1280
+  server: 65.108.3.59
+  port: 443
   udp: true
   type: vless
-  uuid: c0e8fb58-a60f-4c15-9444-4e7c109797a8
-  network: ws
-  ws-opts:
-    path: /
+  uuid: 8df2e661-6f46-471b-9133-7fc13a0daa35
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: jDoORbrtDrvAlFSo19CJbc99C4ev8SAo1MwczSUt9no
+    short-id: 90ec9bba2019
+  servername: web.eitaa.com
+  client-fingerprint: firefox
 - name: 🇫🇮 芬兰 (Finland) 04
-  server: 144.31.232.216
-  port: 443
-  udp: true
-  type: hysteria2
-  password: 06e88dd6-e264-4981-8c26-d7ab17348ab2
-  sni: fi01.clgate.network
-  skip-cert-verify: true
-- name: 🇫🇮 芬兰 (Finland) 05
-  server: 144.31.212.253
-  port: 443
-  udp: true
-  type: hysteria2
-  password: cf83b611-6cba-4535-adcb-8da06c6a9146
-  sni: vps155-edge.kermemehori.ru
-  skip-cert-verify: false
-- name: 🇫🇮 芬兰 (Finland) 06
   server: 144.31.27.215
   port: 43000
   udp: true
@@ -66,8 +49,70 @@ proxies:
     public-key: dxCQnOekn14riFxt3vdwDNydvW47FsmwFG6BJ2mUgEg
     short-id: 568d87a47271344e
   servername: 144.31.27.215
+  client-fingerprint: edge
+- name: 🇫🇮 芬兰 (Finland) 05
+  server: 151.241.137.132
+  port: 443
+  udp: true
+  type: vless
+  uuid: 5786d86f-7731-4174-b1a3-84297e54b015
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: SB1uC0OEveYjSiS_Nuw9Ld-uVVXWqi794OGnldthY3I
+  servername: finland.ali-bard.online
+  client-fingerprint: qq
+- name: 🇫🇮 芬兰 (Finland) 06
+  server: fi1.rovilo.ir
+  port: 443
+  udp: true
+  type: vless
+  uuid: 452f869f-7720-47c3-a175-b6673e31d3e8
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: i_cD6qpNHvE-j2vFGxEBmXNvX5U8PE4-lBkxcti8Ry8
+    short-id: 714369014b7679bf
+  servername: store.steampowered.com
   client-fingerprint: chrome
 - name: 🇫🇮 芬兰 (Finland) 07
+  server: fast.jkerm.com
+  port: 443
+  udp: true
+  type: vless
+  uuid: 1fcb913a-8739-4f96-ae07-b9baf68faf37
+  tls: true
+  servername: ssl.fastly.com
+  skip-cert-verify: false
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: looazjboijji.global.ssl.fastly.net.
+- name: 🇫🇮 芬兰 (Finland) 08
+  server: 78.17.11.109
+  port: 8443
+  udp: true
+  type: vless
+  uuid: f3462e4a-aabe-4f73-97bb-573b706644f7
+  tls: true
+  servername: cdn.fwqfw783rg2dad.website
+  skip-cert-verify: false
+  client-fingerprint: android
+  network: ws
+  ws-opts:
+    path: /websocket
+    headers:
+      Host: cdn.fwqfw783rg2dad.website
+- name: 🇫🇮 芬兰 (Finland) 09
+  server: 144.31.212.253
+  port: 443
+  udp: true
+  type: hysteria2
+  password: cf83b611-6cba-4535-adcb-8da06c6a9146
+  sni: vps155-edge.kermemehori.ru
+  skip-cert-verify: true
+- name: 🇫🇮 芬兰 (Finland) 10
   server: 81.94.148.120
   port: 7449
   udp: true
@@ -79,7 +124,20 @@ proxies:
     public-key: blW-TdkBvKRn4-lkM64Cn2QgfOqjCRYRQ9upE6RPt3c
     short-id: c0c41dc21cf7c18e
   servername: passport.yandex.ru
-  client-fingerprint: chrome
+  client-fingerprint: random
+- name: 🇫🇮 芬兰 (Finland) 11
+  server: 2.27.207.30
+  port: 443
+  udp: true
+  type: vless
+  uuid: a5dd2dd9-0995-449e-be67-4a409890dc42
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: nG28Y1q-Ul2oBH-FegAkzGtvY6IRCIwras1k8CLwdGo
+    short-id: da4d87fa
+  servername: jdbdb.huinaduok.fans
+  client-fingerprint: random
 proxy-groups:
 - name: PROXIES
   type: select
@@ -92,6 +150,10 @@ proxy-groups:
   - 🇫🇮 芬兰 (Finland) 05
   - 🇫🇮 芬兰 (Finland) 06
   - 🇫🇮 芬兰 (Finland) 07
+  - 🇫🇮 芬兰 (Finland) 08
+  - 🇫🇮 芬兰 (Finland) 09
+  - 🇫🇮 芬兰 (Finland) 10
+  - 🇫🇮 芬兰 (Finland) 11
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -104,5 +166,9 @@ proxy-groups:
   - 🇫🇮 芬兰 (Finland) 05
   - 🇫🇮 芬兰 (Finland) 06
   - 🇫🇮 芬兰 (Finland) 07
+  - 🇫🇮 芬兰 (Finland) 08
+  - 🇫🇮 芬兰 (Finland) 09
+  - 🇫🇮 芬兰 (Finland) 10
+  - 🇫🇮 芬兰 (Finland) 11
 rules:
 - MATCH,PROXIES

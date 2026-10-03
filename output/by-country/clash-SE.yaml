@@ -5,6 +5,19 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇪 瑞典 (Sweden) 01
+  server: 132.243.231.12
+  port: 443
+  udp: true
+  type: vless
+  uuid: 87fd990d-ca93-440a-bbd4-e8281c4a0910
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: zWDvtTWK-cWWwHDMHMXcOpQy4k3EKp7yw-5e0wTZAUM
+    short-id: 5efa80b939612291
+  servername: d3-se1.cloud-cdn.xyz
+  client-fingerprint: qq
+- name: 🇸🇪 瑞典 (Sweden) 02
   server: 143.246.196.207
   port: 443
   udp: true
@@ -15,8 +28,21 @@ proxies:
   reality-opts:
     public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
   servername: www.blocket.se
-  client-fingerprint: ios
-- name: 🇸🇪 瑞典 (Sweden) 02
+  client-fingerprint: edge
+- name: 🇸🇪 瑞典 (Sweden) 03
+  server: 132.243.231.4
+  port: 443
+  udp: true
+  type: vless
+  uuid: 87fd990d-ca93-440a-bbd4-e8281c4a0910
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: zWDvtTWK-cWWwHDMHMXcOpQy4k3EKp7yw-5e0wTZAUM
+    short-id: 5efa80b939612291
+  servername: d3-se1.cloud-cdn.xyz
+  client-fingerprint: firefox
+- name: 🇸🇪 瑞典 (Sweden) 04
   server: 144.31.235.214
   port: 443
   udp: true
@@ -28,21 +54,8 @@ proxies:
     public-key: V2JprbR_aJkS7uX6anyU3nrswGxdvDQT2HpY4WnzuC8
     short-id: 5629431325884ff0
   servername: swed4.o4ka-internet.com
-  client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 03
-  server: surstreming.vvzzkontaktezzvv.garden
-  port: 443
-  udp: true
-  type: vless
-  uuid: 4bdeee92-97e8-414d-bef6-ec1d5e2ab73b
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
-    short-id: fb442438e2223836
-  servername: surstreming.vvzzkontaktezzvv.garden
-  client-fingerprint: edge
-- name: 🇸🇪 瑞典 (Sweden) 04
+  client-fingerprint: safari
+- name: 🇸🇪 瑞典 (Sweden) 05
   server: 62.60.159.81
   port: 2053
   udp: true
@@ -57,43 +70,21 @@ proxies:
   network: grpc
   grpc-opts:
     grpc-service-name: grpce5bb9e71
-- name: 🇸🇪 瑞典 (Sweden) 05
-  server: 132.243.231.4
-  port: 443
-  udp: true
-  type: vless
-  uuid: 87fd990d-ca93-440a-bbd4-e8281c4a0910
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: zWDvtTWK-cWWwHDMHMXcOpQy4k3EKp7yw-5e0wTZAUM
-    short-id: 5efa80b939612291
-  servername: d3-se1.cloud-cdn.xyz
-  client-fingerprint: edge
 - name: 🇸🇪 瑞典 (Sweden) 06
-  server: 34.51.231.250
+  server: sub.merky.top
   port: 443
   udp: true
   type: vless
-  uuid: e4be912f-68e8-4d51-80a4-1342b646f8e0
+  uuid: 6e05822a-e9da-4135-a9db-71aa07a944af
   tls: true
-  reality-opts:
-    public-key: fV003yDr_sb_Wkgz6MxnIUJMgD15osWhzU-HZ5fLPFg
-    short-id: 79ff7d51e3c56323
-  servername: www.cloudflare.com
-  client-fingerprint: firefox
-- name: 🇸🇪 瑞典 (Sweden) 07
-  server: swidenfenix.space
-  port: 443
-  udp: true
-  type: vless
-  uuid: f811a2e8-08ed-4b30-b44c-449a7cab54d8
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: MQrvfivvEfLGzDee7h0j5uC-DwaD_38_NXOY9-NhqxM
-  servername: swidenfenix.space
-  client-fingerprint: qq
+  servername: sub.merky.top
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /merky-connect/de6/
+    headers:
+      Host: sub.merky.top
 proxy-groups:
 - name: PROXIES
   type: select
@@ -105,7 +96,6 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 04
   - 🇸🇪 瑞典 (Sweden) 05
   - 🇸🇪 瑞典 (Sweden) 06
-  - 🇸🇪 瑞典 (Sweden) 07
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -117,6 +107,5 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 04
   - 🇸🇪 瑞典 (Sweden) 05
   - 🇸🇪 瑞典 (Sweden) 06
-  - 🇸🇪 瑞典 (Sweden) 07
 rules:
 - MATCH,PROXIES
