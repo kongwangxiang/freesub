@@ -6,36 +6,24 @@
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-      "server": "e96c3741-tmm5c0-tw2fdz-1s824.hk3.hyhuawei.com",
+      "server": "3ad7a454-tmm5c0-tsdg75-tlhh.hk3.hyhuawei.com",
       "server_port": 443,
-      "password": "6d4abac0-86e6-11ef-83cc-f23c913c8d2b",
+      "password": "bdf3e15e-c64c-11ea-82ef-f23c9164ca5d",
       "tls": {
         "enabled": true,
-        "server_name": "e96c3741-tmm5c0-tw2fdz-1s824.hk3.hyhuawei.com",
+        "server_name": "3ad7a454-tmm5c0-tsdg75-tlhh.hk3.hyhuawei.com",
         "insecure": true
       }
     },
     {
       "type": "hysteria2",
       "tag": "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-      "server": "0fd83b77-tmm5c0-tuklme-ueq.nw4.hyhuawei.com",
+      "server": "ea47f944-tmm5c0-tv7dx2-py5w.nw4.hyhuawei.com",
       "server_port": 443,
-      "password": "91df5a86-fcdd-11ef-94aa-f23c913c8d2b",
+      "password": "ae5338ae-9a70-58c9-3d47-7d54a5675715",
       "tls": {
         "enabled": true,
-        "server_name": "0fd83b77-tmm5c0-tuklme-ueq.nw4.hyhuawei.com",
-        "insecure": true
-      }
-    },
-    {
-      "type": "anytls",
-      "tag": "🇭🇰 中国香港 (Hong Kong) 03 (家宽)",
-      "server": "ac7548f3ebe045b39a90288ff1e97528.pnuqcnp.cn",
-      "server_port": 443,
-      "password": "9sK2mP8xQ7vL3nZ6",
-      "tls": {
-        "enabled": true,
-        "server_name": "ac7548f3ebe045b39a90288ff1e97528.lwdnxf.cn",
+        "server_name": "ea47f944-tmm5c0-tv7dx2-py5w.nw4.hyhuawei.com",
         "insecure": true
       }
     },
@@ -45,8 +33,7 @@
       "outbounds": [
         "auto",
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 02 (家宽)"
       ]
     },
     {
@@ -54,8 +41,7 @@
       "tag": "auto",
       "outbounds": [
         "🇭🇰 中国香港 (Hong Kong) 01 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 02 (家宽)",
-        "🇭🇰 中国香港 (Hong Kong) 03 (家宽)"
+        "🇭🇰 中国香港 (Hong Kong) 02 (家宽)"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

@@ -4,15 +4,17 @@
   },
   "outbounds": [
     {
-      "type": "hysteria2",
+      "type": "vless",
       "tag": "🇦🇺 澳大利亚 (Australia) 01",
-      "server": "vpn-au-001.fastervpn.world",
-      "server_port": 443,
-      "password": "H7mP2xY9kJ4nQ8wR5tF6vB3z",
-      "tls": {
-        "enabled": true,
-        "server_name": "vpn-au-001.fastervpn.world",
-        "insecure": true
+      "server": "45.131.209.30",
+      "server_port": 8880,
+      "uuid": "6202b230-417c-4d8e-b624-0f71afa9c75d",
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "vms.lifetime04.workers.dev"
+        }
       }
     },
     {
@@ -32,8 +34,43 @@
       }
     },
     {
-      "type": "vless",
+      "type": "hysteria2",
       "tag": "🇦🇺 澳大利亚 (Australia) 03",
+      "server": "vpn-au-001.fastervpn.world",
+      "server_port": 443,
+      "password": "H7mP2xY9kJ4nQ8wR5tF6vB3z",
+      "tls": {
+        "enabled": true,
+        "server_name": "vpn-au-001.fastervpn.world",
+        "insecure": true
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇦🇺 澳大利亚 (Australia) 04",
+      "server": "208.103.161.5",
+      "server_port": 443,
+      "uuid": "d042a74a-c305-4eec-a89f-39a348022c92",
+      "tls": {
+        "enabled": true,
+        "server_name": "dry-butterfly-8eb9.tmpgnacio83.workers.dev",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "dry-butterfly-8eb9.tmpgnacio83.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇦🇺 澳大利亚 (Australia) 05",
       "server": "51.161.204.244",
       "server_port": 443,
       "uuid": "36e89875-9c53-482b-bc41-d3890e9da176",
@@ -59,7 +96,9 @@
         "auto",
         "🇦🇺 澳大利亚 (Australia) 01",
         "🇦🇺 澳大利亚 (Australia) 02",
-        "🇦🇺 澳大利亚 (Australia) 03"
+        "🇦🇺 澳大利亚 (Australia) 03",
+        "🇦🇺 澳大利亚 (Australia) 04",
+        "🇦🇺 澳大利亚 (Australia) 05"
       ]
     },
     {
@@ -68,7 +107,9 @@
       "outbounds": [
         "🇦🇺 澳大利亚 (Australia) 01",
         "🇦🇺 澳大利亚 (Australia) 02",
-        "🇦🇺 澳大利亚 (Australia) 03"
+        "🇦🇺 澳大利亚 (Australia) 03",
+        "🇦🇺 澳大利亚 (Australia) 04",
+        "🇦🇺 澳大利亚 (Australia) 05"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

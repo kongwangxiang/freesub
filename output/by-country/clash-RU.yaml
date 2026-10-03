@@ -5,52 +5,82 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇷🇺 俄罗斯 (Russia) 01
-  server: 172.64.52.6
+  server: go.inmobi.com
+  port: 8443
+  udp: true
+  type: vless
+  uuid: 656bb400-3b7a-47e3-94b0-0362f3865072
+  tls: true
+  servername: socks5.revil-time3.workers.dev
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /socks5://128.140.46.169:13482
+    headers:
+      Host: socks5.revil-time3.workers.dev
+- name: 🇷🇺 俄罗斯 (Russia) 02
+  server: 188.114.97.6
   port: 8080
   udp: true
   type: vless
   uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
   network: ws
   ws-opts:
-    path: /?ed=2560security=tls
+    path: ?ed=2560
     headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇷🇺 俄罗斯 (Russia) 02
-  server: 172.64.229.170
-  port: 2095
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /?ed=2560security=tls
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+      Host: ne4d3.thir.mn8.hh.vavava.kdns.fr
 - name: 🇷🇺 俄罗斯 (Russia) 03
-  server: 172.64.154.8
-  port: 80
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /?ed=2560security=tls
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇷🇺 俄罗斯 (Russia) 04
-  server: 194.113.235.66
+  server: 45.131.212.231
   port: 443
   udp: true
   type: vless
-  uuid: 1c5ed2e1-56da-41ab-9a78-159d9892ec17
+  uuid: 19513b1b-d29a-4f3e-ba9a-888261e4e048
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: lHCkAu_DOVFtE-iL2JGrPt44QeTCFijXuRfuGaSni3Q
-    short-id: 9e4eced6e98ed4d4
-  servername: github.com
+    public-key: SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc
+  servername: sellflow.org
   client-fingerprint: firefox
+- name: 🇷🇺 俄罗斯 (Russia) 04
+  server: 31.76.34.216
+  port: 443
+  udp: true
+  type: vless
+  uuid: 94def50e-5f3c-4e4c-9719-3325f42d2131
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: XrgbY2hKJQG8QOZO2J1pGmZsbvjSsSWoM9iULIMGK00
+  servername: ru-c-1.minzt.su
+  client-fingerprint: random
 - name: 🇷🇺 俄罗斯 (Russia) 05
+  server: 5.42.99.64
+  port: 8443
+  udp: true
+  type: vless
+  uuid: c53ea5e9-ed8b-4990-805d-7f1d6451426c
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: fSVfR9NB-6J6smrZlavi0GWd8JfDh0aXuEkKbtuFzUI
+    short-id: 3cbc3d737fb9c4af
+  servername: du-rov.secureservice.top
+  client-fingerprint: random
+- name: 🇷🇺 俄罗斯 (Russia) 06
+  server: 5.42.99.64
+  port: 8443
+  udp: true
+  type: vless
+  uuid: c53ea5e9-ed8b-4990-805d-7f1d6451426c
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: fSVfR9NB-6J6smrZlavi0GWd8JfDh0aXuEkKbtuFzUI
+    short-id: 3cbc3d737fb9c4af
+  servername: du-rov.secureservice.top
+  client-fingerprint: random
+- name: 🇷🇺 俄罗斯 (Russia) 07
   server: 81.177.215.175
   port: 443
   udp: true
@@ -63,30 +93,21 @@ proxies:
     short-id: 9e4eced6e98ed4d4
   servername: github.com
   client-fingerprint: firefox
-- name: 🇷🇺 俄罗斯 (Russia) 06
-  server: 172.64.32.108
-  port: 8880
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: '/?ed=2560security=tls '
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-- name: 🇷🇺 俄罗斯 (Russia) 07
-  server: 104.18.39.218
-  port: 2082
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
 - name: 🇷🇺 俄罗斯 (Russia) 08
-  server: 176.108.246.110
+  server: 194.113.235.66
+  port: 443
+  udp: true
+  type: vless
+  uuid: 1c5ed2e1-56da-41ab-9a78-159d9892ec17
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: lHCkAu_DOVFtE-iL2JGrPt44QeTCFijXuRfuGaSni3Q
+    short-id: 9e4eced6e98ed4d4
+  servername: github.com
+  client-fingerprint: chrome
+- name: 🇷🇺 俄罗斯 (Russia) 09
+  server: 176.109.109.105
   port: 9830
   udp: true
   type: vless
@@ -96,11 +117,11 @@ proxies:
     public-key: bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU
     short-id: aa
   servername: dl.google.com
-  client-fingerprint: firefox
+  client-fingerprint: safari
   network: grpc
   grpc-opts:
     grpc-service-name: grpc-tunnel
-- name: 🇷🇺 俄罗斯 (Russia) 09
+- name: 🇷🇺 俄罗斯 (Russia) 10
   server: du-rov.secureservice.top
   port: 8443
   udp: true
@@ -112,54 +133,34 @@ proxies:
     public-key: fSVfR9NB-6J6smrZlavi0GWd8JfDh0aXuEkKbtuFzUI
     short-id: 3cbc3d737fb9c4af
   servername: du-rov.secureservice.top
-  client-fingerprint: random
-- name: 🇷🇺 俄罗斯 (Russia) 10
-  server: 91.240.86.70
-  port: 22443
-  udp: true
-  type: hysteria2
-  password: 3f63c86c-ac4a-4900-85cf-4fedf93c2ca5
-  sni: hy.quattro-tech.ru
-  skip-cert-verify: false
+  client-fingerprint: chrome
 - name: 🇷🇺 俄罗斯 (Russia) 11
-  server: 31.76.34.216
-  port: 443
+  server: 213.171.31.34
+  port: 5002
   udp: true
   type: vless
-  uuid: 94def50e-5f3c-4e4c-9719-3325f42d2131
+  uuid: 8e8ea5d2-6941-40fb-9efe-f9062b11b2b9
+  tls: true
+  servername: us.centermass.net
+  skip-cert-verify: false
+  client-fingerprint: android
+  network: ws
+  ws-opts:
+    path: media.playback.v1.SessionGateway
+- name: 🇷🇺 俄罗斯 (Russia) 12
+  server: 81.94.148.120
+  port: 7449
+  udp: true
+  type: vless
+  uuid: 2690c11f-7258-43fe-aeb9-d90f93a3c317
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: XrgbY2hKJQG8QOZO2J1pGmZsbvjSsSWoM9iULIMGK00
-  servername: ru-c-1.minzt.su
-  client-fingerprint: safari
-- name: 🇷🇺 俄罗斯 (Russia) 12
-  server: 188.114.97.6
-  port: 2052
-  udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: zb1zi.s3nx.dyz.hh.vavava.kdns.fr
+    public-key: blW-TdkBvKRn4-lkM64Cn2QgfOqjCRYRQ9upE6RPt3c
+    short-id: c0c41dc21cf7c18e
+  servername: passport.yandex.ru
+  client-fingerprint: chrome
 - name: 🇷🇺 俄罗斯 (Russia) 13
-  server: 176.109.109.105
-  port: 9830
-  udp: true
-  type: vless
-  uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
-  tls: true
-  reality-opts:
-    public-key: bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU
-    short-id: aabb
-  servername: dl.google.com
-  client-fingerprint: ios
-  network: grpc
-  grpc-opts:
-    grpc-service-name: grpc-tunnel
-- name: 🇷🇺 俄罗斯 (Russia) 14
   server: 45.128.78.84
   port: 443
   udp: true
@@ -170,18 +171,23 @@ proxies:
   reality-opts:
     public-key: SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc
   servername: sellflow.org
-  client-fingerprint: firefox
-- name: 🇷🇺 俄罗斯 (Russia) 15
-  server: 108.162.198.178
-  port: 2086
+  client-fingerprint: chrome
+- name: 🇷🇺 俄罗斯 (Russia) 14
+  server: 91.240.86.70
+  port: 22443
   udp: true
-  type: vless
-  uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+  type: hysteria2
+  password: 3f63c86c-ac4a-4900-85cf-4fedf93c2ca5
+  sni: hy.quattro-tech.ru
+  skip-cert-verify: false
+- name: 🇷🇺 俄罗斯 (Russia) 15
+  server: els.mangshe.xyz
+  port: 2060
+  udp: true
+  type: hysteria2
+  password: 5d0a6445-a30d-4522-bb1f-94f1d3ad63be
+  sni: els.mangshe.xyz
+  skip-cert-verify: true
 - name: 🇷🇺 俄罗斯 (Russia) 16
   server: 45.12.75.242
   port: 26424
@@ -193,46 +199,21 @@ proxies:
     public-key: l8AubqcxQO-HRFJy4pZL1vbLOo-eXit69s-XulSELE0
     short-id: 23103e1e
   servername: ya.ru
-  client-fingerprint: random
+  client-fingerprint: chrome
 - name: 🇷🇺 俄罗斯 (Russia) 17
-  server: 5.42.99.64
-  port: 8443
-  udp: true
-  type: vless
-  uuid: c53ea5e9-ed8b-4990-805d-7f1d6451426c
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: fSVfR9NB-6J6smrZlavi0GWd8JfDh0aXuEkKbtuFzUI
-    short-id: 3cbc3d737fb9c4af
-  servername: du-rov.secureservice.top
-  client-fingerprint: random
-- name: 🇷🇺 俄罗斯 (Russia) 18
-  server: 5.42.99.64
-  port: 8443
-  udp: true
-  type: vless
-  uuid: c53ea5e9-ed8b-4990-805d-7f1d6451426c
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: fSVfR9NB-6J6smrZlavi0GWd8JfDh0aXuEkKbtuFzUI
-    short-id: 3cbc3d737fb9c4af
-  servername: du-rov.secureservice.top
-  client-fingerprint: random
-- name: 🇷🇺 俄罗斯 (Russia) 19
-  server: 45.131.212.231
+  server: 109.120.181.153
   port: 443
   udp: true
   type: vless
-  uuid: 19513b1b-d29a-4f3e-ba9a-888261e4e048
+  uuid: adc11f30-e4cb-4985-bf5e-f9ded69c019f
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc
-  servername: sellflow.org
-  client-fingerprint: firefox
-- name: 🇷🇺 俄罗斯 (Russia) 20
+    public-key: fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI
+    short-id: db04ce8bdb8900f1
+  servername: eh.vk.ru
+  client-fingerprint: chrome
+- name: 🇷🇺 俄罗斯 (Russia) 18
   server: srv-17e124.21freedom.net
   port: 11592
   udp: true
@@ -240,25 +221,18 @@ proxies:
   password: 41edb44c8e
   sni: srv-17e124.21freedom.net
   skip-cert-verify: true
-- name: 🇷🇺 俄罗斯 (Russia) 21
-  server: 136.234.6.43
-  port: 1080
-  udp: true
-  type: ss
-  cipher: chacha20-ietf-poly1305
-  password: OahAs_MieM2B3nc2JG9pZOi7KRsn6W0e
-- name: 🇷🇺 俄罗斯 (Russia) 22
-  server: 176.123.165.25
-  port: 9881
+- name: 🇷🇺 俄罗斯 (Russia) 19
+  server: 45.132.177.83
+  port: 9882
   udp: true
   type: vless
   uuid: 5d16ac22-6eea-426f-b778-6f4c2961faef
   tls: true
   reality-opts:
-    public-key: Dfgu8Ey0M8Hz4gXGZAwQ3H9jLt2HByVsjAOTWiuKDB0
-    short-id: aabbccdd
+    public-key: bnRIb3Er1i-K6NGGByCO9UbGfOvu43ZoiK7ulPd1SzU
+    short-id: aabb
   servername: dl.google.com
-  client-fingerprint: safari
+  client-fingerprint: edge
   network: grpc
   grpc-opts:
     grpc-service-name: grpc-tunnel
@@ -286,9 +260,6 @@ proxy-groups:
   - 🇷🇺 俄罗斯 (Russia) 17
   - 🇷🇺 俄罗斯 (Russia) 18
   - 🇷🇺 俄罗斯 (Russia) 19
-  - 🇷🇺 俄罗斯 (Russia) 20
-  - 🇷🇺 俄罗斯 (Russia) 21
-  - 🇷🇺 俄罗斯 (Russia) 22
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -313,8 +284,5 @@ proxy-groups:
   - 🇷🇺 俄罗斯 (Russia) 17
   - 🇷🇺 俄罗斯 (Russia) 18
   - 🇷🇺 俄罗斯 (Russia) 19
-  - 🇷🇺 俄罗斯 (Russia) 20
-  - 🇷🇺 俄罗斯 (Russia) 21
-  - 🇷🇺 俄罗斯 (Russia) 22
 rules:
 - MATCH,PROXIES

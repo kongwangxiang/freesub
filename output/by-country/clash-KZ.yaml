@@ -5,30 +5,6 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 01
-  server: 83.222.23.81
-  port: 38065
-  udp: true
-  type: vless
-  uuid: 4b9063e0-3288-44e9-9aac-80fbfce323a0
-  tls: true
-  reality-opts:
-    public-key: dSSDPTK6AHfAdRAXD9i4rzqcNIY65RxlF25UyCKdiyo
-    short-id: fa
-  servername: yahoo.com
-  client-fingerprint: firefox
-- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 02
-  server: 109.248.170.119
-  port: 13447
-  udp: true
-  type: vless
-  uuid: b573cefb-7bc7-4a42-b407-b8b534e66773
-  tls: true
-  reality-opts:
-    public-key: _0wM2ep44eAcrgf5PflKaBivknCWT6kMvQBQUoScCkE
-    short-id: '83'
-  servername: yahoo.com
-  client-fingerprint: edge
-- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 03
   server: 3h-kazakhstan1.09vpn.com
   port: 80
   udp: true
@@ -39,7 +15,21 @@ proxies:
   network: ws
   ws-opts:
     path: /vmess/
-- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 04
+    headers:
+      Host: 3h-kazakhstan1.09vpn.com
+- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 02
+  server: 83.222.23.81
+  port: 38065
+  udp: true
+  type: vless
+  uuid: 4b9063e0-3288-44e9-9aac-80fbfce323a0
+  tls: true
+  reality-opts:
+    public-key: dSSDPTK6AHfAdRAXD9i4rzqcNIY65RxlF25UyCKdiyo
+    short-id: fa
+  servername: yahoo.com
+  client-fingerprint: random
+- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 03
   server: 89.218.15.90
   port: 10002
   udp: true
@@ -48,26 +38,22 @@ proxies:
   tls: true
   servername: kz1.vpnjantit.com
   skip-cert-verify: false
-  client-fingerprint: firefox
   network: ws
   ws-opts:
     path: /vpnjantit
-    headers:
-      Host: kz1.vpnjantit.com
-- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 05
-  server: kz.monkeyisland.xyz
-  port: 443
+- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 04
+  server: 109.248.170.119
+  port: 13447
   udp: true
   type: vless
-  uuid: 454431fc-71e2-42b1-b375-5b55dd06666a
-  flow: xtls-rprx-vision
+  uuid: b573cefb-7bc7-4a42-b407-b8b534e66773
   tls: true
   reality-opts:
-    public-key: 2AKBmK0PMf2zUMhRo1Ad-WNf_XoRk3AN-SGo6ZdhxA4
-    short-id: ecca56e9a9963ed7
-  servername: example.com
+    public-key: _0wM2ep44eAcrgf5PflKaBivknCWT6kMvQBQUoScCkE
+    short-id: '83'
+  servername: yahoo.com
   client-fingerprint: firefox
-- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 06
+- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 05
   server: 178.236.16.98
   port: 35728
   udp: true
@@ -79,6 +65,19 @@ proxies:
     short-id: 69a2
   servername: yahoo.com
   client-fingerprint: chrome
+- name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 06
+  server: 38.107.234.57
+  port: 80
+  udp: true
+  type: vmess
+  uuid: 567f4be5-12ab-42e1-b8d9-db6fd1fdd31c
+  alterId: 0
+  cipher: auto
+  network: ws
+  ws-opts:
+    path: /vmess/
+    headers:
+      Host: 3h-kazakhstan1.09vpn.com
 - name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 07
   server: 38.107.234.57
   port: 80
@@ -91,7 +90,7 @@ proxies:
   ws-opts:
     path: /vmess/
     headers:
-      Host: 38.107.234.57
+      Host: 3h-kazakhstan1.09vpn.com
 - name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 08
   server: 38.107.234.57
   port: 80
@@ -104,7 +103,7 @@ proxies:
   ws-opts:
     path: /vmess/
     headers:
-      Host: 38.107.234.57
+      Host: 3h-kazakhstan1.09vpn.com
 - name: 🇰🇿 哈萨克斯坦 (Kazakhstan) 09
   server: 38.107.234.57
   port: 80
@@ -117,7 +116,7 @@ proxies:
   ws-opts:
     path: /vmess/
     headers:
-      Host: 38.107.234.57
+      Host: 3h-kazakhstan1.09vpn.com
 proxy-groups:
 - name: PROXIES
   type: select

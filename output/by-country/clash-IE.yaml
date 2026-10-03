@@ -16,7 +16,7 @@ proxies:
     public-key: S6noV0L8eNASnTe1gXLutLZNdfENsvKMsOJiGQYi6nc
     short-id: 0eec442e7b34d2f2
   servername: www.tesla.com
-  client-fingerprint: safari
+  client-fingerprint: firefox
 - name: 🇮🇪 爱尔兰 (Ireland) 02
   server: ie.tronsg.com
   port: 443
