@@ -5,20 +5,15 @@
   "outbounds": [
     {
       "type": "vless",
-      "tag": "🇬🇪 格鲁吉亚 (Georgia) 01",
-      "server": "geo.shkola112.site",
-      "server_port": 443,
-      "uuid": "76ac91c5-ea82-4046-8ee7-2ffbb563ac94",
-      "tls": {
-        "enabled": true,
-        "server_name": "geo.shkola112.site",
-        "insecure": false
-      },
+      "tag": "🌐 其他地区 (Other) 01",
+      "server": "hikvision-plus.com",
+      "server_port": 2052,
+      "uuid": "e3fb01b6-69b4-41d7-babf-696d992de194",
       "transport": {
         "type": "ws",
-        "path": "/api-vless",
+        "path": "/@BlueKnight_net--@BlueKnight_net",
         "headers": {
-          "Host": "geo.shkola112.site"
+          "Host": "uwu.blueknightnet.qzz.io"
         }
       }
     },
@@ -27,14 +22,14 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇬🇪 格鲁吉亚 (Georgia) 01"
+        "🌐 其他地区 (Other) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇬🇪 格鲁吉亚 (Georgia) 01"
+        "🌐 其他地区 (Other) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

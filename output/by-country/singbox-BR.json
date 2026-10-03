@@ -24,40 +24,18 @@
       }
     },
     {
-      "type": "vless",
-      "tag": "🇧🇷 巴西 (Brazil) 02",
-      "server": "147.45.116.19",
-      "server_port": 443,
-      "uuid": "454431fc-71e2-42b1-b375-5b55dd06666a",
-      "tls": {
-        "enabled": true,
-        "server_name": "br.monkora.org",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "aUdvs6o4PHN6jmdkIKBA2rHsN_7l8W2SaDfNgzn-BwU",
-          "short_id": ""
-        }
-      }
-    },
-    {
       "type": "selector",
       "tag": "select",
       "outbounds": [
         "auto",
-        "🇧🇷 巴西 (Brazil) 01",
-        "🇧🇷 巴西 (Brazil) 02"
+        "🇧🇷 巴西 (Brazil) 01"
       ]
     },
     {
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "🇧🇷 巴西 (Brazil) 01",
-        "🇧🇷 巴西 (Brazil) 02"
+        "🇧🇷 巴西 (Brazil) 01"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

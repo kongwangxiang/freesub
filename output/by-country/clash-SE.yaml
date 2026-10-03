@@ -5,19 +5,6 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇸🇪 瑞典 (Sweden) 01
-  server: 5.157.10.148
-  port: 443
-  udp: true
-  type: vless
-  uuid: 4bdeee92-97e8-414d-bef6-ec1d5e2ab73b
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
-    short-id: fb442438e2223836
-  servername: surstreming.vvzzkontaktezzvv.garden
-  client-fingerprint: ios
-- name: 🇸🇪 瑞典 (Sweden) 02
   server: 143.246.196.207
   port: 443
   udp: true
@@ -28,8 +15,49 @@ proxies:
   reality-opts:
     public-key: wSjV1yR_rhDUdoNbM9zIXNGLASLp9RorComnyoayo2c
   servername: www.blocket.se
-  client-fingerprint: random
+  client-fingerprint: ios
+- name: 🇸🇪 瑞典 (Sweden) 02
+  server: 144.31.235.214
+  port: 443
+  udp: true
+  type: vless
+  uuid: 8f6e49e6-7f03-4f10-9da9-1716158d80ed
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: V2JprbR_aJkS7uX6anyU3nrswGxdvDQT2HpY4WnzuC8
+    short-id: 5629431325884ff0
+  servername: swed4.o4ka-internet.com
+  client-fingerprint: firefox
 - name: 🇸🇪 瑞典 (Sweden) 03
+  server: surstreming.vvzzkontaktezzvv.garden
+  port: 443
+  udp: true
+  type: vless
+  uuid: 4bdeee92-97e8-414d-bef6-ec1d5e2ab73b
+  flow: xtls-rprx-vision
+  tls: true
+  reality-opts:
+    public-key: x6p656szvu_3CKLsJ4NtkooRvdTVGx7IoPca_p58_jA
+    short-id: fb442438e2223836
+  servername: surstreming.vvzzkontaktezzvv.garden
+  client-fingerprint: edge
+- name: 🇸🇪 瑞典 (Sweden) 04
+  server: 62.60.159.81
+  port: 2053
+  udp: true
+  type: vless
+  uuid: fc00adfb-232a-46ce-8b93-0c70e516aa8a
+  tls: true
+  reality-opts:
+    public-key: ygmJxS-Mc7g0buNSUTVGhazT-FoBjyYtLLfUYIQxFTw
+    short-id: d0ea1847066af5a6
+  servername: www.samsung.com
+  client-fingerprint: safari
+  network: grpc
+  grpc-opts:
+    grpc-service-name: grpce5bb9e71
+- name: 🇸🇪 瑞典 (Sweden) 05
   server: 132.243.231.4
   port: 443
   udp: true
@@ -42,45 +70,7 @@ proxies:
     short-id: 5efa80b939612291
   servername: d3-se1.cloud-cdn.xyz
   client-fingerprint: edge
-- name: 🇸🇪 瑞典 (Sweden) 04
-  server: 77.110.96.201
-  port: 36264
-  udp: true
-  type: hysteria2
-  password: Telegram-vpnjey
-  sni: se.vpnjey2.dpdns.org
-  skip-cert-verify: true
-  obfs: salamander
-  obfs-password: Telegram@vpnjey
-- name: 🇸🇪 瑞典 (Sweden) 05
-  server: 62.60.159.81
-  port: 2053
-  udp: true
-  type: vless
-  uuid: fc00adfb-232a-46ce-8b93-0c70e516aa8a
-  tls: true
-  reality-opts:
-    public-key: ygmJxS-Mc7g0buNSUTVGhazT-FoBjyYtLLfUYIQxFTw
-    short-id: d0ea1847066af5a6
-  servername: www.samsung.com
-  client-fingerprint: chrome
-  network: grpc
-  grpc-opts:
-    grpc-service-name: grpce5bb9e71
 - name: 🇸🇪 瑞典 (Sweden) 06
-  server: 132.243.231.12
-  port: 443
-  udp: true
-  type: vless
-  uuid: 87fd990d-ca93-440a-bbd4-e8281c4a0910
-  flow: xtls-rprx-vision
-  tls: true
-  reality-opts:
-    public-key: zWDvtTWK-cWWwHDMHMXcOpQy4k3EKp7yw-5e0wTZAUM
-    short-id: 5efa80b939612291
-  servername: d3-se1.cloud-cdn.xyz
-  client-fingerprint: edge
-- name: 🇸🇪 瑞典 (Sweden) 07
   server: 34.51.231.250
   port: 443
   udp: true
@@ -91,31 +81,19 @@ proxies:
     public-key: fV003yDr_sb_Wkgz6MxnIUJMgD15osWhzU-HZ5fLPFg
     short-id: 79ff7d51e3c56323
   servername: www.cloudflare.com
-  client-fingerprint: chrome
-- name: 🇸🇪 瑞典 (Sweden) 08
-  server: 177.3.209.165
+  client-fingerprint: firefox
+- name: 🇸🇪 瑞典 (Sweden) 07
+  server: swidenfenix.space
   port: 443
   udp: true
   type: vless
-  uuid: a5dd2dd9-0995-449e-be67-4a409890dc42
+  uuid: f811a2e8-08ed-4b30-b44c-449a7cab54d8
   flow: xtls-rprx-vision
   tls: true
   reality-opts:
-    public-key: mYtQrGiR9EkOpUsvsI7E18AWnFZZqfOPXUdpzE3luz8
-    short-id: da4d87fa
-  servername: owkd.pashalloh.org
-  client-fingerprint: random
-- name: 🇸🇪 瑞典 (Sweden) 09
-  server: 199.68.198.13
-  port: 443
-  udp: true
-  type: vless
-  uuid: 454431fc-71e2-42b1-b375-5b55dd06666a
-  tls: true
-  reality-opts:
-    public-key: aUdvs6o4PHN6jmdkIKBA2rHsN_7l8W2SaDfNgzn-BwU
-  servername: example.org
-  client-fingerprint: chrome
+    public-key: MQrvfivvEfLGzDee7h0j5uC-DwaD_38_NXOY9-NhqxM
+  servername: swidenfenix.space
+  client-fingerprint: qq
 proxy-groups:
 - name: PROXIES
   type: select
@@ -128,8 +106,6 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 05
   - 🇸🇪 瑞典 (Sweden) 06
   - 🇸🇪 瑞典 (Sweden) 07
-  - 🇸🇪 瑞典 (Sweden) 08
-  - 🇸🇪 瑞典 (Sweden) 09
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -142,7 +118,5 @@ proxy-groups:
   - 🇸🇪 瑞典 (Sweden) 05
   - 🇸🇪 瑞典 (Sweden) 06
   - 🇸🇪 瑞典 (Sweden) 07
-  - 🇸🇪 瑞典 (Sweden) 08
-  - 🇸🇪 瑞典 (Sweden) 09
 rules:
 - MATCH,PROXIES

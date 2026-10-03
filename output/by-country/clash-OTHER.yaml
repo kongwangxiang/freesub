@@ -4,28 +4,28 @@ allow-lan: true
 mode: rule
 log-level: info
 proxies:
-- name: 🇲🇺 MU 01
-  server: 45.12.30.30
-  port: 8880
+- name: 🌐 其他地区 (Other) 01
+  server: hikvision-plus.com
+  port: 2052
   udp: true
   type: vless
-  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
+  uuid: e3fb01b6-69b4-41d7-babf-696d992de194
   network: ws
   ws-opts:
-    path: /
+    path: /@BlueKnight_net--@BlueKnight_net
     headers:
-      Host: vms.lifetime28.workers.dev
+      Host: uwu.blueknightnet.qzz.io
 proxy-groups:
 - name: PROXIES
   type: select
   proxies:
   - AUTO
-  - 🇲🇺 MU 01
+  - 🌐 其他地区 (Other) 01
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - 🇲🇺 MU 01
+  - 🌐 其他地区 (Other) 01
 rules:
 - MATCH,PROXIES

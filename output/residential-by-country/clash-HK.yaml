@@ -5,21 +5,29 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
-  server: 3ad7a454-tmm5c0-tsdg75-tlhh.hk3.hyhuawei.com
+  server: 66133e3a-tmm5c0-tmg311-141tv.hk3.hyhuawei.com
   port: 443
   udp: true
   type: hysteria2
-  password: bdf3e15e-c64c-11ea-82ef-f23c9164ca5d
-  sni: 3ad7a454-tmm5c0-tsdg75-tlhh.hk3.hyhuawei.com
+  password: bd77bfe8-e0f3-11ec-bd7c-f23c913c8d2b
+  sni: 66133e3a-tmm5c0-tmg311-141tv.hk3.hyhuawei.com
   skip-cert-verify: true
 - name: 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
-  server: ea47f944-tmm5c0-tv7dx2-py5w.nw4.hyhuawei.com
+  server: 971746e8-tmm5c0-trpvht-1ey07.nw4.hyhuawei.com
   port: 443
   udp: true
   type: hysteria2
-  password: ae5338ae-9a70-58c9-3d47-7d54a5675715
-  sni: ea47f944-tmm5c0-tv7dx2-py5w.nw4.hyhuawei.com
+  password: 203d1d64-3313-11ed-bb74-f23c9164ca5d
+  sni: 971746e8-tmm5c0-trpvht-1ey07.nw4.hyhuawei.com
   skip-cert-verify: true
+- name: 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
+  server: dog-hk.kunlun01dns.com
+  port: 21041
+  udp: true
+  type: vmess
+  uuid: 9464ca40-dd75-3742-a628-d931a9f413b2
+  alterId: 0
+  cipher: auto
 proxy-groups:
 - name: PROXIES
   type: select
@@ -27,6 +35,7 @@ proxy-groups:
   - AUTO
   - 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
   - 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -34,5 +43,6 @@ proxy-groups:
   proxies:
   - 🇭🇰 中国香港 (Hong Kong) 01 (家宽)
   - 🇭🇰 中国香港 (Hong Kong) 02 (家宽)
+  - 🇭🇰 中国香港 (Hong Kong) 03 (移动家宽)
 rules:
 - MATCH,PROXIES

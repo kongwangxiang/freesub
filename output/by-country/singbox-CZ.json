@@ -4,23 +4,15 @@
   },
   "outbounds": [
     {
-      "type": "vless",
+      "type": "hysteria2",
       "tag": "🇨🇿 捷克 (Czech) 01",
-      "server": "cz.monkora.org",
-      "server_port": 443,
-      "uuid": "454431fc-71e2-42b1-b375-5b55dd06666a",
+      "server": "153.76.190.41",
+      "server_port": 8443,
+      "password": "3a92b39a-5f02-415e-a908-783ec320e83f",
       "tls": {
         "enabled": true,
-        "server_name": "example.org",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "firefox"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "aUdvs6o4PHN6jmdkIKBA2rHsN_7l8W2SaDfNgzn-BwU",
-          "short_id": ""
-        }
+        "server_name": "speedtestmark.com",
+        "insecure": false
       }
     },
     {
@@ -35,7 +27,7 @@
         "server_name": "cz1.animeteka.info",
         "utls": {
           "enabled": true,
-          "fingerprint": "safari"
+          "fingerprint": "random"
         },
         "reality": {
           "enabled": true,
@@ -47,32 +39,22 @@
     {
       "type": "vless",
       "tag": "🇨🇿 捷克 (Czech) 03",
-      "server": "104.21.69.37",
+      "server": "2.26.80.235",
       "server_port": 443,
-      "uuid": "911b84e1-d046-4fbf-bfc0-c168791115ef",
+      "uuid": "cb0ccf90-0e8f-4621-b042-4e35c797de2b",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev",
-        "insecure": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/vl/uWq9DFRgj8BwQiSXmZ46fp=chrome",
-        "headers": {
-          "Host": "12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev"
+        "server_name": "dl.google.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "_gjcl5q-hkJIFmKYSY9DbBcSiBHK3YUAKOfZzZqnkT8",
+          "short_id": "c17f1d8951b3bf90"
         }
-      }
-    },
-    {
-      "type": "hysteria2",
-      "tag": "🇨🇿 捷克 (Czech) 04",
-      "server": "153.76.190.41",
-      "server_port": 8443,
-      "password": "3a92b39a-5f02-415e-a908-783ec320e83f",
-      "tls": {
-        "enabled": true,
-        "server_name": "speedtestmark.com",
-        "insecure": false
       }
     },
     {
@@ -82,8 +64,7 @@
         "auto",
         "🇨🇿 捷克 (Czech) 01",
         "🇨🇿 捷克 (Czech) 02",
-        "🇨🇿 捷克 (Czech) 03",
-        "🇨🇿 捷克 (Czech) 04"
+        "🇨🇿 捷克 (Czech) 03"
       ]
     },
     {
@@ -92,8 +73,7 @@
       "outbounds": [
         "🇨🇿 捷克 (Czech) 01",
         "🇨🇿 捷克 (Czech) 02",
-        "🇨🇿 捷克 (Czech) 03",
-        "🇨🇿 捷克 (Czech) 04"
+        "🇨🇿 捷克 (Czech) 03"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

@@ -5,7 +5,7 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇹🇭 泰国 (Thailand) 01
-  server: v2ray.simspeedup.com
+  server: 103.86.49.57
   port: 80
   udp: true
   type: vless
@@ -13,10 +13,8 @@ proxies:
   network: ws
   ws-opts:
     path: /ws
-    headers:
-      Host: v2ray.simspeedup.com
 - name: 🇹🇭 泰国 (Thailand) 02
-  server: 104.16.111.193
+  server: 104.16.10.9
   port: 443
   udp: true
   type: vless
@@ -30,14 +28,6 @@ proxies:
     headers:
       Host: v2ray.simspeedup.com
 - name: 🇹🇭 泰国 (Thailand) 03
-  server: silversbgfgov.vip43.wogbcnmnagfwgov.com
-  port: 11243
-  udp: true
-  type: vmess
-  uuid: 605956ee-544d-308e-8b90-51e67c6ea8da
-  alterId: 2
-  cipher: auto
-- name: 🇹🇭 泰国 (Thailand) 04
   server: 119.46.51.45
   port: 37515
   udp: true
@@ -53,7 +43,6 @@ proxy-groups:
   - 🇹🇭 泰国 (Thailand) 01
   - 🇹🇭 泰国 (Thailand) 02
   - 🇹🇭 泰国 (Thailand) 03
-  - 🇹🇭 泰国 (Thailand) 04
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -62,6 +51,5 @@ proxy-groups:
   - 🇹🇭 泰国 (Thailand) 01
   - 🇹🇭 泰国 (Thailand) 02
   - 🇹🇭 泰国 (Thailand) 03
-  - 🇹🇭 泰国 (Thailand) 04
 rules:
 - MATCH,PROXIES

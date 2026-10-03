@@ -4,25 +4,12 @@
   },
   "outbounds": [
     {
-      "type": "vless",
+      "type": "shadowsocks",
       "tag": "🇦🇹 奥地利 (Austria) 01",
-      "server": "152.53.1.40",
-      "server_port": 443,
-      "uuid": "edde565e-41f5-400e-84ea-7b87a3e84488",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "at.quattro-tech.ru",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "random"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "10rVZPoOUP1TlQviIAsQ_jAROX0fRQxH0C92nq_zGQc",
-          "short_id": "43dcff53849b81e6"
-        }
-      }
+      "server": "82.110.60.9",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     },
     {
       "type": "vless",
@@ -34,20 +21,8 @@
       "tls": {
         "enabled": true,
         "server_name": "bigdick.gamegrow.ru",
-        "insecure": false,
-        "utls": {
-          "enabled": true,
-          "fingerprint": "safari"
-        }
+        "insecure": false
       }
-    },
-    {
-      "type": "shadowsocks",
-      "tag": "🇦🇹 奥地利 (Austria) 03",
-      "server": "82.110.60.9",
-      "server_port": 19999,
-      "method": "aes-256-gcm",
-      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     },
     {
       "type": "selector",
@@ -55,8 +30,7 @@
       "outbounds": [
         "auto",
         "🇦🇹 奥地利 (Austria) 01",
-        "🇦🇹 奥地利 (Austria) 02",
-        "🇦🇹 奥地利 (Austria) 03"
+        "🇦🇹 奥地利 (Austria) 02"
       ]
     },
     {
@@ -64,8 +38,7 @@
       "tag": "auto",
       "outbounds": [
         "🇦🇹 奥地利 (Austria) 01",
-        "🇦🇹 奥地利 (Austria) 02",
-        "🇦🇹 奥地利 (Austria) 03"
+        "🇦🇹 奥地利 (Austria) 02"
       ],
       "url": "https://www.gstatic.com/generate_204"
     },

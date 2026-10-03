@@ -5,16 +5,13 @@ mode: rule
 log-level: info
 proxies:
 - name: 🇨🇿 捷克 (Czech) 01
-  server: cz.monkora.org
-  port: 443
+  server: 153.76.190.41
+  port: 8443
   udp: true
-  type: vless
-  uuid: 454431fc-71e2-42b1-b375-5b55dd06666a
-  tls: true
-  reality-opts:
-    public-key: aUdvs6o4PHN6jmdkIKBA2rHsN_7l8W2SaDfNgzn-BwU
-  servername: example.org
-  client-fingerprint: firefox
+  type: hysteria2
+  password: 3a92b39a-5f02-415e-a908-783ec320e83f
+  sni: speedtestmark.com
+  skip-cert-verify: false
 - name: 🇨🇿 捷克 (Czech) 02
   server: 85.117.235.50
   port: 443
@@ -27,29 +24,20 @@ proxies:
     public-key: PmdZ2ETkHc0zjYcs22xT_wyZk5fEpX7mg7RP396HBBc
     short-id: 232b1b09e45325a4
   servername: cz1.animeteka.info
-  client-fingerprint: safari
+  client-fingerprint: random
 - name: 🇨🇿 捷克 (Czech) 03
-  server: 104.21.69.37
+  server: 2.26.80.235
   port: 443
   udp: true
   type: vless
-  uuid: 911b84e1-d046-4fbf-bfc0-c168791115ef
+  uuid: cb0ccf90-0e8f-4621-b042-4e35c797de2b
+  flow: xtls-rprx-vision
   tls: true
-  servername: 12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev
-  skip-cert-verify: false
-  network: ws
-  ws-opts:
-    path: /vl/uWq9DFRgj8BwQiSXmZ46fp=chrome
-    headers:
-      Host: 12ygbae0k3gn0z0f.mehrshadhaddadi8.workers.dev
-- name: 🇨🇿 捷克 (Czech) 04
-  server: 153.76.190.41
-  port: 8443
-  udp: true
-  type: hysteria2
-  password: 3a92b39a-5f02-415e-a908-783ec320e83f
-  sni: speedtestmark.com
-  skip-cert-verify: false
+  reality-opts:
+    public-key: _gjcl5q-hkJIFmKYSY9DbBcSiBHK3YUAKOfZzZqnkT8
+    short-id: c17f1d8951b3bf90
+  servername: dl.google.com
+  client-fingerprint: safari
 proxy-groups:
 - name: PROXIES
   type: select
@@ -58,7 +46,6 @@ proxy-groups:
   - 🇨🇿 捷克 (Czech) 01
   - 🇨🇿 捷克 (Czech) 02
   - 🇨🇿 捷克 (Czech) 03
-  - 🇨🇿 捷克 (Czech) 04
 - name: AUTO
   type: url-test
   url: https://www.gstatic.com/generate_204
@@ -67,6 +54,5 @@ proxy-groups:
   - 🇨🇿 捷克 (Czech) 01
   - 🇨🇿 捷克 (Czech) 02
   - 🇨🇿 捷克 (Czech) 03
-  - 🇨🇿 捷克 (Czech) 04
 rules:
 - MATCH,PROXIES
